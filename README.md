@@ -14,7 +14,7 @@ Checkers app showing Angular apps in Visual Studio 2017
 
 * #####  ~~Use constants instead of string literal~~.
 
-* #####  Redefine row and col in Square model using Position model.
+* #####  ~~Redefine row and col in Square model using Position model~~.
 
 * #####  Rename the variables(square) to be more specific to their purpose.
 	 
