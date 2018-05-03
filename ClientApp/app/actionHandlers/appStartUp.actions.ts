@@ -49,17 +49,6 @@ export class AppStartUpActions {
                 this._store.dispatch({ type: DISPLAY_SQUARES, payload: [] });
             }
             );
-
-        //this._http.get<Array<Square>>(`${Constants.ApiBaseUrl}/squares`)
-        //    .subscribe(
-        //    (res: Array<Square>) => {
-        //        this._store.dispatch({ type: DISPLAY_SQUARES, payload: res });
-        //    },
-        //    (err: HttpErrorResponse) => {
-        //        console.log(err);
-        //    }
-        //    );
-    //}
     }
 
     public initializeScores(): void {
