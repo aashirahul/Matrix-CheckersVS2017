@@ -38,6 +38,8 @@ export class GameBoardActions {
             );
     }
 
+
+
     public unhighlightSquares(): void {
         this._store.dispatch({
             type: UNHIGHLIGHT_SQUARES

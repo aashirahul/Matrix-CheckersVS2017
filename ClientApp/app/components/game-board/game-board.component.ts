@@ -97,7 +97,7 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    private switchTurn() {
+    private switchTurn() : void{
         this.currentlyPlayingColor = this.currentlyPlayingColor === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;;
     }
 
@@ -125,7 +125,7 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    private moveComplete() {
+    private moveComplete(): void {
         this._appStateActions.updateState({ 'player.isMoving': false });
     }
 

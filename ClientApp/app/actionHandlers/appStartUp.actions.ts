@@ -1,4 +1,4 @@
-import { HttpRequest } from '@angular/common/http';
+import { HttpRequest , HttpErrorResponse, HttpClient} from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
@@ -19,6 +19,7 @@ export class AppStartUpActions {
     constructor(
         private _store: Store<any>,
         private _api: ApiService,
+        private _http: HttpClient
     ) { }
 
     public initializeGame(): void {
@@ -38,16 +39,27 @@ export class AppStartUpActions {
 
 
     public initializeSquares(): void {
-        const squaresReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares`);
-        this._api.callApiService<Square[]>(squaresReq)
+        //const squaresReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares`);
+        //this._api.callApiService<Square[]>(squaresReq)
+        //    .subscribe(
+        //    (squares: Array<Square>) => {
+        //        this._store.dispatch({ type: DISPLAY_SQUARES, payload: squares });
+        //    },
+        //    (err) => {
+        //        this._store.dispatch({ type: DISPLAY_SQUARES, payload: [] });
+        //    }
+        //    );
+
+        this._http.get<Array<Square>>(`${Constants.ApiBaseUrl}/squares`)
             .subscribe(
-            (squares: Array<Square>) => {
-                this._store.dispatch({ type: DISPLAY_SQUARES, payload: squares });
+            (res: Array<Square>) => {
+                this._store.dispatch({ type: DISPLAY_SQUARES, payload: res });
             },
-            (err) => {
-                this._store.dispatch({ type: DISPLAY_SQUARES, payload: [] });
+            (err: HttpErrorResponse) => {
+                console.log(err);
             }
             );
+    //}
     }
 
     public initializeScores(): void {

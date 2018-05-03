@@ -68,7 +68,7 @@ export class Helper {
         return false;
     }
 
-    public ifPieceNotKingSkippedPositionCaseOne(from: Position): Position{
+    public ifPieceNotKingSkippedPositionCaseOne(from: Position): Position {
         this.skippedPosition = {
             row: from.row + 1,
             column: from.column + 1
@@ -76,7 +76,7 @@ export class Helper {
         return this.skippedPosition;
     }
 
-    public ifPieceNotKingSkippedPositionCaseTwo(from: Position): Position{
+    public ifPieceNotKingSkippedPositionCaseTwo(from: Position): Position {
         this.skippedPosition = {
             row: from.row + 1,
             column: from.column - 1
