@@ -70,7 +70,7 @@ export class GameBoardComponent implements OnInit {
         this.squaresSubscription.unsubcribe();
     }
 
-    public pieceSelectedisCurrentPlayer(): boolean {
+    private pieceSelectedisCurrentPlayer(): boolean {
         if (this.pieceSelected.color === this.currentlyPlayingColor) {
             return true;
         }
@@ -91,7 +91,7 @@ export class GameBoardComponent implements OnInit {
         return this.squares.find((square) => (square.row === row && square.col === col));
     }
 
-    public makePieceSelectedKing(pieceSelected: any, to: Position) {
+    private makePieceSelectedKing(pieceSelected: any, to: Position) {
         if (!this.pieceSelected.isKing) {
             if (this._helper.checkIfPieceSelectedCanBeKing(this.pieceSelected, to.row)) {
                 this._pieceActions.makeKing(this.pieceSelected);
@@ -99,11 +99,11 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    public switchTurn() {
+    private switchTurn() {
         this.currentlyPlayingColor = this.currentlyPlayingColor === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;;
     }
 
-    public moveStarted(row: number, column: number): void {
+    private moveStarted(row: number, column: number): void {
         this.originalPosition = { row, column };
         this.pieceSelected = this._helper.findSelectedPiece(this.originalPosition.row, this.originalPosition.column, this.pieces);
         if (this.pieceSelectedisCurrentPlayer()) {
@@ -114,7 +114,7 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    public moveInProgress(originalPosition: Position, row: number, column: number) {
+    private moveInProgress(originalPosition: Position, row: number, column: number) {
         if (this.pieceSelectedisCurrentPlayer()) {
             if (this.isAJump(originalPosition, { row, column })) {
                 this._pieceActions.jump(originalPosition, { row, column }, this.skippedPosition);
@@ -127,12 +127,12 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    public moveComplete() {
+    private moveComplete() {
         this._appStateActions.updateState({ 'player.isMoving': false });
     }
 
 
-    public addingPoints(): void {
+    private addingPoints(): void {
         this._pointActions.addPoint(this.pieceSelected.color);
         if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
             this.scoreRed = Array(this.points[0].count).fill('1');
@@ -141,7 +141,7 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    public moveSelected(row: number, column: number): void {
+    private moveSelected(row: number, column: number): void {
         if (!this.isMoving) {
             this.moveStarted(row, column);
             this.pieceSelected = this._helper.findSelectedPiece(row, column, this.pieces);
@@ -151,7 +151,7 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    public isAJump(from: Position, to: Position): boolean {
+    private isAJump(from: Position, to: Position): boolean {
         if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
             if (!this.pieceSelected.isKing) {
                 if (to.row > from.row) {
@@ -252,7 +252,7 @@ export class GameBoardComponent implements OnInit {
         return false;
     }
 
-    public isValidMove(from: Position, to: Position): boolean {
+    private isValidMove(from: Position, to: Position): boolean {
         this.makePieceSelectedKing(this.pieceSelected, to);
         if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
             if (this._helper.checkIfMoveCorrectForRed(this.pieceSelected, from, to)) {
