@@ -53,14 +53,12 @@ export class GameBoardComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
-        this._store.select('squares').subscribe((squares) => this.squares = squares);
-        this._store.select('points').subscribe((points) => this.points = points);
-
         this.appStateSubscription = this._store.select('appState').subscribe((appState) => {
             this.isMoving = appState[`player.isMoving`];
         });
-
+        this.pointsSubscription = this._store.select('points').subscribe((points) => this.points = points);
+        this.piecesSubscription = this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
+        this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
     }
 
     public ngOnDestroy() {
