@@ -46,7 +46,7 @@ export function squares(state: State = [], action: Actions): State {
 
 function markSquare(state: State, position: { row: number, column: number }): void {
     const square = state.find((s) => {
-        if (s.row === position.row && s.col === position.column) {
+        if (s.position.row === position.row && s.position.column === position.column) {
             return true;
         }
         return false;

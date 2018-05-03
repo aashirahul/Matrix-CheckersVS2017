@@ -8,8 +8,6 @@ namespace DemoApp.Models
     public class Square
     {
         public int id;
-        public int row;
-        public int col;
         public bool validMove;
         public Position position;
     }

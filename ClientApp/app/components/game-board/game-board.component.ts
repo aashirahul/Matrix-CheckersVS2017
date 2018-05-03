@@ -86,7 +86,7 @@ export class GameBoardComponent implements OnInit {
     }
 
     public findSquare(row: number, col: number): Square | undefined {
-        return this.squares.find((square) => (square.row === row && square.col === col));
+        return this.squares.find((square) => (square.position.row === row && square.position.column === col));
     }
 
     private makePieceSelectedKing(pieceSelected: any, to: Position) {

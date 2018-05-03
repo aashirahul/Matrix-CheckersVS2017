@@ -39,26 +39,26 @@ export class AppStartUpActions {
 
 
     public initializeSquares(): void {
-        //const squaresReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares`);
-        //this._api.callApiService<Square[]>(squaresReq)
-        //    .subscribe(
-        //    (squares: Array<Square>) => {
-        //        this._store.dispatch({ type: DISPLAY_SQUARES, payload: squares });
-        //    },
-        //    (err) => {
-        //        this._store.dispatch({ type: DISPLAY_SQUARES, payload: [] });
-        //    }
-        //    );
-
-        this._http.get<Array<Square>>(`${Constants.ApiBaseUrl}/squares`)
+        const squaresReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares`);
+        this._api.callApiService<Square[]>(squaresReq)
             .subscribe(
-            (res: Array<Square>) => {
-                this._store.dispatch({ type: DISPLAY_SQUARES, payload: res });
+            (squares: Array<Square>) => {
+                this._store.dispatch({ type: DISPLAY_SQUARES, payload: squares });
             },
-            (err: HttpErrorResponse) => {
-                console.log(err);
+            (err) => {
+                this._store.dispatch({ type: DISPLAY_SQUARES, payload: [] });
             }
             );
+
+        //this._http.get<Array<Square>>(`${Constants.ApiBaseUrl}/squares`)
+        //    .subscribe(
+        //    (res: Array<Square>) => {
+        //        this._store.dispatch({ type: DISPLAY_SQUARES, payload: res });
+        //    },
+        //    (err: HttpErrorResponse) => {
+        //        console.log(err);
+        //    }
+        //    );
     //}
     }
 
