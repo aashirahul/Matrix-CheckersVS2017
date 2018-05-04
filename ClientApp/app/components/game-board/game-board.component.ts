@@ -65,7 +65,6 @@ export class GameBoardComponent implements OnInit {
         this.appStateSubscription.unsubscribe();
         this.pointsSubscription.unsubscribe();
         this.piecesSubscription.unsubscribe();
-        this.squaresSubscription.unsubcribe();
     }
 
     private pieceSelectedisCurrentPlayer(): boolean {
@@ -89,7 +88,7 @@ export class GameBoardComponent implements OnInit {
         return this.squares.find((square) => (square.position.row === row && square.position.column === col));
     }
 
-    private makePieceSelectedKing(pieceSelected: any, to: Position) {
+    private makePieceSelectedKing(pieceSelected: any, to: Position): void {
         if (!this.pieceSelected.isKing) {
             if (this._helper.checkIfPieceSelectedCanBeKing(this.pieceSelected, to.row)) {
                 this._pieceActions.makeKing(this.pieceSelected);
@@ -112,7 +111,7 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    private moveInProgress(originalPosition: Position, row: number, column: number) {
+    private moveInProgress(originalPosition: Position, row: number, column: number): void {
         if (this.pieceSelectedisCurrentPlayer()) {
             if (this.isAJump(originalPosition, { row, column })) {
                 this._pieceActions.jump(originalPosition, { row, column }, this.skippedPosition);
