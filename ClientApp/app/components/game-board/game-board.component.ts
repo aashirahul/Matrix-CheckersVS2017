@@ -58,6 +58,7 @@ export class GameBoardComponent implements OnInit {
         });
         this.pointsSubscription = this._store.select('points').subscribe((points) => this.points = points);
         this.piecesSubscription = this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
+        console.log(this.pieces);
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
     }
 
@@ -76,7 +77,7 @@ export class GameBoardComponent implements OnInit {
 
     public findPiece(row: number, col: number): Piece | undefined {
         return this.pieces.find((piece) => {
-            if (piece.row === row && piece.col === col) {
+            if (piece.position.row === row && piece.position.column === col) {
                 return true;
             } else {
                 return false;
@@ -169,7 +170,7 @@ export class GameBoardComponent implements OnInit {
                         this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseFour(from);
                         return true;
                     }
-
+                    
                 }
             } else if (this.pieceSelected.isKing) {
                 if (to.row > from.row) {

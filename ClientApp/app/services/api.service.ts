@@ -28,7 +28,7 @@ export class ApiService {
                     .get<T>(req.url)
                     .map(res => {
                         response = res;
-                        return response;
+                        return res;
                     }).catch(
                     err => {
                         return Observable.throw(err)

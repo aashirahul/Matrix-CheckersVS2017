@@ -35,7 +35,7 @@ import { ScoreBoardComponent } from './components/score-board/score-board.compon
         ...APP_ACTION_HANDLERS,
         ...APP_HELPERS,
         ...APP_SERVICES,
-        ...(environment.useMocking ? APP_MOCK_INTERCEPTORS : [])
+        //...(environment.useMocking ? APP_MOCK_INTERCEPTORS : [])
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

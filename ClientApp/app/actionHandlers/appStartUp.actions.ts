@@ -1,4 +1,4 @@
-import { HttpRequest , HttpErrorResponse, HttpClient} from '@angular/common/http';
+import { HttpRequest, HttpErrorResponse, HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
@@ -24,7 +24,6 @@ export class AppStartUpActions {
 
     public initializeGame(): void {
         const piecesReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/pieces`);
-
         this._api.callApiService<Piece[]>(piecesReq)
             .subscribe(
             (pieces: Array<Piece>) => {
@@ -36,8 +35,7 @@ export class AppStartUpActions {
 
         );
     }
-
-
+    
     public initializeSquares(): void {
         const squaresReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares`);
         this._api.callApiService<Square[]>(squaresReq)

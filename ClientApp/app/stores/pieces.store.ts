@@ -11,7 +11,7 @@ export const MAKE_KING = 'MAKE_KING';
 
 export class DisplayPieceAction implements Action {
     readonly type = DISPLAY_PIECES;
-    payload: Array<Piece>;
+       payload: Array<Piece>;
 }
 
 export class MovePieceAction implements Action {
@@ -43,13 +43,13 @@ export function pieces(state: State = [], action: Actions): State {
 
         case MOVE_PIECES:
             const piece = state.find((p) => {
-                if (p.row === action.origin.row && p.col === action.origin.column) {
+                if (p.position.row === action.origin.row && p.position.column === action.origin.column) {
                     return true;
                 }
                 return false;
             });
             const emptySpace = state.find((p) => {
-                if (p.row === action.destination.row && p.col === action.destination.column && p.color !='null') {
+                if (p.position.row === action.destination.row && p.position.column === action.destination.column && p.color != 'null') {
                     return true;
                 } else {
                     return false;
@@ -58,15 +58,15 @@ export function pieces(state: State = [], action: Actions): State {
             
             if (piece) {
                 if (!emptySpace) {
-                    piece.row = action.destination.row;
-                    piece.col = action.destination.column;
+                    piece.position.row = action.destination.row;
+                    piece.position.column = action.destination.column;
                 }
             }
             return state;
 
         case JUMP_PIECES:
             const skippedPiece = state.find((p) => {
-                if (p.row === action.skipped.row && p.col === action.skipped.column) {
+                if (p.position.row === action.skipped.row && p.position.column === action.skipped.column) {
                     return true;
                 }
                 return false;

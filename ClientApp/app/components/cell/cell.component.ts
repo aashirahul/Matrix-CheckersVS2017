@@ -15,7 +15,6 @@ export class CellComponent implements OnInit {
   @Input()
   piece: Piece;
 
-
   constructor(
     private _store: Store<any>,
   ) { }

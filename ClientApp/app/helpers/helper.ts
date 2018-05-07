@@ -8,7 +8,7 @@ export class Helper {
 
     public findSelectedPiece(row: number, col: number, pieces: Array<Piece>): Piece | false {
         for (let i = 0; i < pieces.length; i++) {
-            if (pieces[i].row === row && pieces[i].col === col) {
+            if (pieces[i].position.row === row && pieces[i].position.column === col) {
                 const requiredPiece = pieces[i];
                 return requiredPiece;
             }
