@@ -119,6 +119,7 @@ export class GameBoardComponent implements OnInit {
                 this.addingPoints();
             } else if (this.isValidMove(originalPosition, { row, column })) {
                 this._pieceActions.move(originalPosition, { row, column });
+                this._squareActions.addPieceIdToSquare({ row, column });
             }
             this.switchTurn();
             this._squareActions.unhighlightSquares();

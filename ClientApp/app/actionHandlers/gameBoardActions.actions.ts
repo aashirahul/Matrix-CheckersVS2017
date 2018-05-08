@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Square } from '../models/gameBoard';
-import { Piece } from '../models/piece';
+import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
 import * as Constants from '../constants/constants';
 import { ApiService, REQUEST_TYPE_GET } from '../services/api.service';
@@ -38,7 +38,9 @@ export class GameBoardActions {
             );
     }
 
+    public addPieceIdToSquare(position: any): void {
 
+    }
 
     public unhighlightSquares(): void {
         this._store.dispatch({

@@ -2,7 +2,7 @@ import { HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
-import { Piece } from '../models/piece';
+import { Piece } from '../models/game-piece';
 import { DISPLAY_PIECES, MOVE_PIECES, JUMP_PIECES, MAKE_KING } from '../stores/pieces.store';
 
 @Injectable()
