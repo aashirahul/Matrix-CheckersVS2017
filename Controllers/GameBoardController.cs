@@ -6,366 +6,427 @@ using Microsoft.AspNetCore.Mvc;
 using DemoApp.Models;
 using System.Collections.Specialized;
 
-        
+
 namespace DemoApp.Controllers
 {
     [Route("api/[controller]")]
     public class SquaresController : Controller
     {
-        //Square[] Squares = new Square[]
-        //List<Square> Squares = new List<Square>
-
         Square[] Squares = new Square[]
         {
                 new Square()
                 {
                     id= 0,
-                    validMove= false,
-                    position= new Position(0,0)
+                    position= new Position(0,0),
+                    validMove= false
+
                 },
                 new Square()
                 {
                     id= 1,
-                    validMove= false,
-                    position= new Position(0,1)
+                    position= new Position(0,1),
+                    validMove= false
+                   
                  },
                 new Square()
                 {
                     id= 2,
-                    validMove= false,
-                     position= new Position(0,2)
+                    position= new Position(0,2),
+                    validMove= false
+                    
                 },
                 new Square()
                 {
                     id= 3,
-                    validMove= false,
-                     position= new Position(0,3)
+                    position= new Position(0,3),
+                    validMove= false
+                   
                 },
                 new Square()
                 {
                     id= 4,
-                    validMove= false,
-                     position= new Position(0,4)
+                    position= new Position(0,4),
+                    validMove= false
+                     
                 },
                 new Square()
                 {
                     id= 5,
-                    validMove = false,
-                     position= new Position(0,5)
+                    position= new Position(0,5),
+                    validMove = false
+                    
                 },
                 new Square()
                 {
                     id= 6,
-                    validMove= false,
-                     position= new Position(0,6)
+                    position= new Position(0,6),
+                    validMove= false
+                    
                 },
                  new Square()
                  {
                     id= 7,
-                    validMove= false,
-                     position= new Position(0,7)
-                 }, new Square()
-                         {
-                    id= 8,
-                    validMove= false,
-                     position= new Position(1,0)
+                    position= new Position(0,7),
+                    validMove= false
+                    
                  },
-                new Square() {
-            id= 9,
-            validMove= false,
-             position= new Position(1,1)
-        },
-                 new Square(){
-              id= 10,
-             validMove= false,
-             position= new Position(1,2)
-        },
-                  new Square(){
-            id= 11,
-           validMove= false,
-             position= new Position(1,3)
-        },
-                   new Square(){
-            id= 12,
-          validMove= false,
-             position= new Position(1,4)
-        },
-                    new Square(){
-            id= 13,
-          validMove= false,
-            position= new Position(1,5)
-        },
-                     new Square(){
-            id= 14,
-           validMove= false,
-             position= new Position(1,6)
-        },
-                      new Square(){
-            id= 15,
-           validMove= false,
-             position= new Position(1,7)
-        },
-                       new Square(){
-            id= 16,
-           validMove= false,
-             position= new Position(2,0)
-        },
-                        new Square(){
-            id= 17,
-           validMove= false,
-             position= new Position(2,1)
-        },
-                         new Square(){
-            id= 18,
-           validMove= false,
-             position= new Position(2,2)
-        },
-                          new Square(){
-            id= 19,
-          validMove= false,
-             position= new Position(2,3)
-        },
-                           new Square(){
-            id= 20,
-        validMove= false,
-             position= new Position(2,4)
-        },
- new Square(){
-            id= 21,
-          validMove= false,
-             position= new Position(2,5)
-        },
-  new Square(){
-            id= 22,
-          validMove= false,
-             position= new Position(2,6)
-        },
-   new Square(){
-            id= 23,
-          validMove= false,
-             position= new Position(2,7)
-        },
-    new Square(){
-            id= 24,
-         validMove= false,
-             position= new Position(3,0)
-        },
-     new Square(){
-            id= 25,
-          validMove= false,
-             position= new Position(3,1)
-        },
-      new Square(){
-            id= 26,
-           validMove= false,
-             position= new Position(3,2)
-        },
-       new Square(){
-            id= 27,
-            validMove= false,
-             position= new Position(3,3)
-        },
-        new Square(){
-            id= 28,
-          validMove= false,
-             position= new Position(3,4)
-        },
-         new Square(){
-            id= 29,
-           validMove= false,
-             position= new Position(3,5)
-        },
-          new Square(){
-            id= 30,
-         validMove= false,
-             position= new Position(3,6)
-        },
-           new Square(){
-            id= 31,
-          validMove= false,
-             position= new Position(3,7)
-        },
-            new Square(){
-            id= 32,
-             validMove= false,
-             position= new Position(4,0)
-        },
-             new Square(){
-            id= 33,
-           validMove= false,
-             position= new Position(4,1)
-        },
-              new Square(){
-            id= 34,
-          validMove= false,
-            position= new Position(4,2)
-        },
-               new Square(){
-            id= 35,
-            validMove= false,
-            position= new Position(4,3)
-        },
-                new Square(){
-            id= 36,
-          validMove= false,
-            position= new Position(4,4)
-        },
-                 new Square(){
-            id= 37,
-           validMove= false,
-            position= new Position(4,5)
-        },
-                  new Square(){
-            id= 38,
-           validMove= false,
-            position= new Position(4,6)
-        },
+                 new Square()
+                 {
+                    id= 8,
+                    position= new Position(1,0),
+                    validMove= false
+                     
+                 },
                 new Square()
-        {
-            id= 39,
-             validMove= false,
-            position= new Position(4,7)
-        },
-                 new Square(){
-            id= 40,
-         validMove= false,
-            position= new Position(5,0)
-        },
-                  new Square(){
-            id= 41,
-         validMove= false,
-             position= new Position(5,1)
-        },
-                   new Square(){
-            id= 42,
-         validMove= false,
-             position= new Position(5,2)
-        },
-                    new Square(){
-            id= 43,
-        validMove= false,
-             position= new Position(5,3)
-        },
-
+                {
+                    id= 9,
+                    position= new Position(1,1),
+                    validMove= false
+                   
+                },
+                 new Square()
+                 {
+                      id= 10,
+                      position= new Position(1,2),
+                     validMove= false
+           
+                 },
+                 new Square()
+                 {
+                    id= 11,
+                    position= new Position(1,3),
+                    validMove= false
+             
+                 },
+                 new Square()
+                 {
+                    id= 12,
+                    position= new Position(1,4),
+                     validMove= false
+             
+                 },
+                 new Square()
+                 {
+                    id= 13,
+                    position= new Position(1,5),
+                    validMove= false
+                 },
+                 new Square()
+                 {
+                    id= 14,
+                    position= new Position(1,6),
+                    validMove= false
+             
+                 },
+                 new Square()
+                 {
+                    id= 15,
+                    position= new Position(1,7),
+                    validMove= false
+            
+                 },
+                 new Square()
+                 {
+                    id= 16,
+                    position= new Position(2,0),
+                    validMove= false
+            
+                 },
+                 new Square()
+                 {
+                    id= 17,
+                    position= new Position(2,1),
+                    validMove= false
+           
+                 },
+                 new Square()
+                 {
+                    id= 18,
+                    position= new Position(2,2),
+                    validMove= false,
+            
+                 },
+                 new Square()
+                 {
+                    id= 19,
+                    position= new Position(2,3),
+                    validMove= false
+                 },
+                 new Square()
+                 {
+                    id= 20,
+                    position= new Position(2,4),
+                    validMove= false
+            
+                 },
+                 new Square()
+                 {
+                    id= 21,
+                    position= new Position(2,5),
+                    validMove= false
+                 },
+                 new Square()
+                 {
+                    id= 22,
+                    position= new Position(2,6),
+                    validMove= false
+                 },
+                 new Square()
+                 {
+                    id= 23,
+                    position= new Position(2,7),
+                    validMove= false
+                 },
+                 new Square()
+                 {
+                    id= 24,
+                    position= new Position(3,0),
+                    validMove= false
+                 },
+                 new Square()
+                 {
+                     id= 25,
+                     position= new Position(3,1),
+                     validMove= false
+                 },
+                 new Square()
+                 {
+                    id= 26,
+                    position= new Position(3,2),
+                    validMove= false
+                 },
+                 new Square()
+                 {
+                    id= 27,
+                    position= new Position(3,3),
+                    validMove= false
+                 },
+                 new Square()
+                 {
+                    id= 28,
+                    position= new Position(3,4),
+                    validMove= false
+                 },
+                 new Square()
+                 {
+                    id= 29,
+                    position= new Position(3,5),
+                    validMove= false
+                 },
+                new Square()
+                {
+                    id= 30,
+                    position= new Position(3,6),
+                    validMove= false
+                },
+                new Square()
+                {
+                    id= 31,
+                    position= new Position(3,7),
+                    validMove= false
+                },
+               new Square()
+                {
+                     id= 32,
+                     position= new Position(4,0),
+                     validMove= false
+                },
+             new Square()
+             {
+                    id= 33,
+                    position= new Position(4,1),
+                    validMove= false
+             },
+             new Square()
+             {
+                    id= 34,
+                    position= new Position(4,2),
+                    validMove= false
+              },
+             new Square()
+             {
+                    id= 35,
+                    position= new Position(4,3),
+                    validMove= false
+             },
+             new Square()
+             {
+                    id= 36,
+                    position= new Position(4,4),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 37,
+                    position= new Position(4,5),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 38,
+                    position= new Position(4,6),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 39,
+                    position= new Position(4,7),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 40,
+                    position= new Position(5,0),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 41,
+                    position= new Position(5,1),
+                    validMove= false
+            },
+            new Square()
+            {
+                     id= 42,
+                     position= new Position(5,2),
+                     validMove= false
+            },
             new Square(){
-            id= 44,
-        validMove= false,
-             position= new Position(5,4)
-        },
+                    id= 43,
+                    position= new Position(5,3),
+                     validMove= false
+            },
+            new Square()
+            {
+                    id= 44,
+                    position= new Position(5,4),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 45,
+                    position= new Position(5,5),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 46,
+                    position=new Position(5,6),
+                    validMove= false
+            },
 
-            new Square(){
-            id= 45,
-      validMove= false,
-             position= new Position(5,5)
-        },
-           new Square(){
-            id= 46,
-      validMove= false,
-             position=new Position(5,6)
-        },
+            new Square()
+            {
+                    id= 47,
+                    position= new Position(5,7),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 48,
+                    position= new Position(6,0),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 49,
+                    position= new Position(6,1),
+                    validMove= false
+            },
 
-            new Square(){
-            id= 47,
-       validMove= false,
-             position= new Position(5,7)
-        },
+           new Square()
+           {
+                     id= 50,
+                     position= new Position(6,2),
+                     validMove= false
+            },
 
-            new Square(){
-            id= 48,
-            validMove= false,
-             position= new Position(6,0)
-        },
+            new Square()
+            {
+                    id= 51,
+                    position= new Position(6,3),
+                    validMove= false
+            },
 
-            new Square(){
-            id= 49,
-            validMove= false,
-             position= new Position(6,1)
-        },
+            new Square()
+            {
+                    id= 52,
+                    position= new Position(6,4),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 53,
+                    position= new Position(6,5),
+                    validMove= false
+            },
+            new Square()
+            {
+                    id= 54,
+                    position= new Position(6,6),
+                    validMove= false
+             },
 
-           new Square(){
-            id= 50,
-          validMove= false,
-             position= new Position(6,2)
-        },
+            new Square()
+            {
+                    id= 55,
+                    position= new Position(6,7),
+                    validMove= false
+            
+            },
 
-            new Square(){
-            id= 51,
-           validMove= false,
-             position= new Position(6,3)
-        },
+            new Square()
+            {
+                    id= 56,
+                    position= new Position(7,0),
+                    validMove= false
+            },
 
-            new Square(){
-            id= 52,
-            validMove= false,
-             position= new Position(6,4)
-        },
+            new Square()
+            {
+                    id= 57,
+                    position= new Position(7,1),
+                    validMove= false
+            },
 
-            new Square(){
-            id= 53,
-            validMove= false,
-             position= new Position(6,5)
-        },
+            new Square()
+            {
+                    id= 58,
+                    position= new Position(7,2),
+                    validMove= false
+            },
+            new Square()
+            {
+                     id= 59,
+                     position= new Position(7,3),
+                     validMove= false
+            },
+            new Square()
+            {
+                    id= 60,
+                    position= new Position(7,4),
+                    validMove= false
+            },
 
-            new Square(){
-            id= 54,
-            validMove= false,
-             position= new Position(6,6)
-        },
+            new Square()
+            {
+                    id= 61,
+                    position= new Position(7,5),
+                    validMove= false
+            },
 
-            new Square(){
-            id= 55,
-            validMove= false,
-             position= new Position(6,7)
-        },
-
-            new Square(){
-            id= 56,
-          validMove= false,
-           position= new Position(7,0)
-        },
-
-            new Square(){
-            id= 57,
-           validMove= false,
-               position= new Position(7,1)
-        },
-
-            new Square(){
-            id= 58,
-           validMove= false,
-               position= new Position(7,2)
-        },
-
-            new Square(){
-            id= 59,
-        validMove= false,
-               position= new Position(7,3)
-        },
-
-            new Square(){
-            id= 60,
-          validMove= false,
-               position= new Position(7,4)
-        },
-
-            new Square(){
-            id= 61,
-          validMove= false,
-               position= new Position(7,5)
-        },
-
-            new Square(){
-            id= 62,
-            validMove= false,
-               position= new Position(7,6)
-        },
-
-            new Square(){
-            id= 63,
-          validMove= false,
-               position= new Position(7,7)
-
-                }
+            new Square()
+            {
+                    id= 62,
+                    position= new Position(7,6),
+                    validMove= false
+            },
+            new Square()
+            {
+                  id= 63,
+                  position= new Position(7,7),
+                  validMove= false
+            }
         };
 
         public Piece selectedPiece;
@@ -385,14 +446,14 @@ namespace DemoApp.Controllers
             rowNumber = row;
             colNumber = col;
             pieceColor = color;
-            if (pieceColor == "red")
+            if (pieceColor == Constants.Constants.ColorForFirstPlayer)
             {
                 Position availablePositionOne = new Position(rowNumber + 1, colNumber + 1);
                 Position availablepositiontwo = new Position(rowNumber + 1, colNumber - 1);
                 Position[] availableMoves = new Position[] { availablePositionOne, availablepositiontwo };
                 return (availableMoves);
             }
-            else if (pieceColor == "black")
+            else if (pieceColor == Constants.Constants.ColorForSecondPlayer)
             {
                 Position availablePositionOne = new Position(rowNumber - 1, colNumber + 1);
                 Position availablepositiontwo = new Position(rowNumber - 1, colNumber - 1);
