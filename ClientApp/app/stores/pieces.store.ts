@@ -1,5 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Piece } from '../models/game-piece';
+import { Position } from '../models/position';
 
 
 export type State = Array<Piece>;
@@ -11,21 +12,18 @@ export const MAKE_KING = 'MAKE_KING';
 
 export class DisplayPieceAction implements Action {
     readonly type = DISPLAY_PIECES;
-       payload: Array<Piece>;
+    payload: Array<Piece>;
 }
 
 export class MovePieceAction implements Action {
     readonly type = MOVE_PIECES;
-    origin: { row: number, column: number };
-    destination: { row: number, column: number };
+    payload: Array<Position>;
 }
 
 export class JumpPieceAction implements Action {
     readonly type = JUMP_PIECES;
-    // payload: Array<Piece>;
-    origin: { row: number, column: number };
-    destination: { row: number, column: number };
-    skipped: { row: number, column: number };
+    payload: Array<Position>;
+
 }
 
 export class MakeKingAction implements Action {
@@ -43,30 +41,30 @@ export function pieces(state: State = [], action: Actions): State {
 
         case MOVE_PIECES:
             const piece = state.find((p) => {
-                if (p.position.row === action.origin.row && p.position.column === action.origin.column) {
+                if (p.position.row === action.payload[0].row && p.position.column === action.payload[0].column) {
                     return true;
                 }
                 return false;
             });
             const emptySpace = state.find((p) => {
-                if (p.position.row === action.destination.row && p.position.column === action.destination.column && p.color != 'null') {
+                if (p.position.row === action.payload[1].row && p.position.column === action.payload[1].column) {
                     return true;
                 } else {
                     return false;
                 }
             });
-            
+
             if (piece) {
                 if (!emptySpace) {
-                    piece.position.row = action.destination.row;
-                    piece.position.column = action.destination.column;
+                    piece.position.row = action.payload[1].row;
+                    piece.position.column = action.payload[1].column;
                 }
             }
             return state;
 
         case JUMP_PIECES:
             const skippedPiece = state.find((p) => {
-                if (p.position.row === action.skipped.row && p.position.column === action.skipped.column) {
+                if (p.position.row === action.payload[2].row && p.position.column === action.payload[2].column) {
                     return true;
                 }
                 return false;

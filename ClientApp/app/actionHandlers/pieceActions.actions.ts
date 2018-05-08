@@ -16,24 +16,18 @@ export class PieceActions {
     public move(from: any, to: any): void {
         this._store.dispatch({
             type: MOVE_PIECES,
-            origin: from,
-            destination: to
+            payload: [from,to]
         });
     }
 
     public jump(from: any, to: any, skipped: any): void {
         this._store.dispatch({
             type: JUMP_PIECES,
-            // payload: pieces,
-            origin: from,
-            destination: to,
-            skipped: skipped
+            payload: [from,to,skipped],
         });
         this._store.dispatch({
             type: MOVE_PIECES,
-            // payload: pieces,
-            origin: from,
-            destination: to
+            payload: [from, to],
         });
     }
 
