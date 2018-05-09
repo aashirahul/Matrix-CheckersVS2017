@@ -7,7 +7,7 @@ import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
 import * as Constants from '../constants/constants';
 import { ApiService, REQUEST_TYPE_GET } from '../services/api.service';
-import { HIGHLIGHT_SQUARES, UNHIGHLIGHT_SQUARES } from '../stores/gameBoard.store';
+import { HIGHLIGHT_SQUARES, UNHIGHLIGHT_SQUARES, UPDATE_SQUARE_HAS_PIECE, UPDATE_SQUARE_HAS_NO_PIECE } from '../stores/gameBoard.store';
 import { pieces } from '../stores/pieces.store';
 
 @Injectable()
@@ -38,13 +38,23 @@ export class GameBoardActions {
             );
     }
 
-    public addPieceIdToSquare(position: any): void {
-
+    public updateSquareHasPiece(position: any): void {
+        this._store.dispatch({
+            type: UPDATE_SQUARE_HAS_PIECE,
+            payload: position
+        });
     }
 
     public unhighlightSquares(): void {
         this._store.dispatch({
             type: UNHIGHLIGHT_SQUARES
+        });
+    }
+
+    public updateSquareHasNoPiece(position: any): void {
+        this._store.dispatch({
+            type: UPDATE_SQUARE_HAS_NO_PIECE,
+            payload: position
         });
     }
 }

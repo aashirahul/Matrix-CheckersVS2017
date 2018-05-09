@@ -13,21 +13,23 @@ export class PieceActions {
         private _store: Store<any>,
     ) { }
 
-    public move(from: any, to: any): void {
+    public move(from: any, to: any, squares: any): void {
         this._store.dispatch({
             type: MOVE_PIECES,
-            payload: [from,to]
+            payload: [from, to],
+            squares: squares
         });
     }
 
-    public jump(from: any, to: any, skipped: any): void {
+    public jump(from: any, to: any, skipped: any, squares: any): void {
         this._store.dispatch({
             type: JUMP_PIECES,
-            payload: [from,to,skipped],
+            payload: [from, to, skipped],
         });
         this._store.dispatch({
             type: MOVE_PIECES,
             payload: [from, to],
+            squares: squares
         });
     }
 

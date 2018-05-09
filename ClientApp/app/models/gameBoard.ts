@@ -3,6 +3,6 @@ import { Position } from './position';
 
 export class Square {
     position: Position;
-    pieceId: number;
+    hasPiece: boolean;
     validMove: boolean;
 }

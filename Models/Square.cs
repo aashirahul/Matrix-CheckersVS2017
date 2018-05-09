@@ -10,7 +10,7 @@ namespace DemoApp.Models
     {
         public int id;
         public Position position;
-        public int ? pieceId =null;
+        public bool hasPiece;
         public bool validMove;
        
     }

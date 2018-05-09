@@ -1,6 +1,7 @@
 import { Action } from '@ngrx/store';
 import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
+import { Square } from '../models/gameBoard';
 
 
 export type State = Array<Piece>;
@@ -18,6 +19,7 @@ export class DisplayPieceAction implements Action {
 export class MovePieceAction implements Action {
     readonly type = MOVE_PIECES;
     payload: Array<Position>;
+    squares: Array<Square>;
 }
 
 export class JumpPieceAction implements Action {
@@ -46,8 +48,8 @@ export function pieces(state: State = [], action: Actions): State {
                 }
                 return false;
             });
-            const emptySpace = state.find((p) => {
-                if (p.position.row === action.payload[1].row && p.position.column === action.payload[1].column) {
+            const emptySquare = action.squares.find((s) => {
+                if (s.position.row === action.payload[1].row && s.position.column === action.payload[1].column && s.hasPiece) {
                     return true;
                 } else {
                     return false;
@@ -55,7 +57,7 @@ export function pieces(state: State = [], action: Actions): State {
             });
 
             if (piece) {
-                if (!emptySpace) {
+                if (!emptySquare) {
                     piece.position.row = action.payload[1].row;
                     piece.position.column = action.payload[1].column;
                 }

@@ -97,7 +97,24 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    private switchTurn() : void{
+    private checkIfJumpCompleted(pieceSelected: Piece, originalPosition: Position, { row, column }: any, skippedPosition: Position): void {
+        if (pieceSelected.position.row === row && pieceSelected.position.column === column) {
+            this._squareActions.updateSquareHasPiece({ row, column });
+            this._squareActions.updateSquareHasNoPiece(this.skippedPosition);
+            this._squareActions.updateSquareHasNoPiece(originalPosition);
+            this.switchTurn();
+        }
+    }
+
+    private checkIfMoveCompleted(pieceSelected: Piece, originalPosition: Position, { row, column }: any): void {
+        if (pieceSelected.position.row === row && pieceSelected.position.column === column) {
+            this._squareActions.updateSquareHasPiece({ row, column });
+            this._squareActions.updateSquareHasNoPiece(originalPosition);
+            this.switchTurn();
+        }
+    }
+
+    private switchTurn(): void {
         this.currentlyPlayingColor = this.currentlyPlayingColor === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;;
     }
 
@@ -112,21 +129,21 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    private moveInProgress(originalPosition: Position, row: number, column: number): void {
+    private moveInProgress(pieceSelected: Piece, originalPosition: Position, row: number, column: number): void {
         if (this.pieceSelectedisCurrentPlayer()) {
             if (this.isAJump(originalPosition, { row, column })) {
-                this._pieceActions.jump(originalPosition, { row, column }, this.skippedPosition);
+                this._pieceActions.jump(originalPosition, { row, column }, this.skippedPosition, this.squares);
+                this.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition);
                 this.addingPoints();
             } else if (this.isValidMove(originalPosition, { row, column })) {
-                this._pieceActions.move(originalPosition, { row, column });
-                this._squareActions.addPieceIdToSquare({ row, column });
+                this._pieceActions.move(originalPosition, { row, column }, this.squares);
+                this.checkIfMoveCompleted(pieceSelected, originalPosition, { row, column });
             }
-            this.switchTurn();
             this._squareActions.unhighlightSquares();
         }
     }
 
-    private moveComplete(): void {
+    private moveComplete(pieceSelected: any, originalPosition: any): void {
         this._appStateActions.updateState({ 'player.isMoving': false });
     }
 
@@ -145,12 +162,13 @@ export class GameBoardComponent implements OnInit {
             this.moveStarted(row, column);
             this.pieceSelected = this._helper.findSelectedPiece(row, column, this.pieces);
         } else {
-            this.moveInProgress(this.originalPosition, row, column);
-            this.moveComplete();
+            this.moveInProgress(this.pieceSelected, this.originalPosition, row, column);
+            this.moveComplete(this.pieceSelected, this.originalPosition);
         }
     }
 
     private isAJump(from: Position, to: Position): boolean {
+        this.makePieceSelectedKing(this.pieceSelected, to);
         if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
             if (!this.pieceSelected.isKing) {
                 if (to.row > from.row) {
@@ -171,7 +189,7 @@ export class GameBoardComponent implements OnInit {
                         this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseFour(from);
                         return true;
                     }
-                    
+
                 }
             } else if (this.pieceSelected.isKing) {
                 if (to.row > from.row) {

@@ -25,6 +25,7 @@ namespace DemoApp.Controllers
                 {
                     id= 1,
                     position= new Position(0,1),
+                    hasPiece = true,
                     validMove= false
                    
                  },
@@ -39,6 +40,7 @@ namespace DemoApp.Controllers
                 {
                     id= 3,
                     position= new Position(0,3),
+                     hasPiece = true,
                     validMove= false
                    
                 },
@@ -53,6 +55,7 @@ namespace DemoApp.Controllers
                 {
                     id= 5,
                     position= new Position(0,5),
+                    hasPiece = true,
                     validMove = false
                     
                 },
@@ -67,6 +70,7 @@ namespace DemoApp.Controllers
                  {
                     id= 7,
                     position= new Position(0,7),
+                    hasPiece = true,
                     validMove= false
                     
                  },
@@ -74,6 +78,7 @@ namespace DemoApp.Controllers
                  {
                     id= 8,
                     position= new Position(1,0),
+                     hasPiece = true,
                     validMove= false
                      
                  },
@@ -88,6 +93,7 @@ namespace DemoApp.Controllers
                  {
                       id= 10,
                       position= new Position(1,2),
+                       hasPiece = true,
                      validMove= false
            
                  },
@@ -102,6 +108,7 @@ namespace DemoApp.Controllers
                  {
                     id= 12,
                     position= new Position(1,4),
+                     hasPiece = true,
                      validMove= false
              
                  },
@@ -115,6 +122,7 @@ namespace DemoApp.Controllers
                  {
                     id= 14,
                     position= new Position(1,6),
+                     hasPiece = true,
                     validMove= false
              
                  },
@@ -136,6 +144,7 @@ namespace DemoApp.Controllers
                  {
                     id= 17,
                     position= new Position(2,1),
+                     hasPiece = true,
                     validMove= false
            
                  },
@@ -150,6 +159,7 @@ namespace DemoApp.Controllers
                  {
                     id= 19,
                     position= new Position(2,3),
+                     hasPiece = true,
                     validMove= false
                  },
                  new Square()
@@ -163,6 +173,7 @@ namespace DemoApp.Controllers
                  {
                     id= 21,
                     position= new Position(2,5),
+                     hasPiece = true,
                     validMove= false
                  },
                  new Square()
@@ -175,6 +186,7 @@ namespace DemoApp.Controllers
                  {
                     id= 23,
                     position= new Position(2,7),
+                     hasPiece = true,
                     validMove= false
                  },
                  new Square()
@@ -277,6 +289,7 @@ namespace DemoApp.Controllers
             {
                     id= 40,
                     position= new Position(5,0),
+                     hasPiece = true,
                     validMove= false
             },
             new Square()
@@ -289,6 +302,7 @@ namespace DemoApp.Controllers
             {
                      id= 42,
                      position= new Position(5,2),
+                      hasPiece = true,
                      validMove= false
             },
             new Square(){
@@ -300,6 +314,7 @@ namespace DemoApp.Controllers
             {
                     id= 44,
                     position= new Position(5,4),
+                     hasPiece = true,
                     validMove= false
             },
             new Square()
@@ -312,6 +327,7 @@ namespace DemoApp.Controllers
             {
                     id= 46,
                     position=new Position(5,6),
+                     hasPiece = true,
                     validMove= false
             },
 
@@ -331,6 +347,7 @@ namespace DemoApp.Controllers
             {
                     id= 49,
                     position= new Position(6,1),
+                     hasPiece = true,
                     validMove= false
             },
 
@@ -345,6 +362,7 @@ namespace DemoApp.Controllers
             {
                     id= 51,
                     position= new Position(6,3),
+                     hasPiece = true,
                     validMove= false
             },
 
@@ -358,6 +376,7 @@ namespace DemoApp.Controllers
             {
                     id= 53,
                     position= new Position(6,5),
+                     hasPiece = true,
                     validMove= false
             },
             new Square()
@@ -371,6 +390,7 @@ namespace DemoApp.Controllers
             {
                     id= 55,
                     position= new Position(6,7),
+                     hasPiece = true,
                     validMove= false
             
             },
@@ -379,6 +399,7 @@ namespace DemoApp.Controllers
             {
                     id= 56,
                     position= new Position(7,0),
+                     hasPiece = true,
                     validMove= false
             },
 
@@ -393,6 +414,7 @@ namespace DemoApp.Controllers
             {
                     id= 58,
                     position= new Position(7,2),
+                     hasPiece = true,
                     validMove= false
             },
             new Square()
@@ -405,6 +427,7 @@ namespace DemoApp.Controllers
             {
                     id= 60,
                     position= new Position(7,4),
+                     hasPiece = true,
                     validMove= false
             },
 
@@ -419,6 +442,7 @@ namespace DemoApp.Controllers
             {
                     id= 62,
                     position= new Position(7,6),
+                     hasPiece = true,
                     validMove= false
             },
             new Square()

@@ -2,9 +2,11 @@
 Checkers app showing Angular apps in Visual Studio 2017
  ## Goals for the week:
 
+  * ##### Adding a new Business functionality to tha game.
+
  * ##### ~~Redefine row and col in Piece model using Position model.~~
 
- * ##### Relate Piece to Square for each move. 
+ * ##### ~~Relate Piece to Square for each move.~~
 
 * #####  ~~Move "find*" functions from Game Board component to Helper methods.~~
 
@@ -20,7 +22,19 @@ Checkers app showing Angular apps in Visual Studio 2017
 
 * #####  ~~Redefine row and col in Square model using Position model~~.
 
-* #####  ~~Rename the variables(square) to be more specific to their purpose~~.
+ ## Known Bugs for the week:
+
+ * ##### ~~Current player changes even though move is not completed~~.
+
+ * ##### ~~Overlapping of pieces~~.
+
+ * ##### ~~Overlapping of pieces~~.
+
+ * ##### Disappearance Act .
+
+
+
+
 	 
  
  
