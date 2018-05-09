@@ -1,8 +1,6 @@
 # Matrix-CheckersVS2017
 Checkers app showing Angular apps in Visual Studio 2017
- ## Goals for the week:
-
- * ##### Adding a new Business functionality to the game which gives the player the ability to add a name for themselves  .
+ ## Goals:
 
  * ##### ~~Redefine row and col in Piece model using Position model.~~
 
@@ -21,6 +19,12 @@ Checkers app showing Angular apps in Visual Studio 2017
 * #####  ~~Use constants instead of string literal~~.
 
 * #####  ~~Redefine row and col in Square model using Position model~~.
+
+ * #####  Refactor piece selected from game-board component to appState Store.
+
+ * #####  Highlight selscted piece.
+
+ * #####  Adding a new Business functionality to the game which gives the player the ability to add a name for themselves  .
 
  ## Known Bugs for the week:
 
