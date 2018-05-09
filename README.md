@@ -2,7 +2,7 @@
 Checkers app showing Angular apps in Visual Studio 2017
  ## Goals for the week:
 
- * ##### Adding a new Business functionality to tha game.
+ * ##### Adding a new Business functionality to the game which gives the player the ability to add a name for themselves  .
 
  * ##### ~~Redefine row and col in Piece model using Position model.~~
 
