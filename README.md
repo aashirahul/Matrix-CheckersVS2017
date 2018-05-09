@@ -1,14 +1,13 @@
 # Matrix-CheckersVS2017
 Checkers app showing Angular apps in Visual Studio 2017
  ## Goals for the week:
- ```diff
-  * ##### Adding a new Business functionality to tha game.
+
+ * ##### Adding a new Business functionality to tha game.
 
  * ##### ~~Redefine row and col in Piece model using Position model.~~
 
  * ##### ~~Relate Piece to Square for each move.~~
-
- ```
+ - ![#f03c15](https://placehold.it/15/f03c15/000000?text=+) `#f03c15`
 
 * #####  ~~Move "find*" functions from Game Board component to Helper methods.~~
 
