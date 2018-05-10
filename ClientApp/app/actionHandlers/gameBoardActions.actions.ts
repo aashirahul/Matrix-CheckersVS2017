@@ -7,7 +7,7 @@ import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
 import * as Constants from '../constants/constants';
 import { ApiService, REQUEST_TYPE_GET } from '../services/api.service';
-import { HIGHLIGHT_SQUARES, UNHIGHLIGHT_SQUARES, UPDATE_SQUARE_HAS_PIECE, UPDATE_SQUARE_HAS_NO_PIECE } from '../stores/gameBoard.store';
+import { HIGHLIGHT_SQUARES, UNHIGHLIGHT_SQUARES, UPDATE_SQUARE_HAS_PIECE, UPDATE_SQUARE_HAS_NO_PIECE, UPDATE_SQUARE_SELECTED } from '../stores/gameBoard.store';
 import { pieces } from '../stores/pieces.store';
 
 @Injectable()
@@ -21,6 +21,13 @@ export class GameBoardActions {
         private _store: Store<any>,
         private _api: ApiService,
     ) { }
+
+    public squareSelected(position: Position) {
+        this._store.dispatch({
+            type: UPDATE_SQUARE_SELECTED,
+            payload: position
+        });
+    }
 
     public availableMoves(position: Position, pieceSelected: Piece) {
         let color = pieceSelected.color;

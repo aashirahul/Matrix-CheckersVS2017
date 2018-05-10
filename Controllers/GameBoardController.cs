@@ -18,6 +18,7 @@ namespace DemoApp.Controllers
                 {
                     id= 0,
                     position= new Position(0,0),
+                    isSelected = false,
                     validMove= false
 
                 },
@@ -26,6 +27,7 @@ namespace DemoApp.Controllers
                     id= 1,
                     position= new Position(0,1),
                     hasPiece = true,
+                    isSelected = false,
                     validMove= false
                    
                  },
@@ -33,6 +35,7 @@ namespace DemoApp.Controllers
                 {
                     id= 2,
                     position= new Position(0,2),
+                    isSelected = false,
                     validMove= false
                     
                 },
@@ -40,6 +43,7 @@ namespace DemoApp.Controllers
                 {
                     id= 3,
                     position= new Position(0,3),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
                    
@@ -48,6 +52,7 @@ namespace DemoApp.Controllers
                 {
                     id= 4,
                     position= new Position(0,4),
+                    isSelected = false,
                     validMove= false
                      
                 },
@@ -55,6 +60,7 @@ namespace DemoApp.Controllers
                 {
                     id= 5,
                     position= new Position(0,5),
+                    isSelected = false,
                     hasPiece = true,
                     validMove = false
                     
@@ -70,6 +76,7 @@ namespace DemoApp.Controllers
                  {
                     id= 7,
                     position= new Position(0,7),
+                    isSelected = false,
                     hasPiece = true,
                     validMove= false
                     
@@ -78,6 +85,7 @@ namespace DemoApp.Controllers
                  {
                     id= 8,
                     position= new Position(1,0),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
                      
@@ -86,6 +94,7 @@ namespace DemoApp.Controllers
                 {
                     id= 9,
                     position= new Position(1,1),
+                    isSelected = false,
                     validMove= false
                    
                 },
@@ -93,6 +102,7 @@ namespace DemoApp.Controllers
                  {
                       id= 10,
                       position= new Position(1,2),
+                      isSelected = false,
                        hasPiece = true,
                      validMove= false
            
@@ -101,6 +111,7 @@ namespace DemoApp.Controllers
                  {
                     id= 11,
                     position= new Position(1,3),
+                    isSelected = false,
                     validMove= false
              
                  },
@@ -108,6 +119,7 @@ namespace DemoApp.Controllers
                  {
                     id= 12,
                     position= new Position(1,4),
+                    isSelected = false,
                      hasPiece = true,
                      validMove= false
              
@@ -116,12 +128,14 @@ namespace DemoApp.Controllers
                  {
                     id= 13,
                     position= new Position(1,5),
+                    isSelected = false,
                     validMove= false
                  },
                  new Square()
                  {
                     id= 14,
                     position= new Position(1,6),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
              
@@ -130,6 +144,7 @@ namespace DemoApp.Controllers
                  {
                     id= 15,
                     position= new Position(1,7),
+                    isSelected = false,
                     validMove= false
             
                  },
@@ -137,6 +152,7 @@ namespace DemoApp.Controllers
                  {
                     id= 16,
                     position= new Position(2,0),
+                    isSelected = false,
                     validMove= false
             
                  },
@@ -144,6 +160,7 @@ namespace DemoApp.Controllers
                  {
                     id= 17,
                     position= new Position(2,1),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
            
@@ -152,6 +169,7 @@ namespace DemoApp.Controllers
                  {
                     id= 18,
                     position= new Position(2,2),
+                    isSelected = false,
                     validMove= false,
             
                  },
@@ -159,6 +177,7 @@ namespace DemoApp.Controllers
                  {
                     id= 19,
                     position= new Position(2,3),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
                  },
@@ -166,6 +185,7 @@ namespace DemoApp.Controllers
                  {
                     id= 20,
                     position= new Position(2,4),
+                    isSelected = false,
                     validMove= false
             
                  },
@@ -173,6 +193,7 @@ namespace DemoApp.Controllers
                  {
                     id= 21,
                     position= new Position(2,5),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
                  },
@@ -180,12 +201,14 @@ namespace DemoApp.Controllers
                  {
                     id= 22,
                     position= new Position(2,6),
+                    isSelected = false,
                     validMove= false
                  },
                  new Square()
                  {
                     id= 23,
                     position= new Position(2,7),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
                  },
@@ -193,102 +216,119 @@ namespace DemoApp.Controllers
                  {
                     id= 24,
                     position= new Position(3,0),
+                    isSelected = false,
                     validMove= false
                  },
                  new Square()
                  {
                      id= 25,
                      position= new Position(3,1),
+                     isSelected = false,
                      validMove= false
                  },
                  new Square()
                  {
                     id= 26,
                     position= new Position(3,2),
+                    isSelected = false,
                     validMove= false
                  },
                  new Square()
                  {
                     id= 27,
                     position= new Position(3,3),
+                    isSelected = false,
                     validMove= false
                  },
                  new Square()
                  {
                     id= 28,
                     position= new Position(3,4),
+                    isSelected = false,
                     validMove= false
                  },
                  new Square()
                  {
                     id= 29,
                     position= new Position(3,5),
+                    isSelected = false,
                     validMove= false
                  },
                 new Square()
                 {
                     id= 30,
                     position= new Position(3,6),
+                    isSelected = false,
                     validMove= false
                 },
                 new Square()
                 {
                     id= 31,
                     position= new Position(3,7),
+                    isSelected = false,
                     validMove= false
                 },
                new Square()
                 {
                      id= 32,
                      position= new Position(4,0),
+                     isSelected = false,
                      validMove= false
                 },
              new Square()
              {
                     id= 33,
                     position= new Position(4,1),
+                    isSelected = false,
                     validMove= false
              },
              new Square()
              {
                     id= 34,
                     position= new Position(4,2),
+                    isSelected = false,
                     validMove= false
               },
              new Square()
              {
                     id= 35,
                     position= new Position(4,3),
+                    isSelected = false,
                     validMove= false
              },
              new Square()
              {
                     id= 36,
                     position= new Position(4,4),
+                    isSelected = false,
                     validMove= false
             },
             new Square()
             {
                     id= 37,
                     position= new Position(4,5),
+                    isSelected = false,
                     validMove= false
             },
             new Square()
             {
                     id= 38,
                     position= new Position(4,6),
+                    isSelected = false,
                     validMove= false
             },
             new Square()
             {
                     id= 39,
                     position= new Position(4,7),
+                    isSelected = false,
                     validMove= false
             },
             new Square()
             {
                     id= 40,
                     position= new Position(5,0),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -296,24 +336,28 @@ namespace DemoApp.Controllers
             {
                     id= 41,
                     position= new Position(5,1),
+                    isSelected = false,
                     validMove= false
             },
             new Square()
             {
                      id= 42,
                      position= new Position(5,2),
+                     isSelected = false,
                       hasPiece = true,
                      validMove= false
             },
             new Square(){
                     id= 43,
                     position= new Position(5,3),
+                    isSelected = false,
                      validMove= false
             },
             new Square()
             {
                     id= 44,
                     position= new Position(5,4),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -321,12 +365,14 @@ namespace DemoApp.Controllers
             {
                     id= 45,
                     position= new Position(5,5),
+                    isSelected = false,
                     validMove= false
             },
             new Square()
             {
                     id= 46,
                     position=new Position(5,6),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -335,18 +381,21 @@ namespace DemoApp.Controllers
             {
                     id= 47,
                     position= new Position(5,7),
+                    isSelected = false,
                     validMove= false
             },
             new Square()
             {
                     id= 48,
                     position= new Position(6,0),
+                    isSelected = false,
                     validMove= false
             },
             new Square()
             {
                     id= 49,
                     position= new Position(6,1),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -355,6 +404,7 @@ namespace DemoApp.Controllers
            {
                      id= 50,
                      position= new Position(6,2),
+                     isSelected = false,
                      validMove= false
             },
 
@@ -362,6 +412,7 @@ namespace DemoApp.Controllers
             {
                     id= 51,
                     position= new Position(6,3),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -370,12 +421,14 @@ namespace DemoApp.Controllers
             {
                     id= 52,
                     position= new Position(6,4),
+                    isSelected = false,
                     validMove= false
             },
             new Square()
             {
                     id= 53,
                     position= new Position(6,5),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -383,6 +436,7 @@ namespace DemoApp.Controllers
             {
                     id= 54,
                     position= new Position(6,6),
+                    isSelected = false,
                     validMove= false
              },
 
@@ -390,6 +444,7 @@ namespace DemoApp.Controllers
             {
                     id= 55,
                     position= new Position(6,7),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             
@@ -399,6 +454,7 @@ namespace DemoApp.Controllers
             {
                     id= 56,
                     position= new Position(7,0),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -407,6 +463,7 @@ namespace DemoApp.Controllers
             {
                     id= 57,
                     position= new Position(7,1),
+                    isSelected = false,
                     validMove= false
             },
 
@@ -414,6 +471,7 @@ namespace DemoApp.Controllers
             {
                     id= 58,
                     position= new Position(7,2),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -421,12 +479,14 @@ namespace DemoApp.Controllers
             {
                      id= 59,
                      position= new Position(7,3),
+                     isSelected = false,
                      validMove= false
             },
             new Square()
             {
                     id= 60,
                     position= new Position(7,4),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -435,6 +495,7 @@ namespace DemoApp.Controllers
             {
                     id= 61,
                     position= new Position(7,5),
+                    isSelected = false,
                     validMove= false
             },
 
@@ -442,6 +503,7 @@ namespace DemoApp.Controllers
             {
                     id= 62,
                     position= new Position(7,6),
+                    isSelected = false,
                      hasPiece = true,
                     validMove= false
             },
@@ -449,6 +511,7 @@ namespace DemoApp.Controllers
             {
                   id= 63,
                   position= new Position(7,7),
+                  isSelected = false,
                   validMove= false
             }
         };

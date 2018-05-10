@@ -22,7 +22,7 @@ Checkers app showing Angular apps in Visual Studio 2017
 
  * #####  ~~Refactor piece selected from game-board component to appState Store.~~
 
- * #####  Highlight selected piece.
+ * #####  ~~Highlight selected square.~~
 
  * #####  Adding a new Business functionality to the game which gives the player the ability to add a name for themselves  .
 

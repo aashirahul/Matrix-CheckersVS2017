@@ -10,8 +10,8 @@ namespace DemoApp.Models
     {
         public int id;
         public Position position;
+        public bool isSelected;
         public bool hasPiece;
         public bool validMove;
-       
     }
 }

@@ -18,6 +18,9 @@
 .king .black{
     background: gold;
 }
+.squareSelected {
+    border: 1px #064617 solid;
+}
 
 .row:nth-child(even) :host:nth-child(even) .square{
     background: lightblue;

@@ -121,6 +121,7 @@ export class GameBoardComponent implements OnInit {
         this.originalPosition = { row, column };
         this.pieceSelected = this._helper.findSelectedPiece(this.originalPosition.row, this.originalPosition.column, this.pieces);
         if (this.pieceSelectedisCurrentPlayer()) {
+            this._squareActions.squareSelected(this.originalPosition);
             if (!this.pieceSelected.isKing) {
                 this._squareActions.availableMoves(this.originalPosition, this.pieceSelected);
             }

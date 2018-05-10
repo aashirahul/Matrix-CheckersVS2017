@@ -9,6 +9,8 @@ export const DISPLAY_SQUARES = 'DISPLAY_SQUARES';
 export const UNHIGHLIGHT_SQUARES = 'UNHIGHLIGHT_SQUARES';
 export const UPDATE_SQUARE_HAS_PIECE = 'UPDATE_SQUARE_HAS_PIECE';
 export const UPDATE_SQUARE_HAS_NO_PIECE = 'UPDATE_SQUARE_HAS_NO_PIECE';
+export const UPDATE_SQUARE_SELECTED = 'UPDATE_SQUARE_SELECTED';
+export const UPDATE_SQUARE_UNSELECTED = 'UPDATE_SQUARE_UNSELECTED';
 
 export class DisplaySquareAction implements Action {
     readonly type = DISPLAY_SQUARES;
@@ -33,8 +35,12 @@ export class UpdateHasNoPieceAction implements Action {
     readonly type = UPDATE_SQUARE_HAS_NO_PIECE;
     payload: Position;
 }
+export class UpdateSquareSelectedAction implements Action {
+    readonly type = UPDATE_SQUARE_SELECTED;
+    payload: Position;
+}
 
-export type Actions = DisplaySquareAction | HighlightSquareAction | UnhighlightSquareAction | UpdateHasPieceAction | UpdateHasNoPieceAction;
+export type Actions = DisplaySquareAction | HighlightSquareAction | UnhighlightSquareAction | UpdateHasPieceAction | UpdateHasNoPieceAction | UpdateSquareSelectedAction;
 
 export function squares(state: State = [], action: Actions): State {
     switch (action.type) {
@@ -48,7 +54,11 @@ export function squares(state: State = [], action: Actions): State {
             return state;
 
         case UNHIGHLIGHT_SQUARES:
-            state.forEach((square) => square.validMove = false);
+            //state.forEach((square) => square.validMove = false);
+            state.forEach(function (square) {
+                square.validMove = false;
+                square.isSelected = false;
+            });
             return state;
         default:
             return state;
@@ -60,8 +70,25 @@ export function squares(state: State = [], action: Actions): State {
         case UPDATE_SQUARE_HAS_NO_PIECE:
             squareHasNoPiece(state, action.payload);
             return state;
+
+        case UPDATE_SQUARE_SELECTED:
+            squareSelected(state, action.payload);
+            return state;
     }
 }
+
+function squareSelected(state: State, position: { row: number, column: number }): void {
+    const square = state.find((s) => {
+        if (s.position.row === position.row && s.position.column === position.column) {
+            return true;
+        }
+        return false;
+    });
+    if (square) {
+        square.isSelected = true;
+    }
+}
+
     
 function markSquare(state: State, position: { row: number, column: number }): void {
     const square = state.find((s) => {
