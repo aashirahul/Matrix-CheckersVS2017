@@ -24,7 +24,7 @@ Checkers app showing Angular apps in Visual Studio 2017
 
  * #####  ~~Highlight selected square.~~
 
- * #####  Adding a new Business functionality to the game which gives the player the ability to add a name for themselves  .
+ * #####  ~~Adding a new Business functionality to the game which gives the player the ability to add a name for themselves.~~
 
  ## Known Bugs for the week:
 
