@@ -20,9 +20,9 @@ Checkers app showing Angular apps in Visual Studio 2017
 
 * #####  ~~Redefine row and col in Square model using Position model~~.
 
- * #####  Refactor piece selected from game-board component to appState Store.
+ * #####  ~~Refactor piece selected from game-board component to appState Store.~~
 
- * #####  Highlight selscted piece.
+ * #####  Highlight selected piece.
 
  * #####  Adding a new Business functionality to the game which gives the player the ability to add a name for themselves  .
 
