@@ -66,7 +66,9 @@ export class GameBoardComponent implements OnInit {
         this.pointsSubscription.unsubscribe();
         this.piecesSubscription.unsubscribe();
     }
+    private addPlayerName(): void {
 
+    }
     private pieceSelectedisCurrentPlayer(): boolean {
         if (this.pieceSelected.color === this.currentlyPlayingColor) {
             return true;

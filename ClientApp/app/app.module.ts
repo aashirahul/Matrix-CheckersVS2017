@@ -16,6 +16,8 @@ import { CellComponent } from './components/cell/cell.component';
 import { GameBoardComponent } from './components/game-board/game-board.component';
 import { PieceComponent } from './components/piece/piece.component';
 import { ScoreBoardComponent } from './components/score-board/score-board.component';
+import { PlayerNameModalComponent } from './components/player-name-modal/player-name-modal.component';
+
 
 
 
@@ -24,7 +26,8 @@ import { ScoreBoardComponent } from './components/score-board/score-board.compon
         AppComponent,
         CellComponent,
         GameBoardComponent,
-        PieceComponent
+        PieceComponent,
+        PlayerNameModalComponent
     ],
     imports: [
         BrowserModule,

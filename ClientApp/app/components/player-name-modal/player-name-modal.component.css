@@ -1,0 +1,33 @@
+.overlay-container{
+    z-index: 10;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    background-color: rgba(0,0,0,.65);
+}
+.overlay-description-box{
+    background: white;
+    margin-top: 30vh;
+    margin-left: 35vw;
+    width: 30vw;
+    border-radius: 5px;
+    padding: 7px;
+}
+.description-box{
+    display:inline-flex;
+}
+.box{
+    margin-right: 10px;
+}
+.style{
+    font-family: cursive;
+    font-style: italic;
+    font-weight: bold;
+    color:#5f9ea0;
+}
+
+.closeIcon{
+   float: right;
+ }
