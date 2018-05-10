@@ -2,6 +2,7 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
+import { FormsModule } from '@angular/forms';
 
 import { APP_ACTION_HANDLERS } from './app.actionHandlers';
 import { APP_HELPERS } from './app.helpers';
@@ -32,6 +33,7 @@ import { PlayerNameModalComponent } from './components/player-name-modal/player-
     imports: [
         BrowserModule,
         HttpClientModule,
+        FormsModule,
         StoreModule.forRoot(APP_STORES)
     ],
     providers: [

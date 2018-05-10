@@ -8,25 +8,25 @@
     <div class="label">
 
         <div>
-            Player {{currentlyPlayingColor}} is moving {{isMoving}}
+            Player {{displayPlayerName}} is moving {{isMoving}}
         </div>
 
     </div>
     <div class="score-board">
         <div class="row-style">
-            <div (click)="addPlayerName()"><i class="fas fa-pencil-alt"></i></div>
+            <div (click)="editPlayerName()"><i class="fas fa-pencil-alt"></i></div>
             <div class="score-style">
-                Player red
+                Player {{firstPlayerName}}
             </div>
             <div class="red score " *ngFor="let score of scoreRed"></div>
         </div>
         <div class=" row-style">
-            <div (click)="addPlayerName()"><i class="fas fa-pencil-alt"></i></div>
+            <div (click)="editPlayerName()"><i class="fas fa-pencil-alt"></i></div>
             <div class="score-style">
-                Player black
+                Player {{secondPlayerName}}
             </div>
             <div class="black score" *ngFor=" let score of scoreBlack"></div>
         </div>
     </div>
-    <app-player-name-modal *ngIf="showPlayerNameModal"></app-player-name-modal>
+    <app-player-name-modal *ngIf="showPlayerNameModal"  (updatedPlayerName) = "playerNameAdded($event) "></app-player-name-modal>
 </div>

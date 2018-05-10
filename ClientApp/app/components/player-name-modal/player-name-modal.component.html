@@ -1,8 +1,13 @@
 <div class="overlay-container">
-  <div class="overlay-description-box">
-    <div class="closeIcon" (click)="close()">
-      <i class="far fa-times-circle"></i>
+    <div class="overlay-description-box">
+        <div class="closeIcon" (click)="close()">
+            <i class="far fa-times-circle"></i>
+        </div>
+        <div>
+            Player One <input type="text" #playerNameValue  [(ngModel)]="playerName" />
+        </div>
+        <div (click)="addPlayerName(playerNameValue.value)">Add Name </div>
+        <div (click)="deleteName()">Delete Name </div>
     </div>
-   
-  </div>
+
 </div>

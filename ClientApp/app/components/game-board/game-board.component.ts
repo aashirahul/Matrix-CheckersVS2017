@@ -33,6 +33,10 @@ export class GameBoardComponent implements OnInit {
     public isMoving = false;
     public originalPosition: Position;
     public currentlyPlayingColor = Constants.ColorForFirstPlayer;
+    public firstPlayerName: string;
+    public secondPlayerName: string;
+    public displayPlayerName: string;
+    public isplayerNameSet = false;
     public skippedPosition: Position;
     public availablePositionOne: Position;
     public availablePositionTwo: Position;
@@ -64,6 +68,7 @@ export class GameBoardComponent implements OnInit {
         this.appStateSubscription = this._store.select('appState').subscribe((as: fromappstate.State) => {
             this.showPlayerNameModal = as.showPlayerNameModal;
         });
+        this.setDisplayPlayerNames();
     }
 
     public ngOnDestroy() {
@@ -71,9 +76,29 @@ export class GameBoardComponent implements OnInit {
         this.pointsSubscription.unsubscribe();
         this.piecesSubscription.unsubscribe();
     }
-    private addPlayerName(): void {
+
+    private setDisplayPlayerNames(): void {
+        this.displayPlayerName = Constants.ColorForFirstPlayer;
+        if (!this.firstPlayerName) {
+            this.firstPlayerName = Constants.ColorForFirstPlayer;
+        }
+        if (!this.secondPlayerName) {
+            this.secondPlayerName = Constants.ColorForSecondPlayer;
+        }
+    }
+
+    private editPlayerName(): void {
         this._appStateActions.updateState({ 'showPlayerNameModal': true });
-        console.log("showPlayerNameModal");
+    }
+
+    private playerNameAdded(event: any): void {
+        if (!this.isplayerNameSet) {
+            this.firstPlayerName = event;
+            this.displayPlayerName = this.firstPlayerName;
+            this.isplayerNameSet = true;
+        } else {
+            this.secondPlayerName = event;
+        }
     }
 
     private pieceSelectedisCurrentPlayer(): boolean {
@@ -95,6 +120,24 @@ export class GameBoardComponent implements OnInit {
 
     public findSquare(row: number, col: number): Square | undefined {
         return this.squares.find((square) => (square.position.row === row && square.position.column === col));
+    }
+
+    private switchPlayingColor(): void {
+        this.currentlyPlayingColor = this.currentlyPlayingColor === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
+        console.log(this.currentlyPlayingColor);
+    }
+
+    private switchDisplayPlayerName(): void {
+        if (this.firstPlayerName === Constants.ColorForFirstPlayer) {
+            this.displayPlayerName = this.displayPlayerName === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
+        } else {
+            this.displayPlayerName = this.displayPlayerName === this.firstPlayerName ? this.secondPlayerName : this.firstPlayerName;
+        }
+    }
+
+    private switchTurn(): void {
+        this.switchPlayingColor();
+        this.switchDisplayPlayerName();
     }
 
     private makePieceSelectedKing(pieceSelected: any, to: Position): void {
@@ -122,9 +165,6 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    private switchTurn(): void {
-        this.currentlyPlayingColor = this.currentlyPlayingColor === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;;
-    }
 
     private moveStarted(row: number, column: number): void {
         this.originalPosition = { row, column };
