@@ -26,6 +26,10 @@ Checkers app showing Angular apps in Visual Studio 2017
 
  * #####  ~~Adding a new Business functionality to the game which gives the player the ability to add a name for themselves.~~
 
+ * #####  ~~Adding Model, Store, ActionHandlers and Controllers for player.~~
+
+ * #####  Move the business logic of adding player name from game component to player action handler.
+
  ## Known Bugs for the week:
 
  * ##### ~~Current player changes even though move is not completed~~.
