@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 
 import { Piece } from '../models/game-piece';
 import { DISPLAY_PIECES, MOVE_PIECES, JUMP_PIECES, MAKE_KING } from '../stores/pieces.store';
+import { Position } from '../models/position';
+import { Square } from '../models/gameBoard';
 
 @Injectable()
 export class PieceActions {
@@ -13,7 +15,7 @@ export class PieceActions {
         private _store: Store<any>,
     ) { }
 
-    public move(from: any, to: any, squares: any): void {
+    public move(from: Position, to: Position, squares: Array<Square>): void {
         this._store.dispatch({
             type: MOVE_PIECES,
             payload: [from, to],
@@ -21,7 +23,7 @@ export class PieceActions {
         });
     }
 
-    public jump(from: any, to: any, skipped: any, squares: any): void {
+    public jump(from: Position, to: Position, skipped: Position, squares: Array<Square>): void {
         this._store.dispatch({
             type: JUMP_PIECES,
             payload: [from, to, skipped],

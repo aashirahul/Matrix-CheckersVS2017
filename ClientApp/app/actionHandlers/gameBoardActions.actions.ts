@@ -22,10 +22,10 @@ export class GameBoardActions {
         private _api: ApiService,
     ) { }
 
-    public availableMoves(position: any, pieceSelected: any) {
+    public availableMoves(position: Position, pieceSelected: Piece) {
         let color = pieceSelected.color;
         const movesReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares/moves`, {
-            params: new HttpParams().set("row", position.row).set("col", position.column).set("color", color)
+            params: new HttpParams().set("row", `${position.row}`).set("col", `${position.column}`).set("color", color)
         });
         this._api.callingApiService(movesReq)
             .subscribe(

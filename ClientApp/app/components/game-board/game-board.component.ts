@@ -58,7 +58,6 @@ export class GameBoardComponent implements OnInit {
         });
         this.pointsSubscription = this._store.select('points').subscribe((points) => this.points = points);
         this.piecesSubscription = this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
-        console.log(this.pieces);
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
     }
 
@@ -125,7 +124,7 @@ export class GameBoardComponent implements OnInit {
             if (!this.pieceSelected.isKing) {
                 this._squareActions.availableMoves(this.originalPosition, this.pieceSelected);
             }
-            this._appStateActions.updateState({ 'player.isMoving': true });
+            this._appStateActions.updateState({ 'player.isMoving': true, 'pieceSelected.Id': this.pieceSelected.id });
         }
     }
 
