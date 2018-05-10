@@ -15,6 +15,7 @@
     height: 20vw;
     border-radius: 5px;
     padding: 7px;
+    text-align: center;
 }
 .description-box{
     display:inline-flex;
@@ -32,3 +33,22 @@
 .closeIcon{
    float: right;
  }
+.button {
+    display:inline-block;
+    cursor: pointer;
+    color: white;
+    margin-top: 20px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 7px;
+    font-size: 17px;
+}
+.name-holder {
+    margin-top: 50px;
+}
+.add {
+    background-color: #00d1b2;
+}
+.delete {
+    background-color: red;
+}

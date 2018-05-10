@@ -5,6 +5,7 @@ import { Piece } from '../../models/game-piece';
 import { Square } from '../../models/gameBoard';
 import { Point } from '../../models/point';
 import { Position } from '../../models/position';
+import { Player } from '../../models/player';
 import { PieceActions } from '../../actionHandlers/pieceActions.actions';
 import { GameBoardActions } from '../../actionHandlers/gameBoardActions.actions';
 import { PointActions } from '../../actionHandlers/pointActions.actions';
@@ -24,8 +25,10 @@ export class GameBoardComponent implements OnInit {
     public pieces: Array<Piece>;
     public piece: Piece;
     public point: Point;
+    public player: Player;
     public squares: Array<Square>;
     public points: Array<Point>;
+    public players: Array<Player>;
     public scoreRed: Array<number> = [];
     public scoreBlack: Array<number> = [];
 
@@ -46,6 +49,7 @@ export class GameBoardComponent implements OnInit {
     private piecesSubscription: any;
     private pointsSubscription: any;
     private squaresSubscription: any;
+    private playersSubscription: any;
     private appStateSubscription: any;
 
 
@@ -68,6 +72,7 @@ export class GameBoardComponent implements OnInit {
         this.appStateSubscription = this._store.select('appState').subscribe((as: fromappstate.State) => {
             this.showPlayerNameModal = as.showPlayerNameModal;
         });
+        this.playersSubscription = this._store.select('players').subscribe((players) => this.players = players);
         this.setDisplayPlayerNames();
     }
 

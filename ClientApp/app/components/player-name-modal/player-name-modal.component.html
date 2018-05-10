@@ -3,11 +3,14 @@
         <div class="closeIcon" (click)="close()">
             <i class="far fa-times-circle"></i>
         </div>
-        <div>
-            Player One <input type="text" #playerNameValue  [(ngModel)]="playerName" />
+        <div class="name-holder">
+            <div>
+                <input type="text" #playerNameValue [(ngModel)]="playerName" placeholder="Enter Player Name" />
+            </div>
+            <div class="add button" (click)="addPlayerName(playerNameValue.value)">Add Name </div>
+            <div class="delete button " (click)="deleteName()">Delete Name </div>
         </div>
-        <div (click)="addPlayerName(playerNameValue.value)">Add Name </div>
-        <div (click)="deleteName()">Delete Name </div>
+        
     </div>
 
 </div>

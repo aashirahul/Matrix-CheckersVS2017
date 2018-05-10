@@ -39,6 +39,7 @@ export function appState(state: State = initialAppState, action: Actions): State
             });
             return newState;
 
+
         default:
             return state;
 
