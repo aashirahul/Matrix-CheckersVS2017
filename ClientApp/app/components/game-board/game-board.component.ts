@@ -11,6 +11,7 @@ import { PointActions } from '../../actionHandlers/pointActions.actions';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
 import { Helper } from '../../helpers/helper';
 import * as Constants from '../../constants/constants';
+import * as fromappstate from '../../stores/appState.store';
 
 
 
@@ -37,6 +38,7 @@ export class GameBoardComponent implements OnInit {
     public availablePositionTwo: Position;
     public pieceSelected: any;
     public isKing = false;
+    public showPlayerNameModal: boolean;
     private piecesSubscription: any;
     private pointsSubscription: any;
     private squaresSubscription: any;
@@ -59,6 +61,9 @@ export class GameBoardComponent implements OnInit {
         this.pointsSubscription = this._store.select('points').subscribe((points) => this.points = points);
         this.piecesSubscription = this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
+        this.appStateSubscription = this._store.select('appState').subscribe((as: fromappstate.State) => {
+            this.showPlayerNameModal = as.showPlayerNameModal;
+        });
     }
 
     public ngOnDestroy() {
@@ -67,8 +72,10 @@ export class GameBoardComponent implements OnInit {
         this.piecesSubscription.unsubscribe();
     }
     private addPlayerName(): void {
-
+        this._appStateActions.updateState({ 'showPlayerNameModal': true });
+        console.log("showPlayerNameModal");
     }
+
     private pieceSelectedisCurrentPlayer(): boolean {
         if (this.pieceSelected.color === this.currentlyPlayingColor) {
             return true;

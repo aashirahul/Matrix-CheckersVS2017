@@ -22,7 +22,7 @@ export class PlayerNameModalComponent implements OnInit {
 
 
   close() {
-    this._appStateActions.updateState({ 'showAlbumModal': false });
+      this._appStateActions.updateState({ 'showPlayerNameModal': false });
   }
 
 

@@ -6,7 +6,7 @@
         </div>
     </div>
     <div class="label">
-      
+
         <div>
             Player {{currentlyPlayingColor}} is moving {{isMoving}}
         </div>
@@ -21,10 +21,12 @@
             <div class="red score " *ngFor="let score of scoreRed"></div>
         </div>
         <div class=" row-style">
+            <div (click)="addPlayerName()"><i class="fas fa-pencil-alt"></i></div>
             <div class="score-style">
                 Player black
             </div>
             <div class="black score" *ngFor=" let score of scoreBlack"></div>
         </div>
     </div>
+    <app-player-name-modal *ngIf="showPlayerNameModal"></app-player-name-modal>
 </div>

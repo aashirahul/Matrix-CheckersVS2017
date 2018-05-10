@@ -4,11 +4,13 @@ import * as Constants from '../constants/constants';
 export interface State {
     'player.isMoving': boolean;
     'pieceSelected.Id': number;
+    'showPlayerNameModal': boolean;
 }
 
 const initialAppState: State = {
     'player.isMoving': false,
-    'pieceSelected.Id': NaN
+    'pieceSelected.Id': NaN,
+    'showPlayerNameModal': false
    
 };
 
