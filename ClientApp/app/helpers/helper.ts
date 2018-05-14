@@ -16,6 +16,8 @@ export class Helper {
         return false;
     }
 
+    
+
     public checkIfPieceSelectedCanBeKing(piece: Piece, row: number): boolean {
         if (piece.color === Constants.ColorForFirstPlayer && row === 7) {
             return true;

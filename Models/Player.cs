@@ -11,5 +11,6 @@ namespace DemoApp.Models
         public string name;
         public string color;
         public int score;
+        public bool updateName;
     }
 }

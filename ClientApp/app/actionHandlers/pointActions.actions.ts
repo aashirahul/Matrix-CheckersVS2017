@@ -7,7 +7,7 @@ import { DISPLAY_POINTS, ADD_POINTS } from '../stores/point.store';
 
 @Injectable()
 export class PointActions {
-    private pieces: Array<Point >;
+    private pieces: Array<Point>;
 
     constructor(
         private _store: Store<any>,
@@ -17,10 +17,8 @@ export class PointActions {
         this._store.dispatch({
             type: ADD_POINTS,
             player: currentPlayer
-
         });
     }
+}
 
-    }
 
-  

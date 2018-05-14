@@ -9,6 +9,7 @@ import { Player } from '../../models/player';
 import { PieceActions } from '../../actionHandlers/pieceActions.actions';
 import { GameBoardActions } from '../../actionHandlers/gameBoardActions.actions';
 import { PointActions } from '../../actionHandlers/pointActions.actions';
+import { PlayerActions } from '../../actionHandlers/playerActions.actions';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
 import { Helper } from '../../helpers/helper';
 import * as Constants from '../../constants/constants';
@@ -58,6 +59,7 @@ export class GameBoardComponent implements OnInit {
         private _pieceActions: PieceActions,
         private _squareActions: GameBoardActions,
         private _pointActions: PointActions,
+        private _playerActions: PlayerActions,
         private _appStateActions: AppStateActions,
         private _helper: Helper
     ) { }
@@ -84,6 +86,7 @@ export class GameBoardComponent implements OnInit {
 
     private setDisplayPlayerNames(): void {
         this.displayPlayerName = Constants.ColorForFirstPlayer;
+
         if (!this.firstPlayerName) {
             this.firstPlayerName = Constants.ColorForFirstPlayer;
         }
@@ -92,18 +95,20 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    private editPlayerName(): void {
+    private editRedPlayerName(): void {
         this._appStateActions.updateState({ 'showPlayerNameModal': true });
+        this._playerActions.setUpdatePlayerName(Constants.ColorForFirstPlayer);
+    }
+    private editBlackPlayerName(): void {
+        this._appStateActions.updateState({ 'showPlayerNameModal': true });
+        this._playerActions.setUpdatePlayerName(Constants.ColorForSecondPlayer);
     }
 
     private playerNameAdded(event: any): void {
-        if (!this.isplayerNameSet) {
-            this.firstPlayerName = event;
-            this.displayPlayerName = this.firstPlayerName;
-            this.isplayerNameSet = true;
-        } else {
-            this.secondPlayerName = event;
-        }
+        this._playerActions.updatePlayerName(event);
+        this.firstPlayerName = this.players[0].name
+        this.displayPlayerName = this.firstPlayerName;
+        this.secondPlayerName = this.players[1].name;
     }
 
     private pieceSelectedisCurrentPlayer(): boolean {

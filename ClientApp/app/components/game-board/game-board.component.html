@@ -14,14 +14,14 @@
     </div>
     <div class="score-board">
         <div class="row-style">
-            <div (click)="editPlayerName()"><i class="fas fa-pencil-alt"></i></div>
+            <div (click)="editRedPlayerName()"><i class="fas fa-pencil-alt"></i></div>
             <div class="score-style">
                 Player {{firstPlayerName}}
             </div>
             <div class="red score " *ngFor="let score of scoreRed"></div>
         </div>
         <div class=" row-style">
-            <div (click)="editPlayerName()"><i class="fas fa-pencil-alt"></i></div>
+            <div (click)="editBlackPlayerName()"><i class="fas fa-pencil-alt"></i></div>
             <div class="score-style">
                 Player {{secondPlayerName}}
             </div>
