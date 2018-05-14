@@ -1,12 +1,20 @@
-﻿import { Piece } from '../models/game-piece';
+﻿import { Injectable } from '@angular/core';
+import { Store } from '@ngrx/store';
+
+import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
 import { Player } from '../models/player';
 import * as Constants from '../constants/constants';
 import { PlayerActions } from '../actionHandlers/playerActions.actions';
 
+@Injectable()
 export class Helper {
 
     public skippedPosition: Position;
+
+    constructor(
+        private _store: Store<any>,
+    ) { }
 
     public findSelectedPiece(row: number, col: number, pieces: Array<Piece>): Piece | false {
         for (let i = 0; i < pieces.length; i++) {
@@ -18,7 +26,21 @@ export class Helper {
         return false;
     }
 
-    public setFirstPlayerName(players: Array<Player>): string | undefined {
+    public getPlayerNameBeingUpdated(): string {
+        let playerBeingUpdated: string = '';
+        this._store.select('appState').subscribe((appState) => {
+            playerBeingUpdated = appState[`player.nameBeingUpdated`];
+        });
+        return playerBeingUpdated;
+    }
+
+    public getCurrentPlayer(): Array<Player> {
+        let currentPlayers: Array<Player> = [];
+        this._store.select('players').subscribe((players) => currentPlayers = players);
+        return currentPlayers;
+    }
+
+    public setFirstPlayerName(players: Array<Player>): string  {
         let firstPlayerName;
         if (players[0].name) {
             firstPlayerName = players[0].name;
@@ -28,7 +50,7 @@ export class Helper {
         return firstPlayerName;
     }
 
-    public setSecondPlayerName(players: Array<Player>): string | undefined {
+    public setSecondPlayerName(players: Array<Player>): string  {
         let secondPlayerName;
         if (players[1].name) {
             secondPlayerName = players[1].name;

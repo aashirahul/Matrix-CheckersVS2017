@@ -5,13 +5,14 @@ export interface State {
     'player.isMoving': boolean;
     'pieceSelected.Id': number;
     'showPlayerNameModal': boolean;
+    'player.nameBeingUpdated': string;
 }
 
 const initialAppState: State = {
     'player.isMoving': false,
     'pieceSelected.Id': NaN,
-    'showPlayerNameModal': false
-   
+    'showPlayerNameModal': false,
+    'player.nameBeingUpdated': ""
 };
 
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE';
@@ -31,7 +32,7 @@ export function appState(state: State = initialAppState, action: Actions): State
             Object.keys(action.payload).map((prop) => {
                 // only update known properties, to catch errors
                 if (prop in state) {
-                    const newValue = action.payload[prop] ;
+                    const newValue = action.payload[prop];
                     newState[prop] = newValue;
                 } else {
                     console.error(`invalid property [${prop}] passed into AppState-reducer`);

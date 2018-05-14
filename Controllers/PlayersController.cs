@@ -20,12 +20,14 @@ namespace DemoApp.Controllers
                 new Player
                 {
                     id = 1,
-                    color= Constants.Constants.ColorForFirstPlayer
+                    color = Constants.Constants.ColorForFirstPlayer,
+                    name = Constants.Constants.ColorForFirstPlayer
                 },
                 new Player
                 {
                     id = 2,
-                    color= Constants.Constants.ColorForSecondPlayer
+                    color = Constants.Constants.ColorForSecondPlayer,
+                    name = Constants.Constants.ColorForSecondPlayer
                 }
             };
             return Players;

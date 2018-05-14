@@ -9,7 +9,7 @@ import { Player } from '../models/player';
 import { DISPLAY_PIECES } from '../stores/pieces.store';
 import { DISPLAY_SQUARES } from '../stores/gameBoard.store';
 import { DISPLAY_POINTS } from '../stores/point.store';
-import { GET_PLAYERS } from '../stores/players.store';
+import { LOAD_PLAYERS } from '../stores/players.store';
 import * as Constants from '../constants/constants';
 import { ApiService, REQUEST_TYPE_GET } from '../services/api.service';
 
@@ -52,14 +52,14 @@ export class AppStartUpActions {
     }
 
     public initializePlayers(): void {
-        const playersReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/players`);
-        this._api.callApiService<Player[]>(playersReq)
+        const playersreq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/players`);
+        this._api.callApiService<Player[]>(playersreq)
             .subscribe(
             (players: Array<Player>) => {
-                this._store.dispatch({ type: GET_PLAYERS, payload: players });
+                this._store.dispatch({ type: LOAD_PLAYERS, payload: players });
             },
             (err) => {
-                this._store.dispatch({ type: GET_PLAYERS, payload: [] });
+                this._store.dispatch({ type: LOAD_PLAYERS, payload: [] });
             }
             );
     }

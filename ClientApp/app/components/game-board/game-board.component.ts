@@ -15,8 +15,6 @@ import { Helper } from '../../helpers/helper';
 import * as Constants from '../../constants/constants';
 import * as fromappstate from '../../stores/appState.store';
 
-
-
 @Component({
     selector: 'app-game-board',
     templateUrl: './game-board.component.html',
@@ -37,8 +35,8 @@ export class GameBoardComponent implements OnInit {
     public isMoving = false;
     public originalPosition: Position;
     public currentlyPlayingColor = Constants.ColorForFirstPlayer;
-    public firstPlayerName: any;
-    public secondPlayerName: any;
+    public firstPlayerName: string;
+    public secondPlayerName: string;
     public displayPlayerName: string;
     public isplayerNameSet = false;
     public skippedPosition: Position;
@@ -65,16 +63,21 @@ export class GameBoardComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-        this.appStateSubscription = this._store.select('appState').subscribe((appState) => {
+        this.appStateSubscription = this._store.select('appState').
+            subscribe((appState) => {
             this.isMoving = appState[`player.isMoving`];
+            this.showPlayerNameModal =appState[`showPlayerNameModal`];
         });
         this.pointsSubscription = this._store.select('points').subscribe((points) => this.points = points);
         this.piecesSubscription = this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
-        this.appStateSubscription = this._store.select('appState').subscribe((as: fromappstate.State) => {
-            this.showPlayerNameModal = as.showPlayerNameModal;
+        this.playersSubscription = this._store.select('players').subscribe((players: Array<Player>) => {
+            this.players = players;
+            if (this.players && this.players.length) {
+                this.firstPlayerName = this.players[0].name;
+                this.secondPlayerName = this.players[1].name;
+            }
         });
-        this.playersSubscription = this._store.select('players').subscribe((players) => this.players = players);
         this.setDisplayPlayerNames();
     }
 
@@ -91,20 +94,15 @@ export class GameBoardComponent implements OnInit {
     }
 
     private editRedPlayerName(): void {
-        this._appStateActions.updateState({ 'showPlayerNameModal': true });
-        this._playerActions.setUpdatePlayerName(Constants.ColorForFirstPlayer);
-    }
-    private editBlackPlayerName(): void {
-        this._appStateActions.updateState({ 'showPlayerNameModal': true });
-        this._playerActions.setUpdatePlayerName(Constants.ColorForSecondPlayer);
+        this._appStateActions.updateState({ 'showPlayerNameModal': true, 'player.nameBeingUpdated': Constants.ColorForFirstPlayer });
     }
 
-    private playerNameAdded(event: any): void {
-        this._playerActions.updatePlayerName(event);
-        this.firstPlayerName = this._helper.setFirstPlayerName(this.players);
-        this.secondPlayerName = this._helper.setSecondPlayerName(this.players);
-        this.displayPlayerName = this.firstPlayerName;
-        this._playerActions.resetUpdatePlayerName();
+    private editBlackPlayerName(): void {
+        this._appStateActions.updateState({ 'showPlayerNameModal': true, 'player.nameBeingUpdated': Constants.ColorForSecondPlayer  });
+    }
+
+    private playerNameAdded(name: string): void {
+        this._playerActions.updatePlayerName(name);
     }
 
     private pieceSelectedisCurrentPlayer(): boolean {
@@ -170,7 +168,6 @@ export class GameBoardComponent implements OnInit {
             this.switchTurn();
         }
     }
-
 
     private moveStarted(row: number, column: number): void {
         this.originalPosition = { row, column };

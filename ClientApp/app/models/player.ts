@@ -3,5 +3,4 @@ export class Player {
     name: string;
     color: string;
     score: number;
-    updateName: boolean;
 }
