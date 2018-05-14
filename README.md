@@ -28,9 +28,11 @@ Checkers app showing Angular apps in Visual Studio 2017
 
  * #####  ~~Adding Model, Store, ActionHandlers and Controllers for player.~~
 
- * #####  Move the business logic of adding player name from game component to player action handler.
+ * #####  ~~Move the business logic of adding player name from game component to player action handler.~~
 
  * #####  Adding New Game business functionality to the app.
+
+ * #####  Clone the Matrix-Checkers App in new project and run it.
 
  ## Known Bugs for the week:
 
