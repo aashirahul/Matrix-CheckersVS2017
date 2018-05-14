@@ -30,6 +30,8 @@ Checkers app showing Angular apps in Visual Studio 2017
 
  * #####  Move the business logic of adding player name from game component to player action handler.
 
+ * #####  Adding New Game business functionality to the app.
+
  ## Known Bugs for the week:
 
  * ##### ~~Current player changes even though move is not completed~~.
