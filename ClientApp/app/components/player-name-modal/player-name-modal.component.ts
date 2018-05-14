@@ -1,10 +1,9 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Store } from '@ngrx/store';
 
+import { Helper } from '../../helpers/helper';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
-import { PlayerActions } from '../../actionHandlers/playerActions.actions';
 import * as fromappstate from '../../stores/appState.store';
 
 @Component({
@@ -21,16 +20,12 @@ export class PlayerNameModalComponent implements OnInit {
     updatedPlayerName: EventEmitter<any> = new EventEmitter();
 
     constructor(
-        private _store: Store<any>,
+        private _helper: Helper,
         private _appStateActions: AppStateActions,
-        private _playerActions: PlayerActions
-    ) { }
+           ) { }
 
     ngOnInit() {
-        this.appStateSubscription = this._store.select('appState').
-            subscribe((as) => {
-            this.playerColorToBeEdited = as[`player.nameBeingUpdated`];
-        });
+        this.playerColorToBeEdited = this._helper.getPlayerNameBeingUpdated();
     }
 
     private addPlayerName(name: any): void {

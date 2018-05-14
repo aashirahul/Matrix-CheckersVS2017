@@ -78,19 +78,13 @@ export class GameBoardComponent implements OnInit {
                 this.secondPlayerName = this.players[1].name;
             }
         });
-        this.setDisplayPlayerNames();
+        this.displayPlayerName = Constants.ColorForFirstPlayer;
     }
 
     public ngOnDestroy() {
         this.appStateSubscription.unsubscribe();
         this.pointsSubscription.unsubscribe();
         this.piecesSubscription.unsubscribe();
-    }
-
-    private setDisplayPlayerNames(): void {
-        this.displayPlayerName = Constants.ColorForFirstPlayer;
-        this.firstPlayerName = Constants.ColorForFirstPlayer;
-        this.secondPlayerName = Constants.ColorForSecondPlayer;
     }
 
     private editRedPlayerName(): void {
