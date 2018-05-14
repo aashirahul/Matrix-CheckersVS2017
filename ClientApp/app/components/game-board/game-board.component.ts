@@ -72,7 +72,6 @@ export class GameBoardComponent implements OnInit {
         this.piecesSubscription = this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
         this.playersSubscription = this._store.select('players').subscribe((players: Array<Player>) => {
-            this.players = players;
             if (this.players && this.players.length) {
                 this.firstPlayerName = this.players[0].name;
                 this.secondPlayerName = this.players[1].name;

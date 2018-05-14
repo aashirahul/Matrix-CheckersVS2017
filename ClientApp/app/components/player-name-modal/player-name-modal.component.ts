@@ -14,8 +14,7 @@ import * as fromappstate from '../../stores/appState.store';
 export class PlayerNameModalComponent implements OnInit {
     public playerName: string;
     public playerColorToBeEdited: string;
-    private appStateSubscription: any;
-
+  
     @Output()
     updatedPlayerName: EventEmitter<any> = new EventEmitter();
 
