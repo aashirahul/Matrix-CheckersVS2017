@@ -2,6 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
+import { PlayerActions } from '../../actionHandlers/playerActions.actions';
 
 @Component({
     selector: 'app-player-name-modal',
@@ -16,6 +17,7 @@ export class PlayerNameModalComponent implements OnInit {
 
     constructor(
         private _appStateActions: AppStateActions,
+        private _playerActions: PlayerActions
     ) { }
 
     ngOnInit() {

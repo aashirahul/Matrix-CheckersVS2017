@@ -1,6 +1,8 @@
 ﻿import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
+import { Player } from '../models/player';
 import * as Constants from '../constants/constants';
+import { PlayerActions } from '../actionHandlers/playerActions.actions';
 
 export class Helper {
 
@@ -16,7 +18,25 @@ export class Helper {
         return false;
     }
 
-    
+    public setFirstPlayerName(players: Array<Player>): string | undefined {
+        let firstPlayerName;
+        if (players[0].name) {
+            firstPlayerName = players[0].name;
+        } else {
+            firstPlayerName = Constants.ColorForFirstPlayer;
+        }
+        return firstPlayerName;
+    }
+
+    public setSecondPlayerName(players: Array<Player>): string | undefined {
+        let secondPlayerName;
+        if (players[1].name) {
+            secondPlayerName = players[1].name;
+        } else {
+            secondPlayerName = Constants.ColorForSecondPlayer;
+        }
+        return secondPlayerName;
+    }
 
     public checkIfPieceSelectedCanBeKing(piece: Piece, row: number): boolean {
         if (piece.color === Constants.ColorForFirstPlayer && row === 7) {
@@ -86,7 +106,7 @@ export class Helper {
         return this.skippedPosition;
     }
 
-    public ifPieceNotKingSkippedPositionCaseThree(from: Position): Position{
+    public ifPieceNotKingSkippedPositionCaseThree(from: Position): Position {
         this.skippedPosition = {
             row: from.row - 1,
             column: from.column + 1

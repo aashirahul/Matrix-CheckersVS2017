@@ -37,8 +37,8 @@ export class GameBoardComponent implements OnInit {
     public isMoving = false;
     public originalPosition: Position;
     public currentlyPlayingColor = Constants.ColorForFirstPlayer;
-    public firstPlayerName: string;
-    public secondPlayerName: string;
+    public firstPlayerName: any;
+    public secondPlayerName: any;
     public displayPlayerName: string;
     public isplayerNameSet = false;
     public skippedPosition: Position;
@@ -86,13 +86,8 @@ export class GameBoardComponent implements OnInit {
 
     private setDisplayPlayerNames(): void {
         this.displayPlayerName = Constants.ColorForFirstPlayer;
-
-        if (!this.firstPlayerName) {
-            this.firstPlayerName = Constants.ColorForFirstPlayer;
-        }
-        if (!this.secondPlayerName) {
-            this.secondPlayerName = Constants.ColorForSecondPlayer;
-        }
+        this.firstPlayerName = Constants.ColorForFirstPlayer;
+        this.secondPlayerName = Constants.ColorForSecondPlayer;
     }
 
     private editRedPlayerName(): void {
@@ -106,9 +101,10 @@ export class GameBoardComponent implements OnInit {
 
     private playerNameAdded(event: any): void {
         this._playerActions.updatePlayerName(event);
-        this.firstPlayerName = this.players[0].name
+        this.firstPlayerName = this._helper.setFirstPlayerName(this.players);
+        this.secondPlayerName = this._helper.setSecondPlayerName(this.players);
         this.displayPlayerName = this.firstPlayerName;
-        this.secondPlayerName = this.players[1].name;
+        this._playerActions.resetUpdatePlayerName();
     }
 
     private pieceSelectedisCurrentPlayer(): boolean {

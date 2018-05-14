@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { Player } from '../models/player';
-import { GET_PLAYERS, UPDATE_PLAYER_NAME, SET_UPDATE_PLAYER_NAME } from '../stores/players.store';
+import { GET_PLAYERS, UPDATE_PLAYER_NAME, SET_UPDATE_PLAYER_NAME, RESET_UPDATE_PLAYER_NAME } from '../stores/players.store';
 
 @Injectable()
 export class PlayerActions {
@@ -27,6 +27,11 @@ export class PlayerActions {
         });
     }
 
+    public resetUpdatePlayerName(): void {
+        this._store.dispatch({
+            type: RESET_UPDATE_PLAYER_NAME,
+        });
+    }
 }
 
 

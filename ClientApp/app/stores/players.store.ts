@@ -7,7 +7,7 @@ export type State = Array<Player>;
 export const GET_PLAYERS = 'GET_PLAYERS';
 export const UPDATE_PLAYER_NAME = 'UPDATE_PLAYER_NAME';
 export const SET_UPDATE_PLAYER_NAME = 'SET_UPDATE_PLAYER_NAME';
-
+export const RESET_UPDATE_PLAYER_NAME = 'RESET_UPDATE_PLAYER_NAME';
 
 
 export class DisplayPlayerAction implements Action {
@@ -25,7 +25,11 @@ export class UpdatePlayerNameAction implements Action {
     payload: string;
 }
 
-export type Actions = DisplayPlayerAction | UpdatePlayerNameAction | SetUpdatePlayerNameAction  ;
+export class ResetUpdatePlayerNameAction implements Action {
+    readonly type = RESET_UPDATE_PLAYER_NAME;
+}
+
+export type Actions = DisplayPlayerAction | UpdatePlayerNameAction | SetUpdatePlayerNameAction | ResetUpdatePlayerNameAction;
 
 export function players(state: State = [], action: Actions): State {
     switch (action.type) {
@@ -34,9 +38,17 @@ export function players(state: State = [], action: Actions): State {
             return action.payload;
 
         case SET_UPDATE_PLAYER_NAME:
-            markPlayer(state,action.payload);
+            const playerColor = state.find((p) => {
+                if (p.color === action.payload) {
+                    return true;
+                }
+                return false;
+            });
+            if (playerColor) {
+                playerColor.updateName = true;
+            }
             return state;
-
+            
         case UPDATE_PLAYER_NAME:
             const player = state.find((p) => {
                 if (p.updateName) {
@@ -47,26 +59,15 @@ export function players(state: State = [], action: Actions): State {
             if (player) {
                 player.name = action.payload;
             }
-            //if (!state[0].name) {
-            //    state[0].name = action.payload;
-            //} else if (state[0].name) {
-            //    state[1].name = action.payload;
-            //}
             return state;
-        
-         default:
-            return state;
-    }
-}
 
-function markPlayer(state: Array<Player> , color: string) {
-    const player = state.find((p) => {
-        if (p.color === color) {
-            return true;
-        }
-        return false;
-    });
-    if (player) {
-        player.updateName = true;
+        case RESET_UPDATE_PLAYER_NAME:
+            state.forEach((p) => {
+                p.updateName = false;
+            });
+            return state;
+
+        default:
+            return state;
     }
 }
