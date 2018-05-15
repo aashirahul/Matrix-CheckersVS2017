@@ -65,16 +65,16 @@ export class GameBoardComponent implements OnInit {
     public ngOnInit() {
         this.appStateSubscription = this._store.select('appState').
             subscribe((appState) => {
-            this.isMoving = appState[`player.isMoving`];
-            this.showPlayerNameModal =appState[`showPlayerNameModal`];
-        });
+                this.isMoving = appState[`player.isMoving`];
+                this.showPlayerNameModal = appState[`showPlayerNameModal`];
+            });
         this.pointsSubscription = this._store.select('points').subscribe((points) => this.points = points);
         this.piecesSubscription = this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
         this.playersSubscription = this._store.select('players').subscribe((players: Array<Player>) => {
-            if (this.players && this.players.length) {
-                this.firstPlayerName = this.players[0].name;
-                this.secondPlayerName = this.players[1].name;
+            if (players && players.length) {
+                this.firstPlayerName = players[0].name;
+                this.secondPlayerName = players[1].name;
             }
         });
         this.displayPlayerName = Constants.ColorForFirstPlayer;
@@ -91,7 +91,7 @@ export class GameBoardComponent implements OnInit {
     }
 
     private editBlackPlayerName(): void {
-        this._appStateActions.updateState({ 'showPlayerNameModal': true, 'player.nameBeingUpdated': Constants.ColorForSecondPlayer  });
+        this._appStateActions.updateState({ 'showPlayerNameModal': true, 'player.nameBeingUpdated': Constants.ColorForSecondPlayer });
     }
 
     private playerNameAdded(name: string): void {
