@@ -16,6 +16,5 @@ export class AppComponent implements OnInit {
         this._appStartUpActions.initializeGame();
         this._appStartUpActions.initializeSquares();
         this._appStartUpActions.initializePlayers();
-        this._appStartUpActions.initializeScores();
     }
 }

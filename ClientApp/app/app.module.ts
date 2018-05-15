@@ -36,7 +36,6 @@ import { PlayerNameModalComponent } from './components/player-name-modal/player-
         ...APP_ACTION_HANDLERS,
         ...APP_HELPERS,
         ...APP_SERVICES,
-        //...(environment.useMocking ? APP_MOCK_INTERCEPTORS : [])
     ],
     schemas: [
         CUSTOM_ELEMENTS_SCHEMA

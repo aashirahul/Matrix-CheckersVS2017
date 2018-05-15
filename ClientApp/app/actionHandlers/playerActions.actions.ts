@@ -17,7 +17,7 @@ export class PlayerActions {
 
     public updatePlayerName(name: string): void {
         const playerBeingUpdated: string = this._helper.getPlayerNameBeingUpdated();
-        const players: Array<Player> = this._helper.getCurrentPlayer();
+        const players: Array<Player> = this._helper.getCurrentPlayers();
         const updatedPlayers = players.map((player) => {
             if (player.color === playerBeingUpdated) {
                 player.name = name;
@@ -27,6 +27,22 @@ export class PlayerActions {
         this._store.dispatch({
             type: LOAD_PLAYERS,
             payload: updatedPlayers
+        });
+    }
+
+    public addPoint(currentPlayer: string): void {
+        const players: Array<Player> = this._helper.getCurrentPlayers();
+        const updatedScores = players.map((player) => {
+            if (player.color === currentPlayer) {
+                player.score += 1;
+            }
+            return player;
+        });
+
+
+        this._store.dispatch({
+            type: LOAD_PLAYERS,
+            payload: updatedScores
         });
     }
 }

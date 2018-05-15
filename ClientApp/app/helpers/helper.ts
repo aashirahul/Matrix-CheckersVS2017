@@ -34,10 +34,22 @@ export class Helper {
         return playerBeingUpdated;
     }
 
-    public getCurrentPlayer(): Array<Player> {
+    public getCurrentPlayers(): Array<Player> {
         let currentPlayers: Array<Player> = [];
         this._store.select('players').subscribe((players) => currentPlayers = players);
         return currentPlayers;
+    }
+
+    public updateRedScoreOnGameBoard(color: string): Array<number> {
+        const players = this.getCurrentPlayers();
+            const scoreRed = Array(players[0].score).fill('1');
+            return scoreRed;
+    }
+
+    public updateBlackScoreOnGameBoard(color: string): Array<number> {
+        const players = this.getCurrentPlayers();
+        const scoreBlack = Array(players[1].score).fill('1');
+        return scoreBlack;
     }
 
     public checkIfPieceSelectedCanBeKing(piece: Piece, row: number): boolean {
