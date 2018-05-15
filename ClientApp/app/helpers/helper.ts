@@ -27,6 +27,14 @@ export class Helper {
         return false;
     }
 
+    public getUpdatePieceToBeUpdated(id:number): any {
+        const pieces = this.getPieces();
+        let updatedPiece: any;
+        return pieces.find((piece) => 
+            (piece.id === id) );
+    }
+
+
     public getPlayerNameBeingUpdated(): string {
         let playerBeingUpdated: string = '';
         this._store.select('appState').subscribe((appState) => {
@@ -55,8 +63,8 @@ export class Helper {
 
     public updateRedScoreOnGameBoard(color: string): Array<number> {
         const players = this.getCurrentPlayers();
-            const scoreRed = Array(players[0].score).fill('1');
-            return scoreRed;
+        const scoreRed = Array(players[0].score).fill('1');
+        return scoreRed;
     }
 
     public updateBlackScoreOnGameBoard(color: string): Array<number> {

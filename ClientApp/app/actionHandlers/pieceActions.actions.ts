@@ -17,11 +17,11 @@ export class PieceActions {
         private _helper: Helper,
     ) { }
 
-    public move(from: Position, to: Position ): void {
+    public move(from: Position, to: Position): void {
         let updatedPieces;
         const squares = this._helper.getSquares();
         const pieces = this._helper.getPieces();
-            const emptySquare = squares.find((s) => {
+        const emptySquare = squares.find((s) => {
             if (s.position.row === to.row && s.position.column === to.column && s.hasPiece) {
                 return true;
             } else {
@@ -42,26 +42,38 @@ export class PieceActions {
         this._store.dispatch({
             type: DISPLAY_PIECES,
             payload: updatedPieces,
-        
+
         });
     }
 
-    public jump(from: Position, to: Position, skipped: Position, squares: Array<Square>): void {
-        this._store.dispatch({
-            type: JUMP_PIECES,
-            payload: [from, to, skipped],
+    public jump(skipped: Position): void {
+        let updatedPieces;
+        const pieces = this._helper.getPieces();
+        updatedPieces = pieces.map((piece) => {
+            if (piece.position.row === skipped.row && piece.position.column === skipped.column) {
+                piece.color = 'null';
+            }
+            return piece;
         });
         this._store.dispatch({
-            type: MOVE_PIECES,
-            payload: [from, to],
-            squares: squares
+            type: DISPLAY_PIECES,
+            payload: updatedPieces,
         });
     }
 
-    public makeKing(piece: any): void {
+    public makeKing(id: number): void {
+        let updatedPieces;
+        const updatedpiece = this._helper.getUpdatePieceToBeUpdated(id);
+        const pieces = this._helper.getPieces();
+        updatedPieces = pieces.map((piece) => {
+            if (piece.id === updatedpiece.id) {
+                piece.isKing = true;
+            }
+            return piece;
+        });
         this._store.dispatch({
-            type: MAKE_KING,
-            payload: piece,
+            type: DISPLAY_PIECES,
+            payload: updatedPieces,
         });
     }
 }

@@ -16,12 +16,6 @@ export class DisplayPieceAction implements Action {
     payload: Array<Piece>;
 }
 
-export class MovePieceAction implements Action {
-    readonly type = MOVE_PIECES;
-    payload: Array<Position>;
-    squares: Array<Square>;
-}
-
 export class JumpPieceAction implements Action {
     readonly type = JUMP_PIECES;
     payload: Array<Position>;
@@ -33,7 +27,7 @@ export class MakeKingAction implements Action {
     payload: Piece;
 }
 
-export type Actions = DisplayPieceAction | MovePieceAction | JumpPieceAction | MakeKingAction;
+export type Actions = DisplayPieceAction  | JumpPieceAction | MakeKingAction;
 
 export function pieces(state: State = [], action: Actions): State {
     switch (action.type) {
@@ -41,17 +35,6 @@ export function pieces(state: State = [], action: Actions): State {
         case DISPLAY_PIECES:
             return action.payload;
 
-        case JUMP_PIECES:
-            const skippedPiece = state.find((p) => {
-                if (p.position.row === action.payload[2].row && p.position.column === action.payload[2].column) {
-                    return true;
-                }
-                return false;
-            });
-            if (skippedPiece) {
-                skippedPiece.color = 'null';
-            }
-            return state;
 
         case MAKE_KING:
             action.payload.isKing = true;

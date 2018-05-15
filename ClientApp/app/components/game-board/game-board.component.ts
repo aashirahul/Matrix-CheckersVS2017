@@ -131,7 +131,8 @@ export class GameBoardComponent implements OnInit {
     private makePieceSelectedKing(pieceSelected: any, to: Position): void {
         if (!this.pieceSelected.isKing) {
             if (this._helper.checkIfPieceSelectedCanBeKing(this.pieceSelected, to.row)) {
-                this._pieceActions.makeKing(this.pieceSelected);
+                this._pieceActions.makeKing(this.pieceSelected.id);
+                this._pieceActions.move(this.pieceSelected.position, to);
             }
         }
     }
@@ -174,7 +175,8 @@ export class GameBoardComponent implements OnInit {
     private moveInProgress(pieceSelected: Piece, originalPosition: Position, row: number, column: number): void {
         if (this.pieceSelectedisCurrentPlayer()) {
             if (this.isAJump(originalPosition, { row, column })) {
-                this._pieceActions.jump(originalPosition, { row, column }, this.skippedPosition, this.squares);
+                this._pieceActions.move(originalPosition, { row, column });
+                this._pieceActions.jump(this.skippedPosition);
                 this.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition);
                 this.addingPoints();
             } else if (this.isValidMove(originalPosition, { row, column })) {
