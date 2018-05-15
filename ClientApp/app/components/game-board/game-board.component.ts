@@ -156,12 +156,6 @@ export class GameBoardComponent implements OnInit {
     private addingPoints(): void {
         this._playerActions.addPoint(this.pieceSelected.color);
         this.scoreRed = this._helper.updateRedScoreOnGameBoard(this.pieceSelected.color);
-        ////if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
-        ////    this.scoreRed = Array(this.players[0].score).fill('1');
-        ////} else
-        //    if (this.pieceSelected.color === Constants.ColorForSecondPlayer) {
-        //    this.scoreBlack = Array(this.players[1].score).fill('2');
-        //}
         this.scoreBlack = this._helper.updateBlackScoreOnGameBoard(this.pieceSelected.color);
     }
 
