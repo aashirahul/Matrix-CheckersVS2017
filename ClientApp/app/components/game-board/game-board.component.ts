@@ -178,7 +178,7 @@ export class GameBoardComponent implements OnInit {
                 this.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition);
                 this.addingPoints();
             } else if (this.isValidMove(originalPosition, { row, column })) {
-                this._pieceActions.move(originalPosition, { row, column }, this.squares);
+                this._pieceActions.move(originalPosition, { row, column });
                 this.checkIfMoveCompleted(pieceSelected, originalPosition, { row, column });
             }
             this._squareActions.unhighlightSquares();

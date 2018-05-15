@@ -2,35 +2,9 @@
 Checkers app showing Angular apps in Visual Studio 2017
  ## Goals:
 
- * ##### ~~Redefine row and col in Piece model using Position model.~~
+ * ##### ~~ Move addingPoints method from game component to action-handlers.~~
 
- * ##### ~~Relate Piece to Square for each move.~~
-
-* #####  ~~Move "find*" functions from Game Board component to Helper methods.~~
-
-* #####  ~~Rename the variables(currentPlayer) to be more specific to their purpose.~~
-
-* #####  ~~Refactor  "moveSelected" function in the Game Board component to reflect game logic.~~
-
-* #####  ~~Move "isValid" function from Game Board component to Helper methods~~.
-
-* #####  ~~Move "isAJump" function from Game Board component to Helper methods~~.
-
-* #####  ~~Use constants instead of string literal~~.
-
-* #####  ~~Redefine row and col in Square model using Position model~~.
-
- * #####  ~~Refactor piece selected from game-board component to appState Store.~~
-
- * #####  ~~Highlight selected square.~~
-
- * #####  ~~Adding a new Business functionality to the game which gives the player the ability to add a name for themselves.~~
-
- * #####  ~~Adding Model, Store, ActionHandlers and Controllers for player.~~
-
- * #####  ~~Move the business logic of adding player name from game component to player action handler.~~
-
-  * #####  Move addingPoints method from game component to action-handlers.
+ * #####  Add move and jump piece logic to action handler.
 
  * #####  Adding New Game business functionality to the app.
 

@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
 import { Player } from '../models/player';
+import { Square } from '../models/gameBoard';
 import * as Constants from '../constants/constants';
 import { PlayerActions } from '../actionHandlers/playerActions.actions';
 
@@ -38,6 +39,18 @@ export class Helper {
         let currentPlayers: Array<Player> = [];
         this._store.select('players').subscribe((players) => currentPlayers = players);
         return currentPlayers;
+    }
+
+    public getSquares(): Array<Square> {
+        let allSquares: Array<Square> = [];
+        this._store.select('squares').subscribe((squares) => allSquares = squares);
+        return allSquares;
+    }
+
+    public getPieces(): Array<Piece> {
+        let allPieces: Array<Piece> = [];
+        this._store.select('pieces').subscribe((pieces) => allPieces = pieces);
+        return allPieces;
     }
 
     public updateRedScoreOnGameBoard(color: string): Array<number> {

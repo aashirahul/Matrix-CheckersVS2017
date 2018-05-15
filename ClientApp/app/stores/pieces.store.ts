@@ -41,29 +41,6 @@ export function pieces(state: State = [], action: Actions): State {
         case DISPLAY_PIECES:
             return action.payload;
 
-        case MOVE_PIECES:
-            const piece = state.find((p) => {
-                if (p.position.row === action.payload[0].row && p.position.column === action.payload[0].column) {
-                    return true;
-                }
-                return false;
-            });
-            const emptySquare = action.squares.find((s) => {
-                if (s.position.row === action.payload[1].row && s.position.column === action.payload[1].column && s.hasPiece) {
-                    return true;
-                } else {
-                    return false;
-                }
-            });
-
-            if (piece) {
-                if (!emptySquare) {
-                    piece.position.row = action.payload[1].row;
-                    piece.position.column = action.payload[1].column;
-                }
-            }
-            return state;
-
         case JUMP_PIECES:
             const skippedPiece = state.find((p) => {
                 if (p.position.row === action.payload[2].row && p.position.column === action.payload[2].column) {
