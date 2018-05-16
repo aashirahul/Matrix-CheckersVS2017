@@ -27,11 +27,11 @@ export class Helper {
         return false;
     }
 
-    public getPieceToBeUpdated(id:number): any {
+    public getPieceToBeUpdated(id: number): any {
         const pieces = this.getPieces();
         let updatedPiece: any;
-        return pieces.find((piece) => 
-            (piece.id === id) );
+        return pieces.find((piece) =>
+            (piece.id === id));
     }
 
 
@@ -61,7 +61,7 @@ export class Helper {
         return allPieces;
     }
 
-    public checkIfMoveCompleted(pieceSelected: Piece, originalPosition: Position, row:number, column:number ): boolean {
+    public checkIfMoveCompleted(pieceSelected: Piece, originalPosition: Position, row: number, column: number): boolean {
         if (pieceSelected.position.row === row && pieceSelected.position.column === column) {
             return true;
         }
@@ -95,6 +95,20 @@ export class Helper {
         }
         return false;
     }
+
+    public isValidMove(piece: Piece, from: Position, to: Position): boolean {
+        if (piece.color === Constants.ColorForFirstPlayer) {
+            if (this.checkIfMoveCorrectForRed(piece, from, to)) {
+                return true;
+            }
+        } else if (piece.color === Constants.ColorForSecondPlayer) {
+            if (this.checkIfMoveCorrectForBlack(piece, from, to)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 
     public checkIfMoveCorrectForRed(pieceSelected: Piece, from: Position, to: Position): boolean {
         if (!pieceSelected.isKing) {
@@ -139,6 +153,88 @@ export class Helper {
         return false;
     }
 
+    public isAJump(pieceSelected: Piece,from: Position, to: Position): boolean {
+        if (pieceSelected.color === Constants.ColorForFirstPlayer) {
+            if (!pieceSelected.isKing) {
+                if (to.row > from.row) {
+                    if (from.column === to.column - 2) {
+                                             return true;
+                    }
+                    if (from.column === to.column + 2) {
+                        return true;
+                    }
+                } else if (to.row < from.row) {
+                    if (from.column === to.column - 2) {
+                        return true;
+                    }
+                    if (from.column === to.column + 2) {
+                        return true;
+                    }
+
+                }
+            } else if (pieceSelected.isKing) {
+                if (to.row > from.row) {
+                    if (from.column === to.column - 2) {
+                        return true;
+
+                    } else if (from.column === to.column + 2) {
+                        return true;
+
+                    }
+                } else if (to.row < from.row) {
+                    if (from.column === to.column - 2) {
+                        return true;
+
+                    } else if (from.column === to.column + 2) {
+                        return true;
+
+                    }
+
+                }
+            }
+
+        } else if (pieceSelected.color === Constants.ColorForSecondPlayer) {
+            if (!pieceSelected.isKing) {
+                if (to.row > from.row) {
+                    if (from.column === to.column - 2) {
+                        return true;
+                    }
+                    if (from.column === to.column + 2) {
+                        return true;
+                    }
+                } else if (to.row < from.row) {
+                    if (from.column === to.column - 2) {
+                        return true;
+                    }
+                    if (from.column === to.column + 2) {
+                        return true;
+                    }
+
+                }
+            } else if (pieceSelected.isKing) {
+                if (to.row > from.row) {
+                    if (from.column === to.column - 2) {
+                                               return true;
+
+                    } else if (from.column === to.column + 2) {
+                        return true;
+
+                    }
+                } else if (to.row < from.row) {
+                    if (from.column === to.column - 2) {
+                        return true;
+
+                    } else if (from.column === to.column + 2) {
+                        return true;
+
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+   
     public ifPieceNotKingSkippedPositionCaseOne(from: Position): Position {
         this.skippedPosition = {
             row: from.row + 1,
@@ -201,6 +297,106 @@ export class Helper {
             column: from.column - 1
         };
         return this.skippedPosition;
+    }
+
+    public findSkippedPosition(pieceSelected: Piece, from: Position, to: Position): Position | undefined {
+        if (pieceSelected.color === Constants.ColorForFirstPlayer) {
+            if (!pieceSelected.isKing) {
+                if (to.row > from.row) {
+                    if (from.column === to.column - 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseOne(from);
+                        return this.skippedPosition;
+                    }
+                    if (from.column === to.column + 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseTwo(from);
+                        return this.skippedPosition;
+                    }
+                } else if (to.row < from.row) {
+                    if (from.column === to.column - 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseThree(from);
+                        return this.skippedPosition;
+                    }
+                    if (from.column === to.column + 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseFour(from);
+                        return this.skippedPosition;
+                    }
+
+                }
+            } else if (pieceSelected.isKing) {
+                if (to.row > from.row) {
+                    if (from.column === to.column - 2) {
+                        this.skippedPosition = this.ifPieceKingSkippedPositionCaseOne(from);
+                        return this.skippedPosition;
+
+                    } else if (from.column === to.column + 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseTwo(from);
+                        return this.skippedPosition;
+                    }
+                } else if (to.row < from.row) {
+                    if (from.column === to.column - 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseThree(from);
+                        return this.skippedPosition;
+
+                    } else if (from.column === to.column + 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseFour(from);
+                        return this.skippedPosition;
+
+                    }
+
+                }
+            }
+
+        } else if (pieceSelected.color === Constants.ColorForSecondPlayer) {
+            if (!pieceSelected.isKing) {
+                if (to.row > from.row) {
+                    if (from.column === to.column - 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseOne(from);
+                        return this.skippedPosition;
+                    }
+                    if (from.column === to.column + 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseTwo(from);
+                        return this.skippedPosition;
+                    }
+                } else if (to.row < from.row) {
+                    if (from.column === to.column - 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseThree(from);
+                        return this.skippedPosition;
+                    }
+                    if (from.column === to.column + 2) {
+                        this.skippedPosition = this.ifPieceNotKingSkippedPositionCaseFour(from);
+                        return this.skippedPosition;
+                    }
+
+                }
+            } else if (pieceSelected.isKing) {
+                if (to.row > from.row) {
+                    if (from.column === to.column - 2) {
+                        this.skippedPosition = this.ifPieceKingSkippedPositionCaseOne(from);
+                        return this.skippedPosition;
+
+                    } else if (from.column === to.column + 2) {
+                        this.skippedPosition = this.ifPieceKingSkippedPositionCaseTwo(from);
+                        return this.skippedPosition;
+
+                    }
+                } else if (to.row < from.row) {
+                    if (from.column === to.column - 2) {
+                        this.skippedPosition = this.ifPieceKingSkippedPositionCaseThree(from);
+                        this.skippedPosition = {
+                            row: this.skippedPosition.row,
+                            column: this.skippedPosition.column + 1
+                        };
+                        return this.skippedPosition;
+
+                    } else if (from.column === to.column + 2) {
+                        this.skippedPosition = this.ifPieceKingSkippedPositionCaseFour(from);
+                        return this.skippedPosition;
+
+                    }
+                }
+            }
+        }
+       
     }
 }
 

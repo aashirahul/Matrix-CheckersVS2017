@@ -35,7 +35,7 @@ export class GameBoardComponent implements OnInit {
     public secondPlayerName: string;
     public displayPlayerName: string;
     public isplayerNameSet = false;
-    public skippedPosition: Position;
+    public skippedPosition: any;
     public availablePositionOne: Position;
     public availablePositionTwo: Position;
     public pieceSelected: any;
@@ -137,6 +137,12 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
+    private callPieceActions(pieceSelected: Piece, originalPosition: Position, { row, column }: any): void {
+        this._pieceActions.move(originalPosition, { row, column });
+        this.skippedPosition = this._helper.findSkippedPosition(pieceSelected, originalPosition, { row, column });
+        this._pieceActions.jump(this.skippedPosition);
+    }
+
     private callSquareActions(originalPosition: Position, { row, column }: any, skippedPosition: Position): void {
         this._squareActions.updateSquareHasPiece({ row, column });
         this._squareActions.updateSquareHasNoPiece(originalPosition);
@@ -168,13 +174,16 @@ export class GameBoardComponent implements OnInit {
 
     private moveInProgress(pieceSelected: Piece, originalPosition: Position, row: number, column: number): void {
         if (this.pieceSelectedisCurrentPlayer()) {
-            if (this.isAJump(originalPosition, { row, column })) {
-                this._pieceActions.move(originalPosition, { row, column });
-                this._pieceActions.jump(this.skippedPosition);
+            this.makePieceSelectedKing(this.pieceSelected, { row, column });
+            if (this._helper.isAJump(pieceSelected, originalPosition, { row, column })) {
+                this.callPieceActions(pieceSelected, originalPosition, { row, column });
+                //this._pieceActions.move(originalPosition, { row, column });
+                //this.skippedPosition = this._helper.findSkippedPosition(pieceSelected, originalPosition, { row, column });
+                //this._pieceActions.jump(this.skippedPosition);
                 if (this._helper.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition)) {
                     this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
                 }
-            } else if (this.isValidMove(originalPosition, { row, column })) {
+            } else if (this._helper.isValidMove(pieceSelected, originalPosition, { row, column })) {
                 this._pieceActions.move(originalPosition, { row, column });
                 if (this._helper.checkIfMoveCompleted(pieceSelected, originalPosition, row, column)) {
                     this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
@@ -197,119 +206,4 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    private isAJump(from: Position, to: Position): boolean {
-        this.makePieceSelectedKing(this.pieceSelected, to);
-        if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
-            if (!this.pieceSelected.isKing) {
-                if (to.row > from.row) {
-                    if (from.column === to.column - 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseOne(from);
-                        return true;
-                    }
-                    if (from.column === to.column + 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseTwo(from);
-                        return true;
-                    }
-                } else if (to.row < from.row) {
-                    if (from.column === to.column - 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseThree(from);
-                        return true;
-                    }
-                    if (from.column === to.column + 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseFour(from);
-                        return true;
-                    }
-
-                }
-            } else if (this.pieceSelected.isKing) {
-                if (to.row > from.row) {
-                    if (from.column === to.column - 2) {
-                        this.skippedPosition = this._helper.ifPieceKingSkippedPositionCaseOne(from);
-                        return true;
-
-                    } else if (from.column === to.column + 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseTwo(from);
-                        return true;
-
-                    }
-                } else if (to.row < from.row) {
-                    if (from.column === to.column - 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseThree(from);
-                        return true;
-
-                    } else if (from.column === to.column + 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseFour(from);
-                        return true;
-
-                    }
-
-                }
-            }
-
-        } else if (this.pieceSelected.color === Constants.ColorForSecondPlayer) {
-            if (!this.pieceSelected.isKing) {
-                if (to.row > from.row) {
-                    if (from.column === to.column - 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseOne(from);
-                        return true;
-                    }
-                    if (from.column === to.column + 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseTwo(from);
-                        return true;
-                    }
-                } else if (to.row < from.row) {
-                    if (from.column === to.column - 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseThree(from);
-                        return true;
-                    }
-                    if (from.column === to.column + 2) {
-                        this.skippedPosition = this._helper.ifPieceNotKingSkippedPositionCaseFour(from);
-                        return true;
-                    }
-
-                }
-            } else if (this.pieceSelected.isKing) {
-                if (to.row > from.row) {
-                    if (from.column === to.column - 2) {
-                        this.skippedPosition = this._helper.ifPieceKingSkippedPositionCaseOne(from);
-                        return true;
-
-                    } else if (from.column === to.column + 2) {
-                        this.skippedPosition = this._helper.ifPieceKingSkippedPositionCaseTwo(from);
-                        return true;
-
-                    }
-                } else if (to.row < from.row) {
-                    if (from.column === to.column - 2) {
-                        this.skippedPosition = this._helper.ifPieceKingSkippedPositionCaseThree(from);
-                        this.skippedPosition = {
-                            row: this.skippedPosition.row,
-                            column: this.skippedPosition.column + 1
-                        };
-                        return true;
-
-                    } else if (from.column === to.column + 2) {
-                        this.skippedPosition = this._helper.ifPieceKingSkippedPositionCaseFour(from);
-                        return true;
-
-                    }
-                }
-            }
-        }
-        return false;
-    }
-
-    private isValidMove(from: Position, to: Position): boolean {
-        this.makePieceSelectedKing(this.pieceSelected, to);
-        if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
-            if (this._helper.checkIfMoveCorrectForRed(this.pieceSelected, from, to)) {
-                return true;
-            }
-        } else if (this.pieceSelected.color === Constants.ColorForSecondPlayer) {
-            if (this._helper.checkIfMoveCorrectForBlack(this.pieceSelected, from, to)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }
