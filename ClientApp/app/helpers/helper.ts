@@ -17,14 +17,14 @@ export class Helper {
         private _store: Store<any>,
     ) { }
 
-    public findSelectedPiece(row: number, col: number, pieces: Array<Piece>): Piece | false {
-        for (let i = 0; i < pieces.length; i++) {
-            if (pieces[i].position.row === row && pieces[i].position.column === col) {
-                const requiredPiece = pieces[i];
-                return requiredPiece;
-            }
-        }
-        return false;
+    public findSelectedPiece(row: number, col: number): Piece | undefined {
+        const pieces = this.getPieces();
+        return pieces.find((piece) => (piece.position.row === row && piece.position.column === col));
+    }
+
+    public findSelectedSquare(row: number, col: number): Square | undefined {
+        const squares = this.getSquares();
+        return squares.find((square) => (square.position.row === row && square.position.column === col));
     }
 
     public getPieceToBeUpdated(id: number): any {
@@ -33,7 +33,6 @@ export class Helper {
         return pieces.find((piece) =>
             (piece.id === id));
     }
-
 
     public getPlayerNameBeingUpdated(): string {
         let playerBeingUpdated: string = '';
@@ -61,7 +60,7 @@ export class Helper {
         return allPieces;
     }
 
-    public switchDisplayPlayerName(displayPlayerName: string, firstPlayerName: string, secondPlayerName:string ): string | any {
+    public switchDisplayPlayerName(displayPlayerName: string, firstPlayerName: string, secondPlayerName: string): string | any {
         if (firstPlayerName === Constants.ColorForFirstPlayer) {
             if (!secondPlayerName) {
                 displayPlayerName = displayPlayerName === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
@@ -69,7 +68,7 @@ export class Helper {
                 displayPlayerName = displayPlayerName === Constants.ColorForFirstPlayer ? secondPlayerName : Constants.ColorForFirstPlayer;
             }
             return displayPlayerName;
-        } else  {
+        } else {
             if (!secondPlayerName) {
                 displayPlayerName = displayPlayerName === firstPlayerName ? Constants.ColorForSecondPlayer : firstPlayerName;
             } else {
@@ -83,7 +82,6 @@ export class Helper {
         currentlyPlayingColor = currentlyPlayingColor === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
         return currentlyPlayingColor;
     }
-
 
     public checkIfMoveCompleted(pieceSelected: Piece, originalPosition: Position, row: number, column: number): boolean {
         if (pieceSelected.position.row === row && pieceSelected.position.column === column) {
@@ -133,7 +131,6 @@ export class Helper {
         return false;
     }
 
-
     public checkIfMoveCorrectForRed(pieceSelected: Piece, from: Position, to: Position): boolean {
         if (!pieceSelected.isKing) {
             if (to.row > from.row) {
@@ -177,12 +174,12 @@ export class Helper {
         return false;
     }
 
-    public isAJump(pieceSelected: Piece,from: Position, to: Position): boolean {
+    public isAJump(pieceSelected: Piece, from: Position, to: Position): boolean {
         if (pieceSelected.color === Constants.ColorForFirstPlayer) {
             if (!pieceSelected.isKing) {
                 if (to.row > from.row) {
                     if (from.column === to.column - 2) {
-                                             return true;
+                        return true;
                     }
                     if (from.column === to.column + 2) {
                         return true;
@@ -238,7 +235,7 @@ export class Helper {
             } else if (pieceSelected.isKing) {
                 if (to.row > from.row) {
                     if (from.column === to.column - 2) {
-                                               return true;
+                        return true;
 
                     } else if (from.column === to.column + 2) {
                         return true;
@@ -258,7 +255,6 @@ export class Helper {
         return false;
     }
 
-   
     public ifPieceNotKingSkippedPositionCaseOne(from: Position): Position {
         this.skippedPosition = {
             row: from.row + 1,
@@ -420,7 +416,7 @@ export class Helper {
                 }
             }
         }
-       
+
     }
 }
 

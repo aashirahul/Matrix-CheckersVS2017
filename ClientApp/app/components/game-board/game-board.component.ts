@@ -107,17 +107,17 @@ export class GameBoardComponent implements OnInit {
     }
 
     public findPiece(row: number, col: number): Piece | undefined {
-        return this.pieces.find((piece) => {
-            if (piece.position.row === row && piece.position.column === col) {
-                return true;
-            } else {
-                return false;
-            }
-        });
+        const piece = this._helper.findSelectedPiece(row, col);
+        if (piece) {
+            return piece;
+        } 
     }
 
     public findSquare(row: number, col: number): Square | undefined {
-        return this.squares.find((square) => (square.position.row === row && square.position.column === col));
+        const square = this._helper.findSelectedSquare(row, col);
+        if (square) {
+            return square;
+        }
     }
 
     private switchTurn(): void {
@@ -159,7 +159,7 @@ export class GameBoardComponent implements OnInit {
 
     private moveStarted(row: number, column: number): void {
         this.originalPosition = { row, column };
-        this.pieceSelected = this._helper.findSelectedPiece(this.originalPosition.row, this.originalPosition.column, this.pieces);
+        this.pieceSelected = this._helper.findSelectedPiece(this.originalPosition.row, this.originalPosition.column);
         if (this.pieceSelectedisCurrentPlayer()) {
             this._squareActions.squareSelected(this.originalPosition);
             if (!this.pieceSelected.isKing) {
@@ -193,7 +193,7 @@ export class GameBoardComponent implements OnInit {
     private moveSelected(row: number, column: number): void {
         if (!this.isMoving) {
             this.moveStarted(row, column);
-            this.pieceSelected = this._helper.findSelectedPiece(row, column, this.pieces);
+            this.pieceSelected = this._helper.findSelectedPiece(row, column);
         } else {
             this.moveInProgress(this.pieceSelected, this.originalPosition, row, column);
             this.moveComplete(this.pieceSelected, this.originalPosition);
