@@ -4,15 +4,15 @@ Checkers app showing Angular apps in Visual Studio 2017
 
  * ##### ~~ Move addingPoints method from game component to action-handlers.~~
 
- * #####  Add move and jump piece logic to action handler.
+ * #####  ~~Add move and jump piece logic to action handler.~~
 
- * #####  Add helpers functions for moveInProgress method.
+ * #####  ~~Add helpers functions for moveInProgress method.~~
 
- * #####  Add helpers functions for moveInProgress method.
+ * #####  ~~Add helpers functions for switch turn method.~~
 
- * #####  Add helpers functions for switch turn method.
+ * #####  Move business logic for highlighting squares to gameBoard actions.
 
- * #####  Move business logic for gameboard to gameBoard actions.
+  * #####  Separate out helper files for pieces and players.
 
   * #####  Adding New Game business functionality to the app.
 
