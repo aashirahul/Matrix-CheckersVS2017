@@ -3,26 +3,21 @@ import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
 import { Square } from '../models/gameBoard';
 
-
 export type State = Array<Piece>;
 
-export const DISPLAY_PIECES = 'DISPLAY_PIECES';
-export const MOVE_PIECES = 'MOVE_PIECES';
-export const JUMP_PIECES = 'JUMP_PIECES';
-export const MAKE_KING = 'MAKE_KING';
+export const LOAD_PIECES = 'DISPLAY_PIECES';
 
-export class DisplayPieceAction implements Action {
-    readonly type = DISPLAY_PIECES;
+export class LoadPieceAction implements Action {
+    readonly type = LOAD_PIECES;
     payload: Array<Piece>;
 }
 
-
-export type Actions = DisplayPieceAction;
+export type Actions = LoadPieceAction;
 
 export function pieces(state: State = [], action: Actions): State {
     switch (action.type) {
 
-        case DISPLAY_PIECES:
+        case LOAD_PIECES:
             return action.payload;
 
         default:

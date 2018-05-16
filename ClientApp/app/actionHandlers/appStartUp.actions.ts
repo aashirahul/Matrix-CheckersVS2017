@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { Piece } from '../models/game-piece';
 import { Square } from '../models/gameBoard';
 import { Player } from '../models/player';
-import { DISPLAY_PIECES } from '../stores/pieces.store';
+import { LOAD_PIECES } from '../stores/pieces.store';
 import { DISPLAY_SQUARES } from '../stores/gameBoard.store';
 import { LOAD_PLAYERS } from '../stores/players.store';
 import * as Constants from '../constants/constants';
@@ -27,10 +27,10 @@ export class AppStartUpActions {
         this._api.callApiService<Piece[]>(piecesReq)
             .subscribe(
             (pieces: Array<Piece>) => {
-                this._store.dispatch({ type: DISPLAY_PIECES, payload: pieces });
+                this._store.dispatch({ type: LOAD_PIECES, payload: pieces });
             },
             (err) => {
-                this._store.dispatch({ type: DISPLAY_PIECES, payload: [] });
+                this._store.dispatch({ type: LOAD_PIECES, payload: [] });
             },
 
         );

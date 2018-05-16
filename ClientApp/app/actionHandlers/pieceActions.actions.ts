@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Helper } from '../helpers/helper';
 
 import { Piece } from '../models/game-piece';
-import { DISPLAY_PIECES, MOVE_PIECES, JUMP_PIECES, MAKE_KING } from '../stores/pieces.store';
+import {LOAD_PIECES } from '../stores/pieces.store';
 import { Position } from '../models/position';
 import { Square } from '../models/gameBoard';
 
@@ -40,7 +40,7 @@ export class PieceActions {
             updatedPieces = pieces;
         }
         this._store.dispatch({
-            type: DISPLAY_PIECES,
+            type: LOAD_PIECES,
             payload: updatedPieces,
 
         });
@@ -56,7 +56,7 @@ export class PieceActions {
             return piece;
         });
         this._store.dispatch({
-            type: DISPLAY_PIECES,
+            type: LOAD_PIECES,
             payload: updatedPieces,
         });
     }
@@ -72,7 +72,7 @@ export class PieceActions {
             return piece;
         });
         this._store.dispatch({
-            type: DISPLAY_PIECES,
+            type: LOAD_PIECES,
             payload: updatedPieces,
         });
     }
