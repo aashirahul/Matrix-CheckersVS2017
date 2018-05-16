@@ -6,7 +6,15 @@ Checkers app showing Angular apps in Visual Studio 2017
 
  * #####  Add move and jump piece logic to action handler.
 
- * #####  Adding New Game business functionality to the app.
+ * #####  Add helpers functions for moveInProgress method.
+
+ * #####  Add helpers functions for moveInProgress method.
+
+ * #####  Add helpers functions for switch turn method.
+
+ * #####  Move business logic for gameboard to gameBoard actions.
+
+  * #####  Adding New Game business functionality to the app.
 
  * #####  Clone the Matrix-Checkers App in new project and run it.
 
