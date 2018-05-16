@@ -70,12 +70,20 @@ export class GameBoardComponent implements OnInit {
                 this.secondPlayerName = players[1].name;
             }
         });
-        this.displayPlayerName = Constants.ColorForFirstPlayer;
+        this.setDisplayPlayerName();
     }
 
     public ngOnDestroy() {
         this.appStateSubscription.unsubscribe();
         this.piecesSubscription.unsubscribe();
+    }
+
+    private setDisplayPlayerName() {
+        if (!this.firstPlayerName) {
+            this.displayPlayerName = Constants.ColorForFirstPlayer;
+        } else {
+            this.displayPlayerName = this.firstPlayerName;
+        }
     }
 
     private editRedPlayerName(): void {
@@ -88,6 +96,7 @@ export class GameBoardComponent implements OnInit {
 
     private playerNameAdded(name: string): void {
         this._playerActions.updatePlayerName(name);
+        this.setDisplayPlayerName();
     }
 
     private pieceSelectedisCurrentPlayer(): boolean {
@@ -111,21 +120,9 @@ export class GameBoardComponent implements OnInit {
         return this.squares.find((square) => (square.position.row === row && square.position.column === col));
     }
 
-    private switchPlayingColor(): void {
-        this.currentlyPlayingColor = this.currentlyPlayingColor === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
-    }
-
-    private switchDisplayPlayerName(): void {
-        if (this.firstPlayerName === Constants.ColorForFirstPlayer) {
-            this.displayPlayerName = this.displayPlayerName === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
-        } else {
-            this.displayPlayerName = this.displayPlayerName === this.firstPlayerName ? this.secondPlayerName : this.firstPlayerName;
-        }
-    }
-
     private switchTurn(): void {
-        this.switchPlayingColor();
-        this.switchDisplayPlayerName();
+        this.currentlyPlayingColor = this._helper.switchPlayingColor(this.currentlyPlayingColor);
+        this.displayPlayerName = this._helper.switchDisplayPlayerName(this.displayPlayerName, this.firstPlayerName, this.secondPlayerName);
     }
 
     private makePieceSelectedKing(pieceSelected: any, to: Position): void {
@@ -177,9 +174,6 @@ export class GameBoardComponent implements OnInit {
             this.makePieceSelectedKing(this.pieceSelected, { row, column });
             if (this._helper.isAJump(pieceSelected, originalPosition, { row, column })) {
                 this.callPieceActions(pieceSelected, originalPosition, { row, column });
-                //this._pieceActions.move(originalPosition, { row, column });
-                //this.skippedPosition = this._helper.findSkippedPosition(pieceSelected, originalPosition, { row, column });
-                //this._pieceActions.jump(this.skippedPosition);
                 if (this._helper.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition)) {
                     this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
                 }

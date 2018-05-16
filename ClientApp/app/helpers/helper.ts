@@ -61,6 +61,30 @@ export class Helper {
         return allPieces;
     }
 
+    public switchDisplayPlayerName(displayPlayerName: string, firstPlayerName: string, secondPlayerName:string ): string | any {
+        if (firstPlayerName === Constants.ColorForFirstPlayer) {
+            if (!secondPlayerName) {
+                displayPlayerName = displayPlayerName === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
+            } else {
+                displayPlayerName = displayPlayerName === Constants.ColorForFirstPlayer ? secondPlayerName : Constants.ColorForFirstPlayer;
+            }
+            return displayPlayerName;
+        } else  {
+            if (!secondPlayerName) {
+                displayPlayerName = displayPlayerName === firstPlayerName ? Constants.ColorForSecondPlayer : firstPlayerName;
+            } else {
+                displayPlayerName = displayPlayerName === firstPlayerName ? secondPlayerName : firstPlayerName;
+            }
+            return displayPlayerName;
+        }
+    }
+
+    public switchPlayingColor(currentlyPlayingColor: string): string | any {
+        currentlyPlayingColor = currentlyPlayingColor === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
+        return currentlyPlayingColor;
+    }
+
+
     public checkIfMoveCompleted(pieceSelected: Piece, originalPosition: Position, row: number, column: number): boolean {
         if (pieceSelected.position.row === row && pieceSelected.position.column === column) {
             return true;

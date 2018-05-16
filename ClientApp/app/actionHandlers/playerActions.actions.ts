@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Helper } from '../helpers/helper';
 
 import { Player } from '../models/player';
-import { LOAD_PLAYERS} from '../stores/players.store';
+import { LOAD_PLAYERS } from '../stores/players.store';
 
 @Injectable()
 export class PlayerActions {
