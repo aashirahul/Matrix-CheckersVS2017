@@ -137,20 +137,14 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    private checkIfJumpCompleted(pieceSelected: Piece, originalPosition: Position, { row, column }: any, skippedPosition: Position): void {
-        if (pieceSelected.position.row === row && pieceSelected.position.column === column) {
-            this._squareActions.updateSquareHasPiece({ row, column });
+    private callSquareActions(originalPosition: Position, { row, column }: any, skippedPosition: Position): void {
+        this._squareActions.updateSquareHasPiece({ row, column });
+        this._squareActions.updateSquareHasNoPiece(originalPosition);
+        this.switchTurn();
+        this._squareActions.unhighlightSquares();
+        if (this.skippedPosition) {
             this._squareActions.updateSquareHasNoPiece(this.skippedPosition);
-            this._squareActions.updateSquareHasNoPiece(originalPosition);
-            this.switchTurn();
-        }
-    }
-
-    private checkIfMoveCompleted(pieceSelected: Piece, originalPosition: Position, { row, column }: any): void {
-        if (pieceSelected.position.row === row && pieceSelected.position.column === column) {
-            this._squareActions.updateSquareHasPiece({ row, column });
-            this._squareActions.updateSquareHasNoPiece(originalPosition);
-            this.switchTurn();
+            this.addingPoints();
         }
     }
 
@@ -177,13 +171,15 @@ export class GameBoardComponent implements OnInit {
             if (this.isAJump(originalPosition, { row, column })) {
                 this._pieceActions.move(originalPosition, { row, column });
                 this._pieceActions.jump(this.skippedPosition);
-                this.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition);
-                this.addingPoints();
+                if (this._helper.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition)) {
+                    this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
+                }
             } else if (this.isValidMove(originalPosition, { row, column })) {
                 this._pieceActions.move(originalPosition, { row, column });
-                this.checkIfMoveCompleted(pieceSelected, originalPosition, { row, column });
+                if (this._helper.checkIfMoveCompleted(pieceSelected, originalPosition, row, column)) {
+                    this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
+                }
             }
-            this._squareActions.unhighlightSquares();
         }
     }
 

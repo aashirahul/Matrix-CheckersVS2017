@@ -16,29 +16,14 @@ export class DisplayPieceAction implements Action {
     payload: Array<Piece>;
 }
 
-export class JumpPieceAction implements Action {
-    readonly type = JUMP_PIECES;
-    payload: Array<Position>;
 
-}
-
-export class MakeKingAction implements Action {
-    readonly type = MAKE_KING;
-    payload: Piece;
-}
-
-export type Actions = DisplayPieceAction  | JumpPieceAction | MakeKingAction;
+export type Actions = DisplayPieceAction;
 
 export function pieces(state: State = [], action: Actions): State {
     switch (action.type) {
 
         case DISPLAY_PIECES:
             return action.payload;
-
-
-        case MAKE_KING:
-            action.payload.isKing = true;
-            return state;
 
         default:
             return state;

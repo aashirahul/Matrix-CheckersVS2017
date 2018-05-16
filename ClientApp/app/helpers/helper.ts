@@ -27,7 +27,7 @@ export class Helper {
         return false;
     }
 
-    public getUpdatePieceToBeUpdated(id:number): any {
+    public getPieceToBeUpdated(id:number): any {
         const pieces = this.getPieces();
         let updatedPiece: any;
         return pieces.find((piece) => 
@@ -59,6 +59,20 @@ export class Helper {
         let allPieces: Array<Piece> = [];
         this._store.select('pieces').subscribe((pieces) => allPieces = pieces);
         return allPieces;
+    }
+
+    public checkIfMoveCompleted(pieceSelected: Piece, originalPosition: Position, row:number, column:number ): boolean {
+        if (pieceSelected.position.row === row && pieceSelected.position.column === column) {
+            return true;
+        }
+        return false;
+    }
+
+    public checkIfJumpCompleted(pieceSelected: Piece, originalPosition: Position, { row, column }: any, skippedPosition: Position): boolean {
+        if (pieceSelected.position.row === row && pieceSelected.position.column === column) {
+            return true;
+        }
+        return false;
     }
 
     public updateRedScoreOnGameBoard(color: string): Array<number> {

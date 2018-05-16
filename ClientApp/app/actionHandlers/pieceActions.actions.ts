@@ -63,7 +63,7 @@ export class PieceActions {
 
     public makeKing(id: number): void {
         let updatedPieces;
-        const updatedpiece = this._helper.getUpdatePieceToBeUpdated(id);
+        const updatedpiece = this._helper.getPieceToBeUpdated(id);
         const pieces = this._helper.getPieces();
         updatedPieces = pieces.map((piece) => {
             if (piece.id === updatedpiece.id) {
