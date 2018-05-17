@@ -5,6 +5,7 @@ export interface State {
     'player.isMoving': boolean;
     'pieceSelected.Id': number;
     'showPlayerNameModal': boolean;
+    'showNewGameModal': boolean;
     'player.nameBeingUpdated': string;
 }
 
@@ -12,7 +13,8 @@ const initialAppState: State = {
     'player.isMoving': false,
     'pieceSelected.Id': NaN,
     'showPlayerNameModal': false,
-    'player.nameBeingUpdated': ""
+    'player.nameBeingUpdated': "",
+    'showNewGameModal':true
 };
 
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE';

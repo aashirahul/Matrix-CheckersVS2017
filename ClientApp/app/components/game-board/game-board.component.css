@@ -36,4 +36,18 @@
  .row-style{
      display:flex;
  }
+ .button-container{
+     text-align: center;
+ }
+.new-button {
+    display: inline-block;
+    cursor: pointer;
+    color: white;
+    margin-top: 20px;
+    padding-left: 6px;
+    padding-right: 6px;
+    border-radius: 7px;
+    font-size: 17px;
+    background-color: #00d1b2;
+}
 

@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Store } from '@ngrx/store';
+
 import { AppStartUpActions } from '../../actionHandlers/appStartUp.actions';
+import { AppStateActions } from '../../actionHandlers/appState.actions';
+import * as fromappstate from '../../stores/appState.store';
+
 
 @Component({
     selector: 'app',
@@ -7,14 +12,28 @@ import { AppStartUpActions } from '../../actionHandlers/appStartUp.actions';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
+    public showNewGameModel: boolean;
+    public appStateSubscription: any;
 
     constructor(
+        private _store: Store<any>,
         private _appStartUpActions: AppStartUpActions,
+        private _appStateActions: AppStateActions
+
     ) { }
 
     public ngOnInit() {
+        this.appStateSubscription = this._store.select('appState').
+            subscribe((appState) => {
+                this.showNewGameModel = appState[`showNewGameModal`];
+            });
+
         this._appStartUpActions.initializeGame();
         this._appStartUpActions.initializeSquares();
         this._appStartUpActions.initializePlayers();
+    }
+
+    public ngOnDestroy() {
+        this.appStateSubscription.unsubscribe();
     }
 }

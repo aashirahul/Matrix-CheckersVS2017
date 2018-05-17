@@ -9,6 +9,7 @@ import { PieceActions } from '../../actionHandlers/pieceActions.actions';
 import { GameBoardActions } from '../../actionHandlers/gameBoardActions.actions';
 import { PlayerActions } from '../../actionHandlers/playerActions.actions';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
+import { AppStartUpActions } from '../../actionHandlers/appStartUp.actions';
 import { Helper } from '../../helpers/helper';
 import * as Constants from '../../constants/constants';
 import * as fromappstate from '../../stores/appState.store';
@@ -52,6 +53,7 @@ export class GameBoardComponent implements OnInit {
         private _pieceActions: PieceActions,
         private _squareActions: GameBoardActions,
         private _playerActions: PlayerActions,
+        private _appStartUpActions: AppStartUpActions,
         private _appStateActions: AppStateActions,
         private _helper: Helper
     ) { }
@@ -198,6 +200,12 @@ export class GameBoardComponent implements OnInit {
             this.moveInProgress(this.pieceSelected, this.originalPosition, row, column);
             this.moveComplete(this.pieceSelected, this.originalPosition);
         }
+    }
+
+    private restartGame(): void {
+        this._appStartUpActions.initializeGame();
+        this._appStartUpActions.initializeSquares();
+        this._appStartUpActions.initializePlayers();
     }
 
 }
