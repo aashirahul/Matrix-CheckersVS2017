@@ -12,7 +12,7 @@ import * as fromappstate from '../../stores/appState.store';
     styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-    public showNewGameModel: boolean;
+    public showNewGameModal: boolean;
     public appStateSubscription: any;
 
     constructor(
@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
     public ngOnInit() {
         this.appStateSubscription = this._store.select('appState').
             subscribe((appState) => {
-                this.showNewGameModel = appState[`showNewGameModal`];
+                this.showNewGameModal = appState[`showNewGameModal`];
             });
 
         this._appStartUpActions.initializeGame();

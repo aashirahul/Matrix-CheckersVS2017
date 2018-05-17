@@ -145,7 +145,6 @@ export class GameBoardComponent implements OnInit {
     private callSquareActions(originalPosition: Position, { row, column }: any, skippedPosition: Position): void {
         this._squareActions.updateSquareHasPiece({ row, column });
         this._squareActions.updateSquareHasNoPiece(originalPosition);
-        //this._squareActions.updateSquareHasNoPiece(skippedPosition);
         this.switchTurn();
         this._squareActions.unhighlightSquares();
         if (this.skippedPosition) {

@@ -15,7 +15,6 @@ import * as fromappstate from '../../stores/appState.store';
 })
 export class NewGameModalComponent implements OnInit {
 
-    public showNewGameModel: boolean;
     public appStateSubscription: any;
 
     constructor(
@@ -25,11 +24,6 @@ export class NewGameModalComponent implements OnInit {
     ) { }
 
     ngOnInit() {
-        this.appStateSubscription = this._store.select('appState').
-            subscribe((appState) => {
-                this.showNewGameModel = appState[`showNewGameModal`];
-            });
-
     }
 
     public startNewGame(): void {
