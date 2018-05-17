@@ -6,7 +6,7 @@ import { Piece } from '../models/game-piece';
 import { Square } from '../models/gameBoard';
 import { Player } from '../models/player';
 import { LOAD_PIECES } from '../stores/pieces.store';
-import { DISPLAY_SQUARES } from '../stores/gameBoard.store';
+import { LOAD_SQUARES } from '../stores/gameBoard.store';
 import { LOAD_PLAYERS } from '../stores/players.store';
 import * as Constants from '../constants/constants';
 import { ApiService, REQUEST_TYPE_GET } from '../services/api.service';
@@ -41,10 +41,10 @@ export class AppStartUpActions {
         this._api.callApiService<Square[]>(squaresReq)
             .subscribe(
             (squares: Array<Square>) => {
-                this._store.dispatch({ type: DISPLAY_SQUARES, payload: squares });
+                this._store.dispatch({ type:LOAD_SQUARES, payload: squares });
             },
             (err) => {
-                this._store.dispatch({ type: DISPLAY_SQUARES, payload: [] });
+                this._store.dispatch({ type: LOAD_SQUARES, payload: [] });
             }
             );
     }
