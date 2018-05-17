@@ -97,16 +97,15 @@ export class Helper {
         return false;
     }
 
-    public updateRedScoreOnGameBoard(color: string): Array<number> {
+    public updateScore(color: string): Array<number> | any{
         const players = this.getCurrentPlayers();
-        const scoreRed = Array(players[0].score).fill('1');
-        return scoreRed;
-    }
-
-    public updateBlackScoreOnGameBoard(color: string): Array<number> {
-        const players = this.getCurrentPlayers();
-        const scoreBlack = Array(players[1].score).fill('1');
-        return scoreBlack;
+        if (color === Constants.ColorForFirstPlayer) {
+            const scoreRed = Array(players[0].score).fill('1');
+            return scoreRed;
+        } else if (color === Constants.ColorForSecondPlayer) {
+            const scoreBlack = Array(players[1].score).fill('1');
+            return scoreBlack;
+        }
     }
 
     public checkIfPieceSelectedCanBeKing(piece: Piece, row: number): boolean {

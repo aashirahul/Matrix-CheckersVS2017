@@ -112,7 +112,7 @@ export class GameBoardComponent implements OnInit {
         const piece = this._helper.findSelectedPiece(row, col);
         if (piece) {
             return piece;
-        } 
+        }
     }
 
     public findSquare(row: number, col: number): Square | undefined {
@@ -145,18 +145,22 @@ export class GameBoardComponent implements OnInit {
     private callSquareActions(originalPosition: Position, { row, column }: any, skippedPosition: Position): void {
         this._squareActions.updateSquareHasPiece({ row, column });
         this._squareActions.updateSquareHasNoPiece(originalPosition);
+        //this._squareActions.updateSquareHasNoPiece(skippedPosition);
         this.switchTurn();
         this._squareActions.unhighlightSquares();
         if (this.skippedPosition) {
-            this._squareActions.updateSquareHasNoPiece(this.skippedPosition);
-            this.addingPoints();
+            this._squareActions.updateSquareHasNoPiece(skippedPosition);
         }
     }
 
     private addingPoints(): void {
         this._playerActions.addPoint(this.pieceSelected.color);
-        this.scoreRed = this._helper.updateRedScoreOnGameBoard(this.pieceSelected.color);
-        this.scoreBlack = this._helper.updateBlackScoreOnGameBoard(this.pieceSelected.color);
+        if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
+            this.scoreRed = this._helper.updateScore(this.pieceSelected.color);
+        }
+        if (this.pieceSelected.color === Constants.ColorForSecondPlayer) {
+            this.scoreBlack = this._helper.updateScore(this.pieceSelected.color);
+        }
     }
 
     private moveStarted(row: number, column: number): void {
@@ -178,6 +182,7 @@ export class GameBoardComponent implements OnInit {
                 this.callPieceActions(pieceSelected, originalPosition, { row, column });
                 if (this._helper.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition)) {
                     this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
+                    this.addingPoints();
                 }
             } else if (this._helper.isValidMove(pieceSelected, originalPosition, { row, column })) {
                 this._pieceActions.move(originalPosition, { row, column });
