@@ -12,7 +12,7 @@ Checkers app showing Angular apps in Visual Studio 2017
 
  * #####  ~~Move business logic for highlighting squares to gameBoard actions.~~
 
- * #####  Adding New Game business functionality to the app.
+ * #####  ~~Adding New Game business functionality to the app.~~
 
  * #####  Adding a property on AppState for displaying current player.
 
