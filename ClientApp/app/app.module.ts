@@ -17,6 +17,7 @@ import { GameBoardComponent } from './components/game-board/game-board.component
 import { PieceComponent } from './components/piece/piece.component';
 import { ScoreBoardComponent } from './components/score-board/score-board.component';
 import { PlayerNameModalComponent } from './components/player-name-modal/player-name-modal.component';
+import { NewGameModalComponent } from './components/new-game-modal/new-game-modal.component';
 
 @NgModule({
     declarations: [
@@ -24,7 +25,8 @@ import { PlayerNameModalComponent } from './components/player-name-modal/player-
         CellComponent,
         GameBoardComponent,
         PieceComponent,
-        PlayerNameModalComponent
+        PlayerNameModalComponent,
+        NewGameModalComponent
     ],
     imports: [
         BrowserModule,
