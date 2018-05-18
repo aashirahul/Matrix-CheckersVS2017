@@ -44,10 +44,23 @@
     cursor: pointer;
     color: white;
     margin-top: 20px;
-    padding-left: 6px;
-    padding-right: 6px;
+   padding: 7px;
     border-radius: 7px;
     font-size: 17px;
     background-color: #00d1b2;
+}
+.tag{
+    display: inline;
+}
+.player-name {
+    display: inline;
+}
+.addColorBlack{
+    color: black;
+    font-weight: bold;
+}
+.addColorRed {
+    color: red;
+    font-weight: bold;
 }
 

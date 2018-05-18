@@ -16,14 +16,14 @@
         <div class="row-style">
             <div (click)="editRedPlayerName()"><i class="fas fa-pencil-alt"></i></div>
             <div class="score-style">
-                Player {{firstPlayerName}}
+                <div class="tag">Player</div> <div class="player-name" [ngClass]="{'addColorRed': firstPlayerName !='red'}">{{firstPlayerName}}</div>
             </div>
             <div class="red score " *ngFor="let score of scoreRed"></div>
         </div>
         <div class=" row-style">
             <div (click)="editBlackPlayerName()"><i class="fas fa-pencil-alt"></i></div>
             <div class="score-style">
-                Player {{secondPlayerName}}
+                <div class="tag">Player</div> <div class="player-name" [ngClass] ="{'addColorBlack': secondPlayerName !='black'}">{{secondPlayerName}}</div>
             </div>
             <div class="black score" *ngFor=" let score of scoreBlack"></div>
         </div>
