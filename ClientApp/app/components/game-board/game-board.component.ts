@@ -11,6 +11,10 @@ import { PlayerActions } from '../../actionHandlers/playerActions.actions';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
 import { AppStartUpActions } from '../../actionHandlers/appStartUp.actions';
 import { Helper } from '../../helpers/helper';
+import { PieceHelper } from '../../helpers/pieceHelper';
+import { MoveHelper } from '../../helpers/moveHelper';
+import { SkippedPositionHelper } from '../../helpers/skippedPositionHelper';
+import { PlayerHelper } from '../../helpers/playerHelper';
 import * as Constants from '../../constants/constants';
 import * as fromappstate from '../../stores/appState.store';
 
@@ -55,7 +59,11 @@ export class GameBoardComponent implements OnInit {
         private _playerActions: PlayerActions,
         private _appStartUpActions: AppStartUpActions,
         private _appStateActions: AppStateActions,
-        private _helper: Helper
+        private _helper: Helper,
+        private _pieceHelper: PieceHelper,
+        private _moveHelper: MoveHelper,
+        private _playerHelper: PlayerHelper,
+        private _skippedPositionHelper: SkippedPositionHelper
     ) { }
 
     public ngOnInit() {
@@ -109,7 +117,7 @@ export class GameBoardComponent implements OnInit {
     }
 
     public findPiece(row: number, col: number): Piece | undefined {
-        const piece = this._helper.findSelectedPiece(row, col);
+        const piece = this._pieceHelper.findSelectedPiece(row, col);
         if (piece) {
             return piece;
         }
@@ -124,12 +132,12 @@ export class GameBoardComponent implements OnInit {
 
     private switchTurn(): void {
         this.currentlyPlayingColor = this._helper.switchPlayingColor(this.currentlyPlayingColor);
-        this.displayPlayerName = this._helper.switchDisplayPlayerName(this.displayPlayerName, this.firstPlayerName, this.secondPlayerName);
+        this.displayPlayerName = this._playerHelper.switchDisplayPlayerName(this.displayPlayerName, this.firstPlayerName, this.secondPlayerName);
     }
 
     private makePieceSelectedKing(pieceSelected: any, to: Position): void {
         if (!this.pieceSelected.isKing) {
-            if (this._helper.checkIfPieceSelectedCanBeKing(this.pieceSelected, to.row)) {
+            if (this._pieceHelper.checkIfPieceSelectedCanBeKing(this.pieceSelected, to.row)) {
                 this._pieceActions.makeKing(this.pieceSelected.id);
                 this._pieceActions.move(this.pieceSelected.position, to);
             }
@@ -138,7 +146,7 @@ export class GameBoardComponent implements OnInit {
 
     private callPieceActions(pieceSelected: Piece, originalPosition: Position, { row, column }: any): void {
         this._pieceActions.move(originalPosition, { row, column });
-        this.skippedPosition = this._helper.findSkippedPosition(pieceSelected, originalPosition, { row, column });
+        this.skippedPosition = this._skippedPositionHelper.findSkippedPosition(pieceSelected, originalPosition, { row, column });
         this._pieceActions.jump(this.skippedPosition);
     }
 
@@ -155,16 +163,16 @@ export class GameBoardComponent implements OnInit {
     private addingPoints(): void {
         this._playerActions.addPoint(this.pieceSelected.color);
         if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
-            this.scoreRed = this._helper.updateScore(this.pieceSelected.color);
+            this.scoreRed = this._playerHelper.updateScore(this.pieceSelected.color);
         }
         if (this.pieceSelected.color === Constants.ColorForSecondPlayer) {
-            this.scoreBlack = this._helper.updateScore(this.pieceSelected.color);
+            this.scoreBlack = this._playerHelper.updateScore(this.pieceSelected.color);
         }
     }
 
     private moveStarted(row: number, column: number): void {
         this.originalPosition = { row, column };
-        this.pieceSelected = this._helper.findSelectedPiece(this.originalPosition.row, this.originalPosition.column);
+        this.pieceSelected = this._pieceHelper.findSelectedPiece(this.originalPosition.row, this.originalPosition.column);
         if (this.pieceSelectedisCurrentPlayer()) {
             this._squareActions.squareSelected(this.originalPosition);
             if (!this.pieceSelected.isKing) {
@@ -177,15 +185,15 @@ export class GameBoardComponent implements OnInit {
     private moveInProgress(pieceSelected: Piece, originalPosition: Position, row: number, column: number): void {
         if (this.pieceSelectedisCurrentPlayer()) {
             this.makePieceSelectedKing(this.pieceSelected, { row, column });
-            if (this._helper.isAJump(pieceSelected, originalPosition, { row, column })) {
+            if (this._moveHelper.isAJump(pieceSelected, originalPosition, { row, column })) {
                 this.callPieceActions(pieceSelected, originalPosition, { row, column });
-                if (this._helper.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition)) {
+                if (this._moveHelper.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition)) {
                     this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
                     this.addingPoints();
                 }
-            } else if (this._helper.isValidMove(pieceSelected, originalPosition, { row, column })) {
+            } else if (this._moveHelper.isValidMove(pieceSelected, originalPosition, { row, column })) {
                 this._pieceActions.move(originalPosition, { row, column });
-                if (this._helper.checkIfMoveCompleted(pieceSelected, originalPosition, row, column)) {
+                if (this._moveHelper.checkIfMoveCompleted(pieceSelected, originalPosition, row, column)) {
                     this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
                 }
             }
@@ -199,7 +207,7 @@ export class GameBoardComponent implements OnInit {
     private moveSelected(row: number, column: number): void {
         if (!this.isMoving) {
             this.moveStarted(row, column);
-            this.pieceSelected = this._helper.findSelectedPiece(row, column);
+            this.pieceSelected = this._pieceHelper.findSelectedPiece(row, column);
         } else {
             this.moveInProgress(this.pieceSelected, this.originalPosition, row, column);
             this.moveComplete(this.pieceSelected, this.originalPosition);

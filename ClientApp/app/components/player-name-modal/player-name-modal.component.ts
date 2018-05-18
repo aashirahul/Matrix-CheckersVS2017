@@ -3,6 +3,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 
 import { Helper } from '../../helpers/helper';
+import { PlayerHelper } from '../../helpers/playerHelper';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
 import * as fromappstate from '../../stores/appState.store';
 
@@ -21,10 +22,11 @@ export class PlayerNameModalComponent implements OnInit {
     constructor(
         private _helper: Helper,
         private _appStateActions: AppStateActions,
+        private _playerHelper: PlayerHelper,
            ) { }
 
     ngOnInit() {
-        this.playerColorToBeEdited = this._helper.getPlayerNameBeingUpdated();
+        this.playerColorToBeEdited = this._playerHelper.getPlayerNameBeingUpdated();
     }
 
     private addPlayerName(name: any): void {

@@ -2,6 +2,7 @@ import { HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Helper } from '../helpers/helper';
+import { PlayerHelper } from '../helpers/playerHelper';
 
 import { Player } from '../models/player';
 import { LOAD_PLAYERS } from '../stores/players.store';
@@ -13,11 +14,12 @@ export class PlayerActions {
     constructor(
         private _store: Store<any>,
         private _helper: Helper,
+        private _playerHelper: PlayerHelper,
     ) { }
 
     public updatePlayerName(name: string): void {
-        const playerBeingUpdated: string = this._helper.getPlayerNameBeingUpdated();
-        const players: Array<Player> = this._helper.getCurrentPlayers();
+        const playerBeingUpdated: string = this._playerHelper.getPlayerNameBeingUpdated();
+        const players: Array<Player> = this._playerHelper.getCurrentPlayers();
         const updatedPlayers = players.map((player) => {
             if (player.color === playerBeingUpdated) {
                 player.name = name;
@@ -31,7 +33,7 @@ export class PlayerActions {
     }
 
     public addPoint(currentPlayer: string): void {
-        const players: Array<Player> = this._helper.getCurrentPlayers();
+        const players: Array<Player> = this._playerHelper.getCurrentPlayers();
         const updatedScores = players.map((player) => {
             if (player.color === currentPlayer) {
                 player.score += 1;

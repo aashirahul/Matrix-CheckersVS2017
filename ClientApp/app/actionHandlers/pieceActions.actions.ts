@@ -2,6 +2,7 @@ import { HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Helper } from '../helpers/helper';
+import { PieceHelper } from '../helpers/pieceHelper';
 
 import { Piece } from '../models/game-piece';
 import {LOAD_PIECES } from '../stores/pieces.store';
@@ -15,12 +16,13 @@ export class PieceActions {
     constructor(
         private _store: Store<any>,
         private _helper: Helper,
+        private _pieceHelper: PieceHelper
     ) { }
 
     public move(from: Position, to: Position): void {
         let updatedPieces;
         const squares = this._helper.getSquares();
-        const pieces = this._helper.getPieces();
+        const pieces = this._pieceHelper.getPieces();
         const emptySquare = squares.find((s) => {
             if (s.position.row === to.row && s.position.column === to.column && s.hasPiece) {
                 return true;
@@ -48,7 +50,7 @@ export class PieceActions {
 
     public jump(skipped: Position): void {
         let updatedPieces;
-        const pieces = this._helper.getPieces();
+        const pieces = this._pieceHelper.getPieces();
         updatedPieces = pieces.map((piece) => {
             if (piece.position.row === skipped.row && piece.position.column === skipped.column) {
                 piece.color = 'null';
@@ -63,8 +65,8 @@ export class PieceActions {
 
     public makeKing(id: number): void {
         let updatedPieces;
-        const updatedpiece = this._helper.getPieceToBeUpdated(id);
-        const pieces = this._helper.getPieces();
+        const updatedpiece = this._pieceHelper.getPieceToBeUpdated(id);
+        const pieces = this._pieceHelper.getPieces();
         updatedPieces = pieces.map((piece) => {
             if (piece.id === updatedpiece.id) {
                 piece.isKing = true;
