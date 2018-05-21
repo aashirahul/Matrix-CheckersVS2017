@@ -1,4 +1,4 @@
-<div class="square" [class.validMove]="square?.validMove" [class.king]="piece?.isKing" [class.squareSelected]="square?.isSelected">
+<div (click)="clickHandler()" class="square" [class.validMove]="square?.validMove" [class.king]="piece?.isKing" [class.squareSelected]="square?.isSelected">
   <div class="square-value">
     <div class="piece red" *ngIf="piece && piece.color === 'red'">
       <div class="piece-style"></div>

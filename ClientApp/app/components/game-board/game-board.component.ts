@@ -35,7 +35,7 @@ export class GameBoardComponent implements OnInit {
     public selectedPiece: number;
     public isMoving = false;
     public originalPosition: Position;
-    public currentlyPlayingColor = Constants.ColorForFirstPlayer;
+    //public currentlyPlayingColor = Constants.ColorForFirstPlayer;
     public firstPlayerName: string;
     public secondPlayerName: string;
     public displayPlayerName: string;
@@ -109,12 +109,14 @@ export class GameBoardComponent implements OnInit {
         this.setDisplayPlayerName();
     }
 
+    /*
     private pieceSelectedisCurrentPlayer(): boolean {
         if (this.pieceSelected.color === this.currentlyPlayingColor) {
             return true;
         }
         return false;
     }
+    */
 
     public findPiece(row: number, col: number): Piece | undefined {
         const piece = this._pieceHelper.findSelectedPiece(row, col);
@@ -130,10 +132,12 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
+    /*
     private switchTurn(): void {
         this.currentlyPlayingColor = this._helper.switchPlayingColor(this.currentlyPlayingColor);
         this.displayPlayerName = this._playerHelper.switchDisplayPlayerName(this.displayPlayerName, this.firstPlayerName, this.secondPlayerName);
     }
+    */
 
     private makePieceSelectedKing(pieceSelected: any, to: Position): void {
         if (!this.pieceSelected.isKing) {
@@ -144,6 +148,7 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
+    /*
     private callPieceActions(pieceSelected: Piece, originalPosition: Position, { row, column }: any): void {
         this._pieceActions.move(originalPosition, { row, column });
         this.skippedPosition = this._skippedPositionHelper.findSkippedPosition(pieceSelected, originalPosition, { row, column });
@@ -159,6 +164,7 @@ export class GameBoardComponent implements OnInit {
             this._squareActions.updateSquareHasNoPiece(skippedPosition);
         }
     }
+    */
 
     private addingPoints(): void {
         this._playerActions.addPoint(this.pieceSelected.color);
@@ -170,6 +176,7 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
+    /*
     private moveStarted(row: number, column: number): void {
         this.originalPosition = { row, column };
         this.pieceSelected = this._pieceHelper.findSelectedPiece(this.originalPosition.row, this.originalPosition.column);
@@ -203,8 +210,10 @@ export class GameBoardComponent implements OnInit {
     private moveComplete(pieceSelected: any, originalPosition: any): void {
         this._appStateActions.updateState({ 'player.isMoving': false });
     }
+    */
 
     private moveSelected(row: number, column: number): void {
+        /*
         if (!this.isMoving) {
             this.moveStarted(row, column);
             this.pieceSelected = this._pieceHelper.findSelectedPiece(row, column);
@@ -212,6 +221,7 @@ export class GameBoardComponent implements OnInit {
             this.moveInProgress(this.pieceSelected, this.originalPosition, row, column);
             this.moveComplete(this.pieceSelected, this.originalPosition);
         }
+        */
     }
 
     private restartGame(): void {

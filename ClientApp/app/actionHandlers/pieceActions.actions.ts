@@ -8,6 +8,7 @@ import { Piece } from '../models/game-piece';
 import {LOAD_PIECES } from '../stores/pieces.store';
 import { Position } from '../models/position';
 import { Square } from '../models/gameBoard';
+import { AppStateActions } from './appState.actions';
 
 @Injectable()
 export class PieceActions {
@@ -16,7 +17,8 @@ export class PieceActions {
     constructor(
         private _store: Store<any>,
         private _helper: Helper,
-        private _pieceHelper: PieceHelper
+        private _pieceHelper: PieceHelper,
+        private _appStateActions: AppStateActions
     ) { }
 
     public move(from: Position, to: Position): void {
@@ -77,5 +79,19 @@ export class PieceActions {
             type: LOAD_PIECES,
             payload: updatedPieces,
         });
+    }
+
+    public pieceClicked(piece: Piece): Piece {
+        let selectedPiece = this._appStateActions.getSelectedPiece();
+
+        if (selectedPiece && selectedPiece != piece) {
+            throw "Invalid click";
+        } else if (selectedPiece && selectedPiece == piece) {
+            this._appStateActions.setSelectedPiece(null);
+        } else {
+            this._appStateActions.setSelectedPiece(piece);
+        }
+
+        return this._appStateActions.getSelectedPiece();
     }
 }

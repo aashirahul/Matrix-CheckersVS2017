@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Helper } from '../helpers/helper';
 
+import { MoveHelper } from '../helpers/moveHelper';
 import { Square } from '../models/gameBoard';
 import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
@@ -10,6 +11,8 @@ import * as Constants from '../constants/constants';
 import { ApiService, REQUEST_TYPE_GET } from '../services/api.service';
 import { LOAD_SQUARES } from '../stores/gameBoard.store';
 import { pieces } from '../stores/pieces.store';
+import { PieceActions } from './pieceActions.actions';
+import { PlayerActions } from './playerActions.actions';
 
 @Injectable()
 export class GameBoardActions {
@@ -20,6 +23,9 @@ export class GameBoardActions {
         private _store: Store<any>,
         private _api: ApiService,
         private _helper: Helper,
+        private _moveHelper: MoveHelper,
+        private _pieceActions: PieceActions,
+        private _playerActions: PlayerActions
     ) { }
 
     public availableMoves(position: Position, pieceSelected: Piece) {
@@ -111,5 +117,42 @@ export class GameBoardActions {
             type: LOAD_SQUARES,
             payload: squares
         });
+    }
+
+    public squareClicked(square: Square, selectedPiece: Piece): void {
+        if (selectedPiece == null) {
+            throw "Must select a piece first";
+        } else if(this.positionMatches(square.position, selectedPiece.position)) {
+            // piece selected; unhighlight other cells and highlight available moves
+            this.unhighlightSquares();
+            this.availableMoves(square.position, selectedPiece);
+        } else {
+            // clicked empty cell
+            if (this._moveHelper.isValidMove(selectedPiece, selectedPiece.position, square.position)) {
+                this._pieceActions.move(selectedPiece.position, square.position);
+
+                if (this._moveHelper.checkIfMoveCompleted(selectedPiece, selectedPiece.position, square.position.row, square.position.column)) {
+                    this.pieceMoved(selectedPiece.position, square.position);
+                }
+            } else {
+                throw "Cannot move to this square";
+            }
+        }
+    }
+
+    private positionMatches(position1: Position, position2: Position) {
+        return position1.row === position2.row && position1.column === position2.column;
+    }
+
+    private pieceMoved(newPosition: Position, originalPosition: Position) {
+        this.updateSquareHasPiece(newPosition);
+        this.updateSquareHasNoPiece(originalPosition);
+        this._playerActions.switchTurns();
+        this.unhighlightSquares();
+        /*
+        if (this.skippedPosition) {
+            this._squareActions.updateSquareHasNoPiece(skippedPosition);
+        }
+        */
     }
 }

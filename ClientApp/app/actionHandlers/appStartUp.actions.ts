@@ -2,6 +2,7 @@ import { HttpRequest, HttpErrorResponse, HttpClient } from '@angular/common/http
 import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 
+import { Position } from '../models/position';
 import { Piece } from '../models/game-piece';
 import { Square } from '../models/gameBoard';
 import { Player } from '../models/player';
@@ -37,6 +38,31 @@ export class AppStartUpActions {
     }
     
     public initializeSquares(): void {
+        /*
+        let squares: Square[] = [];
+
+        for (let row = 0; row < 8; row++) {
+            for (let col = 0; col < 8; col++) {
+                let position: Position = {
+                    row: row,
+                    column: col
+                };
+
+                let square: Square = {
+                    id: (row * 8) + col,
+                    position: position,
+                    isSelected: false,
+                    hasPiece: false,
+                    validMove: false
+                };
+
+                squares.push(square);
+            }
+        }
+
+        this._store.dispatch({ type: LOAD_SQUARES, payload: squares });
+        */
+        
         const squaresReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares`);
         this._api.callApiService<Square[]>(squaresReq)
             .subscribe(
