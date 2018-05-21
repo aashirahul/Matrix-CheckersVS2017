@@ -30,7 +30,6 @@ export class CellComponent implements OnInit {
     }
 
     public pieceSelected(): void {
-        //TODO: check if piece belongs to current player
         if (this.piece) {
             this._appStateActions.setOriginalPosition(this.piece.position.row, this.piece.position.column);
             let selectedPiece = this._pieceActions.pieceClicked(this.piece);
