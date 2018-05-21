@@ -35,6 +35,17 @@ export class PieceHelper {
         return allPieces;
     }
 
+    public checkIfPieceCurrentPlayingColor(piece: Piece): boolean {
+        let currentlyPlayingColor: string = '';
+        this._store.select('appState').subscribe((appState) => {
+            currentlyPlayingColor = appState[`currentlyPlayingColor`];
+        });
+        if (piece.color === currentlyPlayingColor) {
+            return true;
+        }
+        return false;
+    }
+
     public checkIfPieceSelectedCanBeKing(piece: Piece, row: number): boolean {
         if (piece.color === Constants.ColorForFirstPlayer && row === 7) {
             return true;

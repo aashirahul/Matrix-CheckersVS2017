@@ -1,7 +1,7 @@
 <div>
     <div class="game-container-box">
         <div class="row" *ngFor="let row of [0,1,2,3,4,5,6,7]">
-            <app-cell [piece]="findPiece(row,col)" [square]="findSquare(row,col)" (click)="moveSelected(row,col)" *ngFor="let col of [0,1,2,3,4,5,6,7]">
+            <app-cell [piece]="findPiece(row,col)" [square]="findSquare(row,col)"  *ngFor="let col of [0,1,2,3,4,5,6,7]">
             </app-cell>
         </div>
     </div>

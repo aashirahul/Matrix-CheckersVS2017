@@ -7,6 +7,7 @@ export interface State {
     'showPlayerNameModal': boolean;
     'showNewGameModal': boolean;
     'player.nameBeingUpdated': string;
+    'currentlyPlayingColor': string;
 }
 
 const initialAppState: State = {
@@ -14,7 +15,8 @@ const initialAppState: State = {
     'pieceSelected.Id': NaN,
     'showPlayerNameModal': false,
     'player.nameBeingUpdated': "",
-    'showNewGameModal':true
+    'showNewGameModal': true,
+    'currentlyPlayingColor': Constants.ColorForFirstPlayer
 };
 
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE';

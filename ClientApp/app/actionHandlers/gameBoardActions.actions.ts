@@ -4,6 +4,8 @@ import { Store } from '@ngrx/store';
 import { Helper } from '../helpers/helper';
 
 import { MoveHelper } from '../helpers/moveHelper';
+import { PieceHelper } from '../helpers/pieceHelper';
+import { SkippedPositionHelper } from '../helpers/skippedPositionHelper';
 import { Square } from '../models/gameBoard';
 import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
@@ -24,8 +26,10 @@ export class GameBoardActions {
         private _api: ApiService,
         private _helper: Helper,
         private _moveHelper: MoveHelper,
+        private _pieceHelper: PieceHelper,
         private _pieceActions: PieceActions,
-        private _playerActions: PlayerActions
+        private _playerActions: PlayerActions,
+        private _skippedPositionHelper: SkippedPositionHelper
     ) { }
 
     public availableMoves(position: Position, pieceSelected: Piece) {
@@ -119,40 +123,51 @@ export class GameBoardActions {
         });
     }
 
-    public squareClicked(square: Square, selectedPiece: Piece): void {
-        if (selectedPiece == null) {
-            throw "Must select a piece first";
-        } else if(this.positionMatches(square.position, selectedPiece.position)) {
-            // piece selected; unhighlight other cells and highlight available moves
-            this.unhighlightSquares();
-            this.availableMoves(square.position, selectedPiece);
-        } else {
-            // clicked empty cell
-            if (this._moveHelper.isValidMove(selectedPiece, selectedPiece.position, square.position)) {
-                this._pieceActions.move(selectedPiece.position, square.position);
-
-                if (this._moveHelper.checkIfMoveCompleted(selectedPiece, selectedPiece.position, square.position.row, square.position.column)) {
-                    this.pieceMoved(selectedPiece.position, square.position);
-                }
+    public squareClicked(square: Square, selectedPiece: Piece, originalPosition: Position): void {
+        if (this._pieceHelper.checkIfPieceCurrentPlayingColor(selectedPiece)) {
+            if (selectedPiece == null) {
+                throw "Must select a piece first";
+            } else if (this.positionMatches(square.position, selectedPiece.position)) {
+                this.unhighlightSquares();
+                this.availableMoves(square.position, selectedPiece);
             } else {
-                throw "Cannot move to this square";
+                if (this._moveHelper.isValidMove(selectedPiece, selectedPiece.position, square.position)) {
+                    this._pieceActions.move(selectedPiece.position, square.position);
+                    if (this._moveHelper.checkIfMoveCompleted(selectedPiece, selectedPiece.position, square.position.row, square.position.column)) {
+                        this.pieceMoved(selectedPiece, selectedPiece.position, originalPosition);
+                    }
+                } else if (this._moveHelper.isAJump(selectedPiece, selectedPiece.position, square.position)) {
+                    let skippedPosition: any;
+                    skippedPosition = this._skippedPositionHelper.findSkippedPosition(selectedPiece, selectedPiece.position, square.position);
+                    this._pieceActions.move(selectedPiece.position, square.position);
+                    this._pieceActions.jump(skippedPosition);
+                    if (this._moveHelper.checkIfJumpCompleted(selectedPiece, selectedPiece.position, square.position, skippedPosition)) {
+                        this.pieceMoved(selectedPiece,selectedPiece.position, originalPosition);
+                        this.pieceSkipped(skippedPosition);
+                    }
+                }
+                else {
+                    throw "Cannot move to this square";
+                }
             }
         }
     }
 
-    private positionMatches(position1: Position, position2: Position) {
-        return position1.row === position2.row && position1.column === position2.column;
+    private positionMatches(position1: Position, position2: Position): boolean {
+        if (position1.row === position2.row && position1.column === position2.column) {
+            return true;
+        }
+        return false;
     }
 
-    private pieceMoved(newPosition: Position, originalPosition: Position) {
+    public pieceMoved(selectedPiece:Piece, newPosition: Position, originalPosition: Position): void {
         this.updateSquareHasPiece(newPosition);
         this.updateSquareHasNoPiece(originalPosition);
-        this._playerActions.switchTurns();
+        this._playerActions.switchTurns(selectedPiece);
         this.unhighlightSquares();
-        /*
-        if (this.skippedPosition) {
-            this._squareActions.updateSquareHasNoPiece(skippedPosition);
-        }
-        */
+    }
+
+    public pieceSkipped(skippedPosition: Position): void {
+        this.updateSquareHasNoPiece(skippedPosition);
     }
 }

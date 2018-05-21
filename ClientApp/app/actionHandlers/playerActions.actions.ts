@@ -3,14 +3,16 @@ import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Helper } from '../helpers/helper';
 import { PlayerHelper } from '../helpers/playerHelper';
+import * as Constants from '../constants/constants';
 
 import { Player } from '../models/player';
+import { Piece } from '../models/game-piece';
 import { LOAD_PLAYERS } from '../stores/players.store';
 import { AppStateActions } from './appState.actions';
 
 @Injectable()
 export class PlayerActions {
-    private pieces: Array<Player>;
+   
 
     constructor(
         private _store: Store<any>,
@@ -50,15 +52,19 @@ export class PlayerActions {
         });
     }
 
-    public switchTurns(): void {
-        let players: Array<Player> = this._playerHelper.getCurrentPlayers();
-        let currentPlayer = this._appStateActions.getCurrentPlayer();
+  
 
-        players.forEach((player) => {
-            if (player !== currentPlayer) {
-                this._appStateActions.setCurrentPlayer(player);
-            }
-        });
+    public switchTurns(piece: Piece): void {
+        let updateColor: string;
+        if (piece.color === Constants.ColorForFirstPlayer) {
+            this._appStateActions.updateState({
+                'currentlyPlayingColor': Constants.ColorForSecondPlayer
+            });
+        } else if (piece.color === Constants.ColorForSecondPlayer) {
+            this._appStateActions.updateState({
+                'currentlyPlayingColor': Constants.ColorForFirstPlayer
+            });
+        }
     }
 }
 

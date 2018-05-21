@@ -27,10 +27,6 @@ export class Helper {
         this._store.select('squares').subscribe((squares) => allSquares = squares);
         return allSquares;
     }
-   
-    public switchPlayingColor(currentlyPlayingColor: string): string | any {
-        currentlyPlayingColor = currentlyPlayingColor === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
-        return currentlyPlayingColor;
-    }
+  
 }
 

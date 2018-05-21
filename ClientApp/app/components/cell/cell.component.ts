@@ -7,36 +7,39 @@ import { GameBoardActions } from '../../actionHandlers/gameBoardActions.actions'
 import { AppStateActions } from '../../actionHandlers/appState.actions';
 
 @Component({
-  selector: 'app-cell',
-  templateUrl: './cell.component.html',
-  styleUrls: ['./cell.component.css']
+    selector: 'app-cell',
+    templateUrl: './cell.component.html',
+    styleUrls: ['./cell.component.css']
 })
 export class CellComponent implements OnInit {
-  @Input()
-  square: Square;
+    @Input()
+    square: Square;
 
-  @Input()
-  piece: Piece;
+    @Input()
+    piece: Piece;
 
-  constructor(
-      private _store: Store<any>,
-      private _pieceActions: PieceActions,
-      private _gameBoardActions: GameBoardActions,
-      private _appStateActions: AppStateActions
-  ) { }
+    constructor(
+        private _store: Store<any>,
+        private _pieceActions: PieceActions,
+        private _gameBoardActions: GameBoardActions,
+        private _appStateActions: AppStateActions
+    ) { }
 
-  public ngOnInit() {
-  
-  }
+    public ngOnInit() {
 
-    public clickHandler() {
+    }
+
+    public pieceSelected(): void {
         //TODO: check if piece belongs to current player
         if (this.piece) {
+            this._appStateActions.setOriginalPosition(this.piece.position.row, this.piece.position.column);
             let selectedPiece = this._pieceActions.pieceClicked(this.piece);
-            this._gameBoardActions.squareClicked(this.square, selectedPiece);
+            let originalPosition = this._appStateActions.getOriginalPosition();
+            this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
         } else {
             let selectedPiece = this._appStateActions.getSelectedPiece();
-            this._gameBoardActions.squareClicked(this.square, selectedPiece);
+            let originalPosition = this._appStateActions.getOriginalPosition();
+            this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
         }
     }
 

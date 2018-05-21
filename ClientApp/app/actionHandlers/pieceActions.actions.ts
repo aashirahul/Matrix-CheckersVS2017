@@ -84,13 +84,18 @@ export class PieceActions {
     public pieceClicked(piece: Piece): Piece {
         let selectedPiece = this._appStateActions.getSelectedPiece();
 
-        if (selectedPiece && selectedPiece != piece) {
-            throw "Invalid click";
-        } else if (selectedPiece && selectedPiece == piece) {
+        if (selectedPiece === piece) {
             this._appStateActions.setSelectedPiece(null);
-        } else {
+        }  else {
             this._appStateActions.setSelectedPiece(piece);
         }
+        //if (selectedPiece && selectedPiece != piece) {
+        //    throw "Invalid click";
+        //} else if (selectedPiece && selectedPiece == piece) {
+        //    this._appStateActions.setSelectedPiece(null);
+        //} else {
+        //    this._appStateActions.setSelectedPiece(piece);
+        //}
 
         return this._appStateActions.getSelectedPiece();
     }

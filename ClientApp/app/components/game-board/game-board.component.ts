@@ -34,15 +34,11 @@ export class GameBoardComponent implements OnInit {
 
     public selectedPiece: number;
     public isMoving = false;
-    public originalPosition: Position;
-    //public currentlyPlayingColor = Constants.ColorForFirstPlayer;
+    public currentlyPlayingColor: string;
     public firstPlayerName: string;
     public secondPlayerName: string;
     public displayPlayerName: string;
     public isplayerNameSet = false;
-    public skippedPosition: any;
-    public availablePositionOne: Position;
-    public availablePositionTwo: Position;
     public pieceSelected: any;
     public isKing = false;
     public showPlayerNameModal: boolean;
@@ -71,6 +67,7 @@ export class GameBoardComponent implements OnInit {
             subscribe((appState) => {
                 this.isMoving = appState[`player.isMoving`];
                 this.showPlayerNameModal = appState[`showPlayerNameModal`];
+                this.currentlyPlayingColor = appState[`currentlyPlayingColor`];
             });
         this.piecesSubscription = this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
@@ -90,7 +87,7 @@ export class GameBoardComponent implements OnInit {
 
     private setDisplayPlayerName() {
         if (!this.firstPlayerName) {
-            this.displayPlayerName = Constants.ColorForFirstPlayer;
+            this.displayPlayerName = this.currentlyPlayingColor;
         } else {
             this.displayPlayerName = this.firstPlayerName;
         }
@@ -108,15 +105,6 @@ export class GameBoardComponent implements OnInit {
         this._playerActions.updatePlayerName(name);
         this.setDisplayPlayerName();
     }
-
-    /*
-    private pieceSelectedisCurrentPlayer(): boolean {
-        if (this.pieceSelected.color === this.currentlyPlayingColor) {
-            return true;
-        }
-        return false;
-    }
-    */
 
     public findPiece(row: number, col: number): Piece | undefined {
         const piece = this._pieceHelper.findSelectedPiece(row, col);
@@ -148,24 +136,6 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    /*
-    private callPieceActions(pieceSelected: Piece, originalPosition: Position, { row, column }: any): void {
-        this._pieceActions.move(originalPosition, { row, column });
-        this.skippedPosition = this._skippedPositionHelper.findSkippedPosition(pieceSelected, originalPosition, { row, column });
-        this._pieceActions.jump(this.skippedPosition);
-    }
-
-    private callSquareActions(originalPosition: Position, { row, column }: any, skippedPosition: Position): void {
-        this._squareActions.updateSquareHasPiece({ row, column });
-        this._squareActions.updateSquareHasNoPiece(originalPosition);
-        this.switchTurn();
-        this._squareActions.unhighlightSquares();
-        if (this.skippedPosition) {
-            this._squareActions.updateSquareHasNoPiece(skippedPosition);
-        }
-    }
-    */
-
     private addingPoints(): void {
         this._playerActions.addPoint(this.pieceSelected.color);
         if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
@@ -174,54 +144,6 @@ export class GameBoardComponent implements OnInit {
         if (this.pieceSelected.color === Constants.ColorForSecondPlayer) {
             this.scoreBlack = this._playerHelper.updateScore(this.pieceSelected.color);
         }
-    }
-
-    /*
-    private moveStarted(row: number, column: number): void {
-        this.originalPosition = { row, column };
-        this.pieceSelected = this._pieceHelper.findSelectedPiece(this.originalPosition.row, this.originalPosition.column);
-        if (this.pieceSelectedisCurrentPlayer()) {
-            this._squareActions.squareSelected(this.originalPosition);
-            if (!this.pieceSelected.isKing) {
-                this._squareActions.availableMoves(this.originalPosition, this.pieceSelected);
-            }
-            this._appStateActions.updateState({ 'player.isMoving': true, 'pieceSelected.Id': this.pieceSelected.id });
-        }
-    }
-
-    private moveInProgress(pieceSelected: Piece, originalPosition: Position, row: number, column: number): void {
-        if (this.pieceSelectedisCurrentPlayer()) {
-            this.makePieceSelectedKing(this.pieceSelected, { row, column });
-            if (this._moveHelper.isAJump(pieceSelected, originalPosition, { row, column })) {
-                this.callPieceActions(pieceSelected, originalPosition, { row, column });
-                if (this._moveHelper.checkIfJumpCompleted(pieceSelected, originalPosition, { row, column }, this.skippedPosition)) {
-                    this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
-                    this.addingPoints();
-                }
-            } else if (this._moveHelper.isValidMove(pieceSelected, originalPosition, { row, column })) {
-                this._pieceActions.move(originalPosition, { row, column });
-                if (this._moveHelper.checkIfMoveCompleted(pieceSelected, originalPosition, row, column)) {
-                    this.callSquareActions(originalPosition, { row, column }, this.skippedPosition);
-                }
-            }
-        }
-    }
-
-    private moveComplete(pieceSelected: any, originalPosition: any): void {
-        this._appStateActions.updateState({ 'player.isMoving': false });
-    }
-    */
-
-    private moveSelected(row: number, column: number): void {
-        /*
-        if (!this.isMoving) {
-            this.moveStarted(row, column);
-            this.pieceSelected = this._pieceHelper.findSelectedPiece(row, column);
-        } else {
-            this.moveInProgress(this.pieceSelected, this.originalPosition, row, column);
-            this.moveComplete(this.pieceSelected, this.originalPosition);
-        }
-        */
     }
 
     private restartGame(): void {

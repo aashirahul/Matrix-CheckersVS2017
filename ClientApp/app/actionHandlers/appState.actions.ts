@@ -5,11 +5,12 @@ import * as Constants from '../constants/constants';
 import { UPDATE_APP_STATE } from '../stores/appState.store';
 import { Piece } from '../models/game-piece';
 import { Player } from '../models/player';
+import { Position } from '../models/position';
 
 @Injectable()
 export class AppStateActions {
     private selectedPiece: any;
-    private currentPlayer: Player;
+    public originalPosition: Position;
 
     constructor(
         private _store: Store<any>
@@ -24,6 +25,17 @@ export class AppStateActions {
         );
     }
 
+    public setOriginalPosition(row: any, col: any): void {
+        this.originalPosition = {
+            row: row,
+            column: col
+        };
+    }
+
+    public getOriginalPosition(): Position {
+        return this.originalPosition;
+    }
+
     public getSelectedPiece(): Piece {
         return this.selectedPiece;
     }
@@ -31,12 +43,5 @@ export class AppStateActions {
     public setSelectedPiece(selectedPiece: any): void {
         this.selectedPiece = selectedPiece;
     }
-
-    public setCurrentPlayer(player: Player) {
-        this.currentPlayer = player;
-    }
-
-    public getCurrentPlayer() {
-        return this.currentPlayer;
-    }
+       
 }
