@@ -29,18 +29,11 @@ export class GameBoardComponent implements OnInit {
     public player: Player;
     public squares: Array<Square>;
     public players: Array<Player>;
-    public scoreRed: Array<number> = [];
-    public scoreBlack: Array<number> = [];
-
-    public selectedPiece: number;
     public isMoving = false;
     public currentlyPlayingColor: string;
     public firstPlayerName: string;
     public secondPlayerName: string;
     public displayPlayerName: string;
-    public isplayerNameSet = false;
-    public pieceSelected: any;
-    public isKing = false;
     public showPlayerNameModal: boolean;
     public currentPlayerIndex: number;
     private piecesSubscription: any;
@@ -51,16 +44,11 @@ export class GameBoardComponent implements OnInit {
 
     constructor(
         private _store: Store<any>,
-        private _pieceActions: PieceActions,
-        private _squareActions: GameBoardActions,
         private _playerActions: PlayerActions,
         private _appStartUpActions: AppStartUpActions,
         private _appStateActions: AppStateActions,
         private _helper: Helper,
         private _pieceHelper: PieceHelper,
-        private _moveHelper: MoveHelper,
-        private _playerHelper: PlayerHelper,
-        private _skippedPositionHelper: SkippedPositionHelper
     ) { }
 
     public ngOnInit() {
