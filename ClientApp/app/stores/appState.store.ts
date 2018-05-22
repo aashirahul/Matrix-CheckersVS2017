@@ -18,8 +18,8 @@ const initialAppState: State = {
     'player.nameBeingUpdated': "",
     'showNewGameModal': true,
     'currentlyPlayingColor': Constants.ColorForFirstPlayer,
-    'currentPlayerIndex': 0
-};
+    'currentPlayerIndex': 0,
+  };
 
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE';
 

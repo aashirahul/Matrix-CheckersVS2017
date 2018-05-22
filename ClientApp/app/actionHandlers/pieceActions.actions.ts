@@ -5,7 +5,7 @@ import { Helper } from '../helpers/helper';
 import { PieceHelper } from '../helpers/pieceHelper';
 
 import { Piece } from '../models/game-piece';
-import {LOAD_PIECES } from '../stores/pieces.store';
+import { LOAD_PIECES } from '../stores/pieces.store';
 import { Position } from '../models/position';
 import { Square } from '../models/gameBoard';
 import { AppStateActions } from './appState.actions';
@@ -86,17 +86,9 @@ export class PieceActions {
 
         if (selectedPiece === piece) {
             this._appStateActions.setSelectedPiece(null);
-        }  else {
+        } else {
             this._appStateActions.setSelectedPiece(piece);
         }
-        //if (selectedPiece && selectedPiece != piece) {
-        //    throw "Invalid click";
-        //} else if (selectedPiece && selectedPiece == piece) {
-        //    this._appStateActions.setSelectedPiece(null);
-        //} else {
-        //    this._appStateActions.setSelectedPiece(piece);
-        //}
-
         return this._appStateActions.getSelectedPiece();
     }
 }
