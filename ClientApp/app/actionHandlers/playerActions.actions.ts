@@ -53,23 +53,15 @@ export class PlayerActions {
     }
 
     public switchTurns(piece: Piece): void {
-        let newPlayerIndex = 0;
-        if (piece.color === Constants.ColorForFirstPlayer) {
-            newPlayerIndex = 1;
-        } else if (piece.color === Constants.ColorForSecondPlayer) {
-            newPlayerIndex = 0;
-        }
-        this._appStateActions.updateState({
-            'currentPlayerIndex': newPlayerIndex
-        });
-        let updateColor: string;
-        if (piece.color === Constants.ColorForFirstPlayer) {
+        if (piece && piece.color === Constants.ColorForFirstPlayer) {
             this._appStateActions.updateState({
-                'currentlyPlayingColor': Constants.ColorForSecondPlayer
+                'currentlyPlayingColor': Constants.ColorForSecondPlayer,
+                'currentPlayerIndex': 1
             });
-        } else if (piece.color === Constants.ColorForSecondPlayer) {
+        } else if (piece && piece.color === Constants.ColorForSecondPlayer) {
             this._appStateActions.updateState({
-                'currentlyPlayingColor': Constants.ColorForFirstPlayer
+                'currentlyPlayingColor': Constants.ColorForFirstPlayer,
+                'currentPlayerIndex': 0
             });
         }
     }
