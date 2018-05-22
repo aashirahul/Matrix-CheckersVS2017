@@ -27,6 +27,7 @@ export class Helper {
         this._store.select('squares').subscribe((squares) => allSquares = squares);
         return allSquares;
     }
-  
+
+ 
 }
 

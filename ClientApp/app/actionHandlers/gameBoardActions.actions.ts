@@ -15,6 +15,7 @@ import { LOAD_SQUARES } from '../stores/gameBoard.store';
 import { pieces } from '../stores/pieces.store';
 import { PieceActions } from './pieceActions.actions';
 import { PlayerActions } from './playerActions.actions';
+import { AppStateActions } from './appState.actions';
 
 @Injectable()
 export class GameBoardActions {
@@ -29,7 +30,9 @@ export class GameBoardActions {
         private _pieceHelper: PieceHelper,
         private _pieceActions: PieceActions,
         private _playerActions: PlayerActions,
-        private _skippedPositionHelper: SkippedPositionHelper
+        private _skippedPositionHelper: SkippedPositionHelper,
+        private _appStateActions: AppStateActions
+
     ) { }
 
     public availableMoves(position: Position, pieceSelected: Piece) {
@@ -123,13 +126,20 @@ export class GameBoardActions {
         });
     }
 
+    public moveStarted(position: Position, selectedPiece: Piece): void {
+        this.unhighlightSquares();
+        this.availableMoves(position, selectedPiece);
+        this._appStateActions.updateState({
+            'player.isMoving': true
+        });
+    }
+
     public squareClicked(square: Square, selectedPiece: Piece, originalPosition: Position): void {
         if (this._pieceHelper.checkIfPieceCurrentPlayingColor(selectedPiece)) {
             if (selectedPiece == null) {
                 throw "Must select a piece first";
             } else if (this.positionMatches(square.position, selectedPiece.position)) {
-                this.unhighlightSquares();
-                this.availableMoves(square.position, selectedPiece);
+                this.moveStarted(square.position, selectedPiece);
             } else {
                 if (this._moveHelper.isValidMove(selectedPiece, selectedPiece.position, square.position)) {
                     this._pieceActions.move(selectedPiece.position, square.position);
@@ -142,8 +152,7 @@ export class GameBoardActions {
                     this._pieceActions.move(selectedPiece.position, square.position);
                     this._pieceActions.jump(skippedPosition);
                     if (this._moveHelper.checkIfJumpCompleted(selectedPiece, selectedPiece.position, square.position, skippedPosition)) {
-                        this.pieceMoved(selectedPiece,selectedPiece.position, originalPosition);
-                        this.pieceSkipped(skippedPosition);
+                        this.pieceJumped(selectedPiece, selectedPiece.position, originalPosition, skippedPosition);
                     }
                 }
                 else {
@@ -160,11 +169,20 @@ export class GameBoardActions {
         return false;
     }
 
-    public pieceMoved(selectedPiece:Piece, newPosition: Position, originalPosition: Position): void {
+    public pieceMoved(selectedPiece: Piece, newPosition: Position, originalPosition: Position): void {
         this.updateSquareHasPiece(newPosition);
         this.updateSquareHasNoPiece(originalPosition);
         this._playerActions.switchTurns(selectedPiece);
         this.unhighlightSquares();
+        this._appStateActions.updateState({
+            'player.isMoving': false
+        });
+    }
+
+    public pieceJumped(selectedPiece: Piece, selectedPiecePosition: Position, originalPosition: Position, skippedPosition: Position): void {
+        this.pieceMoved(selectedPiece, selectedPiecePosition, originalPosition);
+        this.pieceSkipped(skippedPosition);
+        this._playerActions.addPoint(selectedPiece.color);
     }
 
     public pieceSkipped(skippedPosition: Position): void {

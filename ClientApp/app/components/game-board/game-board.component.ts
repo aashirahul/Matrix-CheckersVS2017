@@ -42,6 +42,7 @@ export class GameBoardComponent implements OnInit {
     public pieceSelected: any;
     public isKing = false;
     public showPlayerNameModal: boolean;
+    public currentPlayerIndex: number;
     private piecesSubscription: any;
     private squaresSubscription: any;
     private playersSubscription: any;
@@ -68,29 +69,22 @@ export class GameBoardComponent implements OnInit {
                 this.isMoving = appState[`player.isMoving`];
                 this.showPlayerNameModal = appState[`showPlayerNameModal`];
                 this.currentlyPlayingColor = appState[`currentlyPlayingColor`];
+                this.currentPlayerIndex = appState[`currentPlayerIndex`];
             });
         this.piecesSubscription = this._store.select('pieces').subscribe((pieces) => this.pieces = pieces);
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
         this.playersSubscription = this._store.select('players').subscribe((players: Array<Player>) => {
+            this.players = players;
             if (players && players.length) {
                 this.firstPlayerName = players[0].name;
                 this.secondPlayerName = players[1].name;
             }
         });
-        this.setDisplayPlayerName();
     }
 
     public ngOnDestroy() {
         this.appStateSubscription.unsubscribe();
         this.piecesSubscription.unsubscribe();
-    }
-
-    private setDisplayPlayerName() {
-        if (!this.firstPlayerName) {
-            this.displayPlayerName = this.currentlyPlayingColor;
-        } else {
-            this.displayPlayerName = this.firstPlayerName;
-        }
     }
 
     private editRedPlayerName(): void {
@@ -103,7 +97,6 @@ export class GameBoardComponent implements OnInit {
 
     private playerNameAdded(name: string): void {
         this._playerActions.updatePlayerName(name);
-        this.setDisplayPlayerName();
     }
 
     public findPiece(row: number, col: number): Piece | undefined {
@@ -120,12 +113,9 @@ export class GameBoardComponent implements OnInit {
         }
     }
 
-    /*
-    private switchTurn(): void {
-        this.currentlyPlayingColor = this._helper.switchPlayingColor(this.currentlyPlayingColor);
-        this.displayPlayerName = this._playerHelper.switchDisplayPlayerName(this.displayPlayerName, this.firstPlayerName, this.secondPlayerName);
+    public createRange(number: number) {
+        return Array(number).fill('1');
     }
-    */
 
     private makePieceSelectedKing(pieceSelected: any, to: Position): void {
         if (!this.pieceSelected.isKing) {
@@ -133,16 +123,6 @@ export class GameBoardComponent implements OnInit {
                 this._pieceActions.makeKing(this.pieceSelected.id);
                 this._pieceActions.move(this.pieceSelected.position, to);
             }
-        }
-    }
-
-    private addingPoints(): void {
-        this._playerActions.addPoint(this.pieceSelected.color);
-        if (this.pieceSelected.color === Constants.ColorForFirstPlayer) {
-            this.scoreRed = this._playerHelper.updateScore(this.pieceSelected.color);
-        }
-        if (this.pieceSelected.color === Constants.ColorForSecondPlayer) {
-            this.scoreBlack = this._playerHelper.updateScore(this.pieceSelected.color);
         }
     }
 

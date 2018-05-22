@@ -30,34 +30,6 @@ export class PlayerHelper {
         this._store.select('players').subscribe((players) => currentPlayers = players);
         return currentPlayers;
     }
-        
-    public switchDisplayPlayerName(displayPlayerName: string, firstPlayerName: string, secondPlayerName: string): string | any {
-        if (firstPlayerName === Constants.ColorForFirstPlayer) {
-            if (!secondPlayerName) {
-                displayPlayerName = displayPlayerName === Constants.ColorForFirstPlayer ? Constants.ColorForSecondPlayer : Constants.ColorForFirstPlayer;
-            } else {
-                displayPlayerName = displayPlayerName === Constants.ColorForFirstPlayer ? secondPlayerName : Constants.ColorForFirstPlayer;
-            }
-            return displayPlayerName;
-        } else {
-            if (!secondPlayerName) {
-                displayPlayerName = displayPlayerName === firstPlayerName ? Constants.ColorForSecondPlayer : firstPlayerName;
-            } else {
-                displayPlayerName = displayPlayerName === firstPlayerName ? secondPlayerName : firstPlayerName;
-            }
-            return displayPlayerName;
-        }
-    }
-
-    public updateScore(color: string): Array<number> | any {
-        const players = this.getCurrentPlayers();
-        if (color === Constants.ColorForFirstPlayer) {
-            const scoreRed = Array(players[0].score).fill('1');
-            return scoreRed;
-        } else if (color === Constants.ColorForSecondPlayer) {
-            const scoreBlack = Array(players[1].score).fill('1');
-            return scoreBlack;
-        }
-    }
+   
 }
 
