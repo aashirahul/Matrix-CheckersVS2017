@@ -5,16 +5,11 @@ import { Piece } from '../../models/game-piece';
 import { Square } from '../../models/gameBoard';
 import { Position } from '../../models/position';
 import { Player } from '../../models/player';
-import { PieceActions } from '../../actionHandlers/pieceActions.actions';
-import { GameBoardActions } from '../../actionHandlers/gameBoardActions.actions';
 import { PlayerActions } from '../../actionHandlers/playerActions.actions';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
 import { AppStartUpActions } from '../../actionHandlers/appStartUp.actions';
 import { Helper } from '../../helpers/helper';
 import { PieceHelper } from '../../helpers/pieceHelper';
-import { MoveHelper } from '../../helpers/moveHelper';
-import { SkippedPositionHelper } from '../../helpers/skippedPositionHelper';
-import { PlayerHelper } from '../../helpers/playerHelper';
 import * as Constants from '../../constants/constants';
 import * as fromappstate from '../../stores/appState.store';
 
