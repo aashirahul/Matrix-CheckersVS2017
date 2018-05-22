@@ -174,6 +174,7 @@ export class GameBoardActions {
         this.updateSquareHasNoPiece(originalPosition);
         this._playerActions.switchTurns(selectedPiece);
         this.unhighlightSquares();
+        this.makePieceSelectedKing(selectedPiece, newPosition);
         this._appStateActions.updateState({
             'player.isMoving': false
         });
@@ -188,4 +189,13 @@ export class GameBoardActions {
     public pieceSkipped(skippedPosition: Position): void {
         this.updateSquareHasNoPiece(skippedPosition);
     }
+
+    public makePieceSelectedKing(selectedPiece: Piece, newPosition: Position): void {
+        if (!selectedPiece.isKing) {
+            if (this._pieceHelper.checkIfPieceSelectedCanBeKing(selectedPiece, newPosition.row)) {
+                this._pieceActions.makeKing(selectedPiece.id);
+            }
+        }
+    }
+
 }

@@ -117,15 +117,6 @@ export class GameBoardComponent implements OnInit {
         return Array(number).fill('1');
     }
 
-    private makePieceSelectedKing(pieceSelected: any, to: Position): void {
-        if (!this.pieceSelected.isKing) {
-            if (this._pieceHelper.checkIfPieceSelectedCanBeKing(this.pieceSelected, to.row)) {
-                this._pieceActions.makeKing(this.pieceSelected.id);
-                this._pieceActions.move(this.pieceSelected.position, to);
-            }
-        }
-    }
-
     private restartGame(): void {
         this._appStartUpActions.initializeGame();
         this._appStartUpActions.initializeSquares();
