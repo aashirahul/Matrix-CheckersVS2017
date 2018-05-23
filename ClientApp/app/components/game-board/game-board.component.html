@@ -1,14 +1,9 @@
 <div>
-    <div class="game-container-box">
-        <div class="row" *ngFor="let row of [0,1,2,3,4,5,6,7]">
-            <app-cell [piece]="findPiece(row,col)" [square]="findSquare(row,col)"  *ngFor="let col of [0,1,2,3,4,5,6,7]">
-            </app-cell>
-        </div>
-    </div>
+    <div> <app-cell></app-cell></div>
     <div class="label">
 
         <div>
-            Player {{players[currentPlayerIndex].name}} is moving {{isMoving}}
+            <!--Player {{players[currentPlayerIndex].name}} is moving {{isMoving}}-->
         </div>
 
     </div>
@@ -18,14 +13,14 @@
             <div class="score-style">
                 <div class="tag">Player</div> <div class="player-name" [ngClass]="{'addColorRed': firstPlayerName !='red'}">{{firstPlayerName}}</div>
             </div>
-            <div class="red score " *ngFor="let item of createRange(players ? players[0].score : 0)"></div>
+            <!--       <div class="red score " *ngFor="let item of createRange(players ? players[0].score : 0)"></div>-->
         </div>
         <div class=" row-style">
             <div (click)="editBlackPlayerName()"><i class="fas fa-pencil-alt"></i></div>
             <div class="score-style">
-                <div class="tag">Player</div> <div class="player-name" [ngClass] ="{'addColorBlack': secondPlayerName !='black'}">{{secondPlayerName}}</div>
+                <div class="tag">Player</div> <div class="player-name" [ngClass]="{'addColorBlack': secondPlayerName !='black'}">{{secondPlayerName}}</div>
             </div>
-            <div class="black score" *ngFor="let item of createRange(players ? players[1].score : 0)"></div>
+            <!--  <div class="black score" *ngFor="let item of createRange(players ? players[1].score : 0)"></div>-->
         </div>
     </div>
     <div class="button-container">

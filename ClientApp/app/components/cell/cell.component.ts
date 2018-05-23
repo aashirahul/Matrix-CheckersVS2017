@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Piece } from '../../models/game-piece';
 import { Store } from '@ngrx/store';
-import { Square } from '../../models/gameBoard';
+import { Square } from '../../models/square';
 import { PieceActions } from '../../actionHandlers/pieceActions.actions';
 import { GameBoardActions } from '../../actionHandlers/gameBoardActions.actions';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
@@ -17,6 +17,9 @@ export class CellComponent implements OnInit {
 
     @Input()
     piece: Piece;
+    private squaresSubscription: any;
+    public squares: Array<Square>;
+    public subSquares: any;
 
     constructor(
         private _store: Store<any>,
@@ -26,20 +29,37 @@ export class CellComponent implements OnInit {
     ) { }
 
     public ngOnInit() {
-
+        this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
+        this.subSquares = this.setGameBoard();
+        console.log(this.subSquares);
     }
 
-    public pieceSelected(): void {
-        if (this.piece) {
-            this._appStateActions.setOriginalPosition(this.piece.position.row, this.piece.position.column);
-            let selectedPiece = this._pieceActions.pieceClicked(this.piece);
-            let originalPosition = this._appStateActions.getOriginalPosition();
-            this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
-        } else {
-            let selectedPiece = this._appStateActions.getSelectedPiece();
-            let originalPosition = this._appStateActions.getOriginalPosition();
-            this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
+    public setGameBoard(): Array<any> | undefined {
+        var sqrt = Math.sqrt(this.squares.length);
+        var subSquares = [];
+        for (var i = 0; i < 7; i++) {
+            for (var i = 0; i < sqrt; i++) {
+                subSquares.push(this.squares.slice(i * sqrt));
+            }
+            return subSquares;
         }
+    }
+
+    public squareSelected(): void {
+
+        //if (this.piece) {
+        //    this._appStateActions.setOriginalPosition(this.piece.position.row, this.piece.position.column);
+        //    let selectedPiece = this._pieceActions.pieceClicked(this.piece);
+        //    //let originalPosition = this._appStateActions.getOriginalPosition();
+        //    //this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
+        //} else {
+        //    let selectedPiece = this._appStateActions.getSelectedPiece();
+        //    //let originalPosition = this._appStateActions.getOriginalPosition();
+        //    //this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
+        //}
+        //let originalPosition = this._appStateActions.getOriginalPosition();
+        //this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
+        this._gameBoardActions.squareClicked(this.square);
     }
 
 }

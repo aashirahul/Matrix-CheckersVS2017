@@ -1,5 +1,5 @@
 import { Action } from '@ngrx/store';
-import { Square } from '../models/gameBoard';
+import { Square } from '../models/square';
 import { Position } from '../models/position';
 import { Helper } from '../helpers/helper';
 

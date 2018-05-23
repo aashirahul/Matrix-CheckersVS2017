@@ -1,7 +1,6 @@
 import { Action } from '@ngrx/store';
 import { Piece } from '../models/game-piece';
-import { Position } from '../models/position';
-import { Square } from '../models/gameBoard';
+
 
 export type State = Array<Piece>;
 

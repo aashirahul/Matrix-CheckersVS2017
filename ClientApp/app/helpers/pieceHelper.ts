@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
 import { Player } from '../models/player';
-import { Square } from '../models/gameBoard';
+import { Square } from '../models/square';
 import * as Constants from '../constants/constants';
 import { PlayerActions } from '../actionHandlers/playerActions.actions';
 
@@ -32,6 +32,7 @@ export class PieceHelper {
     public getPieces(): Array<Piece> {
         let allPieces: Array<Piece> = [];
         this._store.select('pieces').subscribe((pieces) => allPieces = pieces);
+        //console.log(allPieces);
         return allPieces;
     }
 

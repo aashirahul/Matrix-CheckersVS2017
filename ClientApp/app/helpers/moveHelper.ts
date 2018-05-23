@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
 import { Player } from '../models/player';
-import { Square } from '../models/gameBoard';
+import { Square } from '../models/square';
 import * as Constants from '../constants/constants';
 import { PlayerActions } from '../actionHandlers/playerActions.actions';
 
@@ -17,6 +17,13 @@ export class MoveHelper {
         private _store: Store<any>,
     ) { }
 
+    public getSelectedStartingPostion(): Position |null {
+        let selectedStartingPostion = null;
+        this._store.select('appState').subscribe((appState) => {
+            selectedStartingPostion = appState[`selectedStartingPostion`];
+        });
+        return selectedStartingPostion;
+    }
    
     public checkIfMoveCompleted(pieceSelected: Piece, originalPosition: Position, row: number, column: number): boolean {
         if (pieceSelected.position.row === row && pieceSelected.position.column === column) {

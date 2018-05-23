@@ -7,7 +7,7 @@ import { PieceHelper } from '../helpers/pieceHelper';
 import { Piece } from '../models/game-piece';
 import { LOAD_PIECES } from '../stores/pieces.store';
 import { Position } from '../models/position';
-import { Square } from '../models/gameBoard';
+import { Square } from '../models/square';
 import { AppStateActions } from './appState.actions';
 
 @Injectable()
@@ -26,7 +26,7 @@ export class PieceActions {
         const squares = this._helper.getSquares();
         const pieces = this._pieceHelper.getPieces();
         const emptySquare = squares.find((s) => {
-            if (s.position.row === to.row && s.position.column === to.column && s.hasPiece) {
+            if (s.position.row === to.row && s.position.column === to.column ) {
                 return true;
             } else {
                 return false;
@@ -81,14 +81,14 @@ export class PieceActions {
         });
     }
 
-    public pieceClicked(piece: Piece): Piece {
-        let selectedPiece = this._appStateActions.getSelectedPiece();
+    public pieceClicked(piece: Piece): void {
+        //let selectedPiece = this._appStateActions.getSelectedPiece();
 
-        if (selectedPiece === piece) {
-            this._appStateActions.setSelectedPiece(null);
-        } else {
-            this._appStateActions.setSelectedPiece(piece);
-        }
-        return this._appStateActions.getSelectedPiece();
+        //if (selectedPiece === piece) {
+        //    this._appStateActions.setSelectedPiece(null);
+        //} else {
+        //    this._appStateActions.setSelectedPiece(piece);
+        //}
+        //return this._appStateActions.getSelectedPiece();
     }
 }

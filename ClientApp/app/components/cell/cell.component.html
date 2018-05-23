@@ -1,11 +1,7 @@
-<div (click)="pieceSelected()" class="square" [class.validMove]="square?.validMove" [class.king]="piece?.isKing" [class.squareSelected]="square?.isSelected">
-  <div class="square-value">
-    <div class="piece red" *ngIf="piece && piece.color === 'red'">
-      <div class="piece-style"></div>
+<div>
+    <div class="game-container-box">
+        <div class="row" *ngFor="let row of [0,1,2,3,4,5,6,7]">
+            <div class="square" *ngFor="let subSquare of subSquares"></div>
+        </div>
     </div>
-    <div class="piece black" *ngIf="piece && piece.color === 'black'">
-      <div class="piece-style"></div>
-    </div>
-
-  </div>
 </div>

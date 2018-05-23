@@ -1,5 +1,6 @@
 ﻿import { Action, ActionReducer } from '@ngrx/store';
 import * as Constants from '../constants/constants';
+import { Position } from '../models/position';
 
 export interface State {
     'player.isMoving': boolean;
@@ -9,6 +10,7 @@ export interface State {
     'player.nameBeingUpdated': string;
     'currentlyPlayingColor': string;
     'currentPlayerIndex': number;
+    'selectedStartingPostion': Position | null;
 }
 
 const initialAppState: State = {
@@ -19,6 +21,7 @@ const initialAppState: State = {
     'showNewGameModal': true,
     'currentlyPlayingColor': Constants.ColorForFirstPlayer,
     'currentPlayerIndex': 0,
+    'selectedStartingPostion': null
   };
 
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE';

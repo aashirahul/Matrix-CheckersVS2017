@@ -4,7 +4,7 @@ import { Store } from '@ngrx/store';
 import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
 import { Player } from '../models/player';
-import { Square } from '../models/gameBoard';
+import { Square } from '../models/square';
 import * as Constants from '../constants/constants';
 import { PlayerActions } from '../actionHandlers/playerActions.actions';
 

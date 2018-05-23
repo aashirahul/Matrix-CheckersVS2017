@@ -4,13 +4,14 @@ import { Store } from '@ngrx/store';
 
 import { Position } from '../models/position';
 import { Piece } from '../models/game-piece';
-import { Square } from '../models/gameBoard';
+import { Square } from '../models/square';
 import { Player } from '../models/player';
 import { LOAD_PIECES } from '../stores/pieces.store';
 import { LOAD_SQUARES } from '../stores/gameBoard.store';
 import { LOAD_PLAYERS } from '../stores/players.store';
 import * as Constants from '../constants/constants';
 import { ApiService, REQUEST_TYPE_GET } from '../services/api.service';
+import { PieceHelper } from '../helpers/pieceHelper';
 
 @Injectable()
 export class AppStartUpActions {
@@ -20,7 +21,8 @@ export class AppStartUpActions {
     constructor(
         private _store: Store<any>,
         private _api: ApiService,
-        private _http: HttpClient
+        private _http: HttpClient,
+        private _pieceHelper: PieceHelper
     ) { }
 
     public initializeGame(): void {
@@ -36,19 +38,6 @@ export class AppStartUpActions {
 
         );
     }
-    
-    public initializeSquares(): void {
-        const squaresReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares`);
-        this._api.callApiService<Square[]>(squaresReq)
-            .subscribe(
-            (squares: Array<Square>) => {
-                this._store.dispatch({ type:LOAD_SQUARES, payload: squares });
-            },
-            (err) => {
-                this._store.dispatch({ type: LOAD_SQUARES, payload: [] });
-            }
-            );
-    }
 
     public initializePlayers(): void {
         const playersreq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/players`);
@@ -63,5 +52,5 @@ export class AppStartUpActions {
             );
     }
 
-    
+
 }

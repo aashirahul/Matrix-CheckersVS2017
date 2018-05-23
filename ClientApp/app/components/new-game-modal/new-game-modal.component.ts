@@ -28,6 +28,7 @@ export class NewGameModalComponent implements OnInit {
 
     public startNewGame(): void {
         this._appStateActions.updateState({ 'showNewGameModal': false });
+        this._appStateActions.initializeSquares();
     }
 
 
