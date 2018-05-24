@@ -5,25 +5,23 @@ import { Square } from '../models/square';
 
 export interface State {
     'player.isMoving': boolean;
-    'pieceSelected.Id': number;
     'showPlayerNameModal': boolean;
     'showNewGameModal': boolean;
     'player.nameBeingUpdated': string;
     'currentlyPlayingColor': string;
     'currentPlayerIndex': number;
     'squareSelected': Square | null;
- }
+}
 
 const initialAppState: State = {
     'player.isMoving': false,
-    'pieceSelected.Id': NaN,
     'showPlayerNameModal': false,
     'player.nameBeingUpdated': "",
     'showNewGameModal': true,
     'currentlyPlayingColor': Constants.ColorForFirstPlayer,
     'currentPlayerIndex': 0,
     'squareSelected': null
-    };
+};
 
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE';
 

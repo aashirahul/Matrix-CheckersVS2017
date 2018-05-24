@@ -13,9 +13,7 @@ import { PieceHelper } from '../helpers/pieceHelper';
 
 @Injectable()
 export class AppStateActions {
-    //private selectedPiece: any;
-    //public originalPosition: Position;
-
+   
     constructor(
         private _store: Store<any>,
         private _pieceHelper: PieceHelper
@@ -59,6 +57,7 @@ export class AppStateActions {
         })
     }
 
+    
     public updateState(stateChanges: object): void {
         this._store.dispatch(
             {
@@ -67,24 +66,4 @@ export class AppStateActions {
             }
         );
     }
-
-    public setOriginalPosition(row: any, col: any): void {
-        //this.originalPosition = {
-        //    row: row,
-        //    column: col
-        //};
-    }
-
-    //public getOriginalPosition(): Position {
-    //    //return this.originalPosition;
-    //}
-
-    //public getSelectedPiece(): Piece {
-    //    //return this.selectedPiece;
-    //}
-
-    public setSelectedPiece(selectedPiece: any): void {
-        //this.selectedPiece = selectedPiece;
-    }
-
 }

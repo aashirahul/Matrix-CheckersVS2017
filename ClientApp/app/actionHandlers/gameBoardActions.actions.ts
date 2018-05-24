@@ -127,16 +127,19 @@ export class GameBoardActions {
     }
 
     public moveStarted(position: Position, selectedPiece: any): void {
-        this.unhighlightSquares();
-        this.availableMoves(position, selectedPiece);
-        this._appStateActions.updateState({ 'player.isMoving': true });
+        if (this._pieceHelper.checkIfPieceCurrentPlayingColor(selectedPiece)) {
+            this.unhighlightSquares();
+            this.availableMoves(position, selectedPiece);
+            this._appStateActions.updateState({ 'player.isMoving': true });
+        } else {
+            this._appStateActions.updateState({ 'squareSelected': null });
+            throw "Not your turn";
+        }
     }
 
     public squareClicked(square: Square): void {
         if (this._moveHelper.checkIfMoveStarted()) {
-            this._appStateActions.updateState({
-                'squareSelected': square
-            });
+            this._appStateActions.updateState({ 'squareSelected': square });
             if (this._pieceHelper.checkIfSquareHasPiece(square)) {
                 this.moveStarted(square.position, square.piece)
                 console.log("hi");
@@ -144,42 +147,29 @@ export class GameBoardActions {
                 throw "Must select a Piece";
             }
         } else {
-            console.log("yo");
+            console.log("lo");
+            let toMoveSquare = square;
+            let originalSquare = this._pieceHelper.getOriginalSquare();
+            if (!toMoveSquare.piece) {
+                console.log("yo");
+                if (this._moveHelper.isAJump(originalSquare.piece, originalSquare.position, square.position)) {
+                    let skippedPosition: any;
+                    skippedPosition = this._skippedPositionHelper.findSkippedPosition(originalSquare.piece, originalSquare.position, square.position);
+                    this._pieceActions.move(originalSquare, toMoveSquare);
+                    this._pieceActions.jump(skippedPosition);
+                    this._appStateActions.updateState({ 'squareSelected': null });
+                    this._playerActions.switchTurns(originalSquare.piece);
+                }
+                else if (this._moveHelper.isValidMove(originalSquare.piece, originalSquare.position, toMoveSquare.position)) {
+                    this._pieceActions.move(originalSquare, toMoveSquare);
+                    this._appStateActions.updateState({ 'squareSelected': null });
+                    this._playerActions.switchTurns(originalSquare.piece);
+                } else {
+                    throw "Cannot make this move";
+                }
+            }
+
         }
-
-
-        //const originalPosition = this._moveHelper.getSelectedStartingPostion();
-        //if (!originalPosition) {
-        //    this._appStateActions.updateState({
-        //        'selectedStartingPostion': square.position
-        //    });
-        //}
-
-        //if (this._pieceHelper.checkIfPieceCurrentPlayingColor(selectedPiece)) {
-        //    if (selectedPiece == null) {
-        //        throw "Must select a piece first";
-        //    } else if (this.positionMatches(square.position, selectedPiece.position)) {
-        //        this.moveStarted(square.position, selectedPiece);
-        //    } else {
-        //        if (this._moveHelper.isValidMove(selectedPiece, selectedPiece.position, square.position)) {
-        //            this._pieceActions.move(selectedPiece.position, square.position);
-        //            if (this._moveHelper.checkIfMoveCompleted(selectedPiece, selectedPiece.position, square.position.row, square.position.column)) {
-        //                this.pieceMoved(selectedPiece, selectedPiece.position, originalPosition);
-        //            }
-        //        } else if (this._moveHelper.isAJump(selectedPiece, selectedPiece.position, square.position)) {
-        //            let skippedPosition: any;
-        //            skippedPosition = this._skippedPositionHelper.findSkippedPosition(selectedPiece, selectedPiece.position, square.position);
-        //            this._pieceActions.move(selectedPiece.position, square.position);
-        //            this._pieceActions.jump(skippedPosition);
-        //            if (this._moveHelper.checkIfJumpCompleted(selectedPiece, selectedPiece.position, square.position, skippedPosition)) {
-        //                this.pieceJumped(selectedPiece, selectedPiece.position, originalPosition, skippedPosition);
-        //            }
-        //        }
-        //        else {
-        //            throw "Cannot move to this square";
-        //        }
-        //    }
-        //}
     }
 
     private positionMatches(position1: Position, position2: Position): boolean {
@@ -190,11 +180,12 @@ export class GameBoardActions {
     }
 
     public pieceMoved(selectedPiece: Piece, newPosition: Position, originalPosition: Position): void {
-        this.updateSquareHasPiece(newPosition);
-        this.updateSquareHasNoPiece(originalPosition);
-        this._playerActions.switchTurns(selectedPiece);
-        this.unhighlightSquares();
-        this.makePieceSelectedKing(selectedPiece, newPosition);
+        //this.updateSquareHasPiece(newPosition);
+        //this.updateSquareHasNoPiece(originalPosition);
+        //this._playerActions.switchTurns(selectedPiece);
+        //this.unhighlightSquares();
+        //this.makePieceSelectedKing(selectedPiece, newPosition);
+        this._appStateActions.updateState({ 'squareSelected': null });
         this._appStateActions.updateState({
             'player.isMoving': false
         });

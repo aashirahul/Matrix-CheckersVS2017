@@ -81,7 +81,7 @@ export class SkippedPositionHelper {
         return this.skippedPosition;
     }
 
-    public findSkippedPosition(pieceSelected: Piece, from: Position, to: Position): Position | undefined {
+    public findSkippedPosition(pieceSelected: any, from: Position, to: Position): Position | undefined {
         if (pieceSelected.color === Constants.ColorForFirstPlayer) {
             if (!pieceSelected.isKing) {
                 if (to.row > from.row) {

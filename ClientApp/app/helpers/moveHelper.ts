@@ -44,7 +44,7 @@ export class MoveHelper {
         return false;
     }
 
-    public isValidMove(piece: Piece, from: Position, to: Position): boolean {
+    public isValidMove(piece: any, from: Position, to: Position): boolean {
         if (piece.color === Constants.ColorForFirstPlayer) {
             if (this.checkIfMoveCorrectForRed(piece, from, to)) {
                 return true;
@@ -100,7 +100,7 @@ export class MoveHelper {
         return false;
     }
 
-    public isAJump(pieceSelected: Piece, from: Position, to: Position): boolean {
+    public isAJump(pieceSelected: any, from: Position, to: Position): boolean {
         if (pieceSelected.color === Constants.ColorForFirstPlayer) {
             if (!pieceSelected.isKing) {
                 if (to.row > from.row) {

@@ -52,7 +52,7 @@ export class PlayerActions {
         });
     }
 
-    public switchTurns(piece: Piece): void {
+    public switchTurns(piece:any): void {
         if (piece && piece.color === Constants.ColorForFirstPlayer) {
             this._appStateActions.updateState({
                 'currentlyPlayingColor': Constants.ColorForSecondPlayer,

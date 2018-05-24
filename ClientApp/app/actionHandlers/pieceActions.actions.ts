@@ -21,33 +21,28 @@ export class PieceActions {
         private _appStateActions: AppStateActions
     ) { }
 
-    public move(from: Position, to: Position): void {
+    public move(originalSquare: Square, square: Square): void {
         let updatedPieces;
-        const squares = this._helper.getSquares();
-        const pieces = this._pieceHelper.getPieces();
-        const emptySquare = squares.find((s) => {
-            if (s.position.row === to.row && s.position.column === to.column ) {
-                return true;
-            } else {
-                return false;
-            }
-        });
-        if (!emptySquare) {
+        if (!square.piece) {
+            let selectedPiece: any;
+            selectedPiece = originalSquare.piece;
+            console.log(selectedPiece);
+            const pieces = this._pieceHelper.getPieces();
             updatedPieces = pieces.map((piece) => {
-                if (piece.position.row === from.row && piece.position.column === from.column) {
-                    piece.position.row = to.row;
-                    piece.position.column = to.column;
+                if (piece.position.row === selectedPiece.position.row && piece.position.column === selectedPiece.position.column) {
+                    selectedPiece.position.row = square.position.row;
+                    selectedPiece.position.column = square.position.column;
                 }
                 return piece;
             });
-        } else {
-            updatedPieces = pieces;
         }
+        console.log(updatedPieces);
         this._store.dispatch({
             type: LOAD_PIECES,
             payload: updatedPieces,
 
         });
+        this._appStateActions.initializeSquares();
     }
 
     public jump(skipped: Position): void {
@@ -56,13 +51,17 @@ export class PieceActions {
         updatedPieces = pieces.map((piece) => {
             if (piece.position.row === skipped.row && piece.position.column === skipped.column) {
                 piece.color = 'null';
+                piece.position.row = null;
+                piece.position.column = null;
             }
             return piece;
         });
         this._store.dispatch({
             type: LOAD_PIECES,
+
             payload: updatedPieces,
         });
+        this._appStateActions.initializeSquares();
     }
 
     public makeKing(id: number): void {
@@ -81,14 +80,4 @@ export class PieceActions {
         });
     }
 
-    public pieceClicked(piece: Piece): void {
-        //let selectedPiece = this._appStateActions.getSelectedPiece();
-
-        //if (selectedPiece === piece) {
-        //    this._appStateActions.setSelectedPiece(null);
-        //} else {
-        //    this._appStateActions.setSelectedPiece(piece);
-        //}
-        //return this._appStateActions.getSelectedPiece();
-    }
 }
