@@ -1,8 +1,9 @@
-.square{
+.square {
     width: 50px;
     height: 50px;
     margin: 2px;
     display: inline-block;
+    text-align: center;
 }
 
 .validMove {
@@ -12,42 +13,46 @@
 .king .red {
     background: gold;
 }
-.king .black{
+
+.king .black {
     background: gold;
 }
+
 .squareSelected {
     border: 1px #064617 solid;
 }
 
-.row:nth-child(even) .square:nth-child(even){
+.row:nth-child(even) .square:nth-child(even) {
     background: lightblue;
 }
 
 .row:nth-child(even) .square:nth-child(odd) {
-    background:lightskyblue;
-}
-.row:nth-child(odd) .square:nth-child(even){
     background: lightskyblue;
 }
 
-.row:nth-child(odd) .square:nth-child(odd){
-    background:lightblue;
+.row:nth-child(odd) .square:nth-child(even) {
+    background: lightskyblue;
 }
 
-.red{
-   background:red;
-   border-radius: 50%;
-   box-shadow: 0 0 0 4px lightgrey;
+.row:nth-child(odd) .square:nth-child(odd) {
+    background: lightblue;
 }
-.black{
+
+.red {
+    background: red;
+    margin-top:13px;
+    margin-left: 11.5px;
+}
+
+.black {
     background: black;
-    border-radius: 50%;
-    box-shadow: 0 0 0 4px lightgrey;
- }
+    /*margin-bottom: 13px;*/
+    margin-left: 11.5px;
+}
 
 .piece-style {
     width: 25px;
     height: 25px;
-    background: red;
     border-radius: 50%;
+    /*margin: auto;*/
 }

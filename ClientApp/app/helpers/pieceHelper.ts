@@ -17,6 +17,13 @@ export class PieceHelper {
         private _store: Store<any>,
     ) { }
 
+    public checkIfSquareHasPiece(square: Square): boolean {
+        if (square.piece) {
+            return true;
+        }
+        return false;
+    }
+
     public findSelectedPiece(row: number, col: number): Piece | undefined {
         const pieces = this.getPieces();
         return pieces.find((piece) => (piece.position.row === row && piece.position.column === col));

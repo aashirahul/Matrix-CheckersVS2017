@@ -1,6 +1,7 @@
 ﻿import { Action, ActionReducer } from '@ngrx/store';
 import * as Constants from '../constants/constants';
 import { Position } from '../models/position';
+import { Square } from '../models/square';
 
 export interface State {
     'player.isMoving': boolean;
@@ -10,8 +11,8 @@ export interface State {
     'player.nameBeingUpdated': string;
     'currentlyPlayingColor': string;
     'currentPlayerIndex': number;
-    'selectedStartingPostion': Position | null;
-}
+    'squareSelected': Square | null;
+ }
 
 const initialAppState: State = {
     'player.isMoving': false,
@@ -21,8 +22,8 @@ const initialAppState: State = {
     'showNewGameModal': true,
     'currentlyPlayingColor': Constants.ColorForFirstPlayer,
     'currentPlayerIndex': 0,
-    'selectedStartingPostion': null
-  };
+    'squareSelected': null
+    };
 
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE';
 

@@ -44,21 +44,8 @@ export class CellComponent implements OnInit {
         return rowSquares;
     }
 
-    public squareSelected(): void {
-
-        //if (this.piece) {
-        //    this._appStateActions.setOriginalPosition(this.piece.position.row, this.piece.position.column);
-        //    let selectedPiece = this._pieceActions.pieceClicked(this.piece);
-        //    //let originalPosition = this._appStateActions.getOriginalPosition();
-        //    //this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
-        //} else {
-        //    let selectedPiece = this._appStateActions.getSelectedPiece();
-        //    //let originalPosition = this._appStateActions.getOriginalPosition();
-        //    //this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
-        //}
-        //let originalPosition = this._appStateActions.getOriginalPosition();
-        //this._gameBoardActions.squareClicked(this.square, selectedPiece, originalPosition);
-        this._gameBoardActions.squareClicked(this.square);
+    public squareSelected(square: Square): void {
+        this._gameBoardActions.squareClicked(square);
     }
 
 }

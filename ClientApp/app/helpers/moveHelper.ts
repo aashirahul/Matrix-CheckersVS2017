@@ -17,13 +17,18 @@ export class MoveHelper {
         private _store: Store<any>,
     ) { }
 
-    public getSelectedStartingPostion(): Position |null {
-        let selectedStartingPostion = null;
+    public checkIfMoveStarted(): boolean {
+        let squareSelected = null;
         this._store.select('appState').subscribe((appState) => {
-            selectedStartingPostion = appState[`selectedStartingPostion`];
+            squareSelected = appState[`squareSelected`];
         });
-        return selectedStartingPostion;
+        if (squareSelected === null) {
+            return true;
+        }
+        return false;
     }
+
+ 
    
     public checkIfMoveCompleted(pieceSelected: Piece, originalPosition: Position, row: number, column: number): boolean {
         if (pieceSelected.position.row === row && pieceSelected.position.column === column) {

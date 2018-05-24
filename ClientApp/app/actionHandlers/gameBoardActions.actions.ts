@@ -126,15 +126,28 @@ export class GameBoardActions {
         });
     }
 
-    public moveStarted(position: Position, selectedPiece: Piece): void {
+    public moveStarted(position: Position, selectedPiece: any): void {
         this.unhighlightSquares();
         this.availableMoves(position, selectedPiece);
         this._appStateActions.updateState({ 'player.isMoving': true });
     }
 
-
-    //public squareClicked(square: Square, selectedPiece: Piece, originalPosition: Position): void {
     public squareClicked(square: Square): void {
+        if (this._moveHelper.checkIfMoveStarted()) {
+            this._appStateActions.updateState({
+                'squareSelected': square
+            });
+            if (this._pieceHelper.checkIfSquareHasPiece(square)) {
+                this.moveStarted(square.position, square.piece)
+                console.log("hi");
+            } else {
+                throw "Must select a Piece";
+            }
+        } else {
+            console.log("yo");
+        }
+
+
         //const originalPosition = this._moveHelper.getSelectedStartingPostion();
         //if (!originalPosition) {
         //    this._appStateActions.updateState({
