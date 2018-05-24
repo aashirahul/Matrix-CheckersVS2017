@@ -82,27 +82,13 @@ export class GameBoardComponent implements OnInit {
         this._playerActions.updatePlayerName(name);
     }
 
-    //public findPiece(row: number, col: number): Piece | undefined {
-    //    const piece = this._pieceHelper.findSelectedPiece(row, col);
-    //    if (piece) {
-    //        return piece;
-    //    }
-    //}
-
-    //public findSquare(row: number, col: number): Square | undefined {
-    //    const square = this._helper.findSelectedSquare(row, col);
-    //    if (square) {
-    //        return square;
-    //    }
-    //}
-
     public createRange(number: number) {
         return Array(number).fill('1');
     }
 
     private restartGame(): void {
         this._appStartUpActions.initializeGame();
-        //this._appStartUpActions.initializeSquares();
+        this._appStateActions.initializeSquares();
         this._appStartUpActions.initializePlayers();
     }
 

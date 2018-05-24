@@ -82,36 +82,6 @@ export class GameBoardActions {
         });
     }
 
-    public updateSquareHasPiece(position: any): void {
-        let updatedSquares;
-        const squares = this._helper.getSquares();
-        updatedSquares = squares.map((square) => {
-            if (square.position.row === position.row && square.position.column === position.column) {
-                //square.hasPiece = true;
-            }
-            return square;
-        });
-        this._store.dispatch({
-            type: LOAD_SQUARES,
-            payload: updatedSquares
-        });
-    }
-
-    public updateSquareHasNoPiece(position: any): void {
-        let updatedSquares;
-        const squares = this._helper.getSquares();
-        updatedSquares = squares.map((square) => {
-            if (square.position.row === position.row && square.position.column === position.column) {
-                //square.hasPiece = false;
-            }
-            return square;
-        });
-        this._store.dispatch({
-            type: LOAD_SQUARES,
-            payload: updatedSquares
-        });
-    }
-
     public unhighlightSquares(): void {
         let updatedSquares;
         const squares = this._helper.getSquares();
@@ -159,11 +129,19 @@ export class GameBoardActions {
                     this._pieceActions.jump(skippedPosition);
                     this._appStateActions.updateState({ 'squareSelected': null });
                     this._playerActions.switchTurns(originalSquare.piece);
+                    this._appStateActions.updateState({
+                        'player.isMoving': false
+                    });
+                    this._playerActions.addPoint(originalSquare.piece);
                 }
                 else if (this._moveHelper.isValidMove(originalSquare.piece, originalSquare.position, toMoveSquare.position)) {
                     this._pieceActions.move(originalSquare, toMoveSquare);
                     this._appStateActions.updateState({ 'squareSelected': null });
                     this._playerActions.switchTurns(originalSquare.piece);
+                    this._appStateActions.updateState({
+                        'player.isMoving': false
+                    });
+                 
                 } else {
                     throw "Cannot make this move";
                 }
@@ -180,26 +158,19 @@ export class GameBoardActions {
     }
 
     public pieceMoved(selectedPiece: Piece, newPosition: Position, originalPosition: Position): void {
-        //this.updateSquareHasPiece(newPosition);
-        //this.updateSquareHasNoPiece(originalPosition);
-        //this._playerActions.switchTurns(selectedPiece);
+       
         //this.unhighlightSquares();
         //this.makePieceSelectedKing(selectedPiece, newPosition);
-        this._appStateActions.updateState({ 'squareSelected': null });
-        this._appStateActions.updateState({
-            'player.isMoving': false
-        });
+       
     }
 
     public pieceJumped(selectedPiece: Piece, selectedPiecePosition: Position, originalPosition: Position, skippedPosition: Position): void {
         this.pieceMoved(selectedPiece, selectedPiecePosition, originalPosition);
-        this.pieceSkipped(skippedPosition);
+       
         this._playerActions.addPoint(selectedPiece.color);
     }
 
-    public pieceSkipped(skippedPosition: Position): void {
-        this.updateSquareHasNoPiece(skippedPosition);
-    }
+  
 
     public makePieceSelectedKing(selectedPiece: Piece, newPosition: Position): void {
         if (!selectedPiece.isKing) {

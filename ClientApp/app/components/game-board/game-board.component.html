@@ -3,7 +3,7 @@
     <div class="label">
 
         <div>
-            <!--Player {{players[currentPlayerIndex].name}} is moving {{isMoving}}-->
+            Player {{players[currentPlayerIndex].name}} is moving {{isMoving}}
         </div>
 
     </div>
@@ -13,14 +13,14 @@
             <div class="score-style">
                 <div class="tag">Player</div> <div class="player-name" [ngClass]="{'addColorRed': firstPlayerName !='red'}">{{firstPlayerName}}</div>
             </div>
-            <!--       <div class="red score " *ngFor="let item of createRange(players ? players[0].score : 0)"></div>-->
+                   <div class="red score " *ngFor="let item of createRange(players ? players[0].score : 0)"></div>
         </div>
         <div class=" row-style">
             <div (click)="editBlackPlayerName()"><i class="fas fa-pencil-alt"></i></div>
             <div class="score-style">
                 <div class="tag">Player</div> <div class="player-name" [ngClass]="{'addColorBlack': secondPlayerName !='black'}">{{secondPlayerName}}</div>
             </div>
-            <!--  <div class="black score" *ngFor="let item of createRange(players ? players[1].score : 0)"></div>-->
+              <div class="black score" *ngFor="let item of createRange(players ? players[1].score : 0)"></div>
         </div>
     </div>
     <div class="button-container">

@@ -36,10 +36,10 @@ export class PlayerActions {
         });
     }
 
-    public addPoint(currentPlayer: string): void {
+    public addPoint(piece: any): void {
         const players: Array<Player> = this._playerHelper.getCurrentPlayers();
         const updatedScores = players.map((player) => {
-            if (player.color === currentPlayer) {
+            if (player.color === piece.color) {
                 player.score += 1;
             }
             return player;

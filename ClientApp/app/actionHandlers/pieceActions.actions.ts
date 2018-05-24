@@ -26,7 +26,6 @@ export class PieceActions {
         if (!square.piece) {
             let selectedPiece: any;
             selectedPiece = originalSquare.piece;
-            console.log(selectedPiece);
             const pieces = this._pieceHelper.getPieces();
             updatedPieces = pieces.map((piece) => {
                 if (piece.position.row === selectedPiece.position.row && piece.position.column === selectedPiece.position.column) {
@@ -36,7 +35,6 @@ export class PieceActions {
                 return piece;
             });
         }
-        console.log(updatedPieces);
         this._store.dispatch({
             type: LOAD_PIECES,
             payload: updatedPieces,
@@ -58,7 +56,6 @@ export class PieceActions {
         });
         this._store.dispatch({
             type: LOAD_PIECES,
-
             payload: updatedPieces,
         });
         this._appStateActions.initializeSquares();
