@@ -19,7 +19,7 @@ export class CellComponent implements OnInit {
     piece: Piece;
     private squaresSubscription: any;
     public squares: Array<Square>;
-    public subSquares: any;
+    //public subSquares: Array<Square>;
 
     constructor(
         private _store: Store<any>,
@@ -30,19 +30,18 @@ export class CellComponent implements OnInit {
 
     public ngOnInit() {
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
-        this.subSquares = this.setGameBoard();
-        console.log(this.subSquares);
     }
 
-    public setGameBoard(): Array<any> | undefined {
-        var sqrt = Math.sqrt(this.squares.length);
-        var subSquares = [];
-        for (var i = 0; i < 7; i++) {
-            for (var i = 0; i < sqrt; i++) {
-                subSquares.push(this.squares.slice(i * sqrt));
+    public getSquaresOnRow(row: number): Array<Square> {
+        let rowSquares: Array<Square> = [];
+
+        this.squares.forEach((square) => {
+            if (square.position.row == row) {
+                rowSquares.push(square);
             }
-            return subSquares;
-        }
+        });
+
+        return rowSquares;
     }
 
     public squareSelected(): void {
