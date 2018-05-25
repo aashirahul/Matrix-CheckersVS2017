@@ -75,6 +75,8 @@ export class PieceHelper {
         let availableMoves: Array<any> = [];
         let availableMoveOne: Position;
         let availableMoveTwo: Position;
+        let availableMoveThree: Position;
+        let availableMoveFour: Position;
         if (pieceSelected.color === Constants.ColorForFirstPlayer) {
             availableMoveOne = {
                 row: position.row + 1,
@@ -84,10 +86,8 @@ export class PieceHelper {
                 row: position.row + 1,
                 column: position.column - 1
             }
-
-
+            
             availableMoves.push(availableMoveOne, availableMoveTwo);
-
             return availableMoves;
         } else if (pieceSelected.color === Constants.ColorForSecondPlayer) {
             availableMoveOne = {
@@ -104,6 +104,7 @@ export class PieceHelper {
         return availableMoves;
     }
 
+
     public getAvailableJumpsForPiece(position: Position, pieceSelected: Piece): Array<any> {
         let availableMoves: Array<any> = [];
         let availableMoveOne: Position;
@@ -111,23 +112,24 @@ export class PieceHelper {
         if (pieceSelected.color === Constants.ColorForFirstPlayer) {
             availableMoveOne = {
                 row: position.row + 2,
-                column: position.column + 1
+                column: position.column + 2
             }
             availableMoveTwo = {
                 row: position.row + 2,
-                column: position.column - 1
+                column: position.column - 2
             }
+
 
             availableMoves.push(availableMoveOne, availableMoveTwo);
             return availableMoves;
         } else if (pieceSelected.color === Constants.ColorForSecondPlayer) {
             availableMoveOne = {
                 row: position.row - 2,
-                column: position.column + 1
+                column: position.column + 2
             }
             availableMoveTwo = {
                 row: position.row - 2,
-                column: position.column - 1
+                column: position.column - 2
             }
             availableMoves.push(availableMoveOne, availableMoveTwo);
             return availableMoves;
