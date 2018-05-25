@@ -18,8 +18,8 @@ export class CellComponent implements OnInit {
     @Input()
     piece: Piece;
     private squaresSubscription: any;
+    private appStateSubscription: any;
     public squares: Array<Square>;
-    //public subSquares: Array<Square>;
 
     constructor(
         private _store: Store<any>,

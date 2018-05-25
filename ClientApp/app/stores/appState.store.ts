@@ -11,7 +11,7 @@ export interface State {
     'currentlyPlayingColor': string;
     'currentPlayerIndex': number;
     'squareSelected': Square | null;
-}
+   }
 
 const initialAppState: State = {
     'player.isMoving': false,
@@ -20,7 +20,7 @@ const initialAppState: State = {
     'showNewGameModal': true,
     'currentlyPlayingColor': Constants.ColorForFirstPlayer,
     'currentPlayerIndex': 0,
-    'squareSelected': null
+    'squareSelected': null,
 };
 
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE';

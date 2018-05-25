@@ -31,6 +31,9 @@ export class PieceActions {
                 if (piece.position.row === selectedPiece.position.row && piece.position.column === selectedPiece.position.column) {
                     selectedPiece.position.row = square.position.row;
                     selectedPiece.position.column = square.position.column;
+                    if (this._pieceHelper.checkIfPieceSelectedCanBeKing(selectedPiece, square.position.row)) {
+                        selectedPiece.isKing = true;
+                    } 
                 }
                 return piece;
             });
@@ -60,21 +63,4 @@ export class PieceActions {
         });
         this._appStateActions.initializeSquares();
     }
-
-    public makeKing(id: number): void {
-        let updatedPieces;
-        const updatedpiece = this._pieceHelper.getPieceToBeUpdated(id);
-        const pieces = this._pieceHelper.getPieces();
-        updatedPieces = pieces.map((piece) => {
-            if (piece.id === updatedpiece.id) {
-                piece.isKing = true;
-            }
-            return piece;
-        });
-        this._store.dispatch({
-            type: LOAD_PIECES,
-            payload: updatedPieces,
-        });
-    }
-
 }

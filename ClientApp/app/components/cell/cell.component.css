@@ -9,12 +9,11 @@
 .validMove {
     border: 1px red solid;
 }
-
-.king .red {
-    background: gold;
+.red.king {
+    background: gold ;
 }
 
-.king .black {
+.black.king{
     background: gold;
 }
 

@@ -103,7 +103,8 @@ export class GameBoardActions {
             this._appStateActions.updateState({ 'player.isMoving': true });
         } else {
             this._appStateActions.updateState({ 'squareSelected': null });
-            throw "Not your turn";
+
+            alert("Not your turn");
         }
     }
 
@@ -114,7 +115,8 @@ export class GameBoardActions {
                 this.moveStarted(square.position, square.piece)
                 console.log("hi");
             } else {
-                throw "Must select a Piece";
+                alert("Must select a Piece");
+                this._appStateActions.updateState({ 'squareSelected': null });
             }
         } else {
             console.log("lo");
@@ -141,9 +143,9 @@ export class GameBoardActions {
                     this._appStateActions.updateState({
                         'player.isMoving': false
                     });
-                 
+
                 } else {
-                    throw "Cannot make this move";
+                    alert("Cannot make this move");
                 }
             }
 
@@ -158,26 +160,15 @@ export class GameBoardActions {
     }
 
     public pieceMoved(selectedPiece: Piece, newPosition: Position, originalPosition: Position): void {
-       
+
         //this.unhighlightSquares();
-        //this.makePieceSelectedKing(selectedPiece, newPosition);
        
+
     }
 
     public pieceJumped(selectedPiece: Piece, selectedPiecePosition: Position, originalPosition: Position, skippedPosition: Position): void {
         this.pieceMoved(selectedPiece, selectedPiecePosition, originalPosition);
-       
+
         this._playerActions.addPoint(selectedPiece.color);
     }
-
-  
-
-    public makePieceSelectedKing(selectedPiece: Piece, newPosition: Position): void {
-        if (!selectedPiece.isKing) {
-            if (this._pieceHelper.checkIfPieceSelectedCanBeKing(selectedPiece, newPosition.row)) {
-                this._pieceActions.makeKing(selectedPiece.id);
-            }
-        }
-    }
-
 }
