@@ -1,5 +1,6 @@
 ﻿import { Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { Helper } from '../helpers/helper';
 
 import { Piece } from '../models/game-piece';
 import { Position } from '../models/position';
@@ -17,6 +18,7 @@ export class PieceHelper {
 
     constructor(
         private _store: Store<any>,
+        private _helper: Helper,
 
     ) { }
 
@@ -67,6 +69,71 @@ export class PieceHelper {
             return true;
         }
         return false;
+    }
+
+    public getAvailableMovesForPiece(position: Position, pieceSelected: Piece): Array<any> {
+        let availableMoves: Array<any> = [];
+        let availableMoveOne: Position;
+        let availableMoveTwo: Position;
+        if (pieceSelected.color === Constants.ColorForFirstPlayer) {
+            availableMoveOne = {
+                row: position.row + 1,
+                column: position.column + 1
+            }
+            availableMoveTwo = {
+                row: position.row + 1,
+                column: position.column - 1
+            }
+
+
+            availableMoves.push(availableMoveOne, availableMoveTwo);
+
+            return availableMoves;
+        } else if (pieceSelected.color === Constants.ColorForSecondPlayer) {
+            availableMoveOne = {
+                row: position.row - 1,
+                column: position.column + 1
+            }
+            availableMoveTwo = {
+                row: position.row - 1,
+                column: position.column - 1
+            }
+            availableMoves.push(availableMoveOne, availableMoveTwo);
+            return availableMoves;
+        }
+        return availableMoves;
+    }
+
+    public getAvailableJumpsForPiece(position: Position, pieceSelected: Piece): Array<any> {
+        let availableMoves: Array<any> = [];
+        let availableMoveOne: Position;
+        let availableMoveTwo: Position;
+        if (pieceSelected.color === Constants.ColorForFirstPlayer) {
+            availableMoveOne = {
+                row: position.row + 2,
+                column: position.column + 1
+            }
+            availableMoveTwo = {
+                row: position.row + 2,
+                column: position.column - 1
+            }
+
+            availableMoves.push(availableMoveOne, availableMoveTwo);
+            return availableMoves;
+        } else if (pieceSelected.color === Constants.ColorForSecondPlayer) {
+            availableMoveOne = {
+                row: position.row - 2,
+                column: position.column + 1
+            }
+            availableMoveTwo = {
+                row: position.row - 2,
+                column: position.column - 1
+            }
+            availableMoves.push(availableMoveOne, availableMoveTwo);
+            return availableMoves;
+        }
+        return availableMoves;
+
     }
 }
 

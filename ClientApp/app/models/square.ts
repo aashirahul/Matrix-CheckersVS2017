@@ -7,6 +7,6 @@ export class Square {
     position: Position;
     color: string;
     isSelected: boolean;
-    piece: Piece | undefined;
+    piece: Piece;
     validMove: boolean;
 }

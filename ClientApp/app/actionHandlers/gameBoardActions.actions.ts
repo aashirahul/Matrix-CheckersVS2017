@@ -35,36 +35,59 @@ export class GameBoardActions {
 
     ) { }
 
-    public availableMoves(position: Position, pieceSelected: Piece) {
-        let color = pieceSelected.color;
-        const movesReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares/moves`, {
-            params: new HttpParams().set("row", `${position.row}`).set("col", `${position.column}`).set("color", color)
-        });
-        this._api.callingApiService(movesReq)
-            .subscribe(
-            (moves) => {
-                let availablesMoves: any = [];
-                availablesMoves = moves;
-                const squares = this._helper.getSquares();
-                const updatedsquares = squares.map((square) => {
-                    for (var i = 0; i < availablesMoves.length; i++) {
-                        if (square.position.row === availablesMoves[i].row && square.position.column === availablesMoves[i].column) {
-                            square.validMove = true;
-                        }
+    public availableMoves(square: Square, pieceSelected: Piece) {
+        //let color = pieceSelected.color;
+        //const movesReq = new HttpRequest(REQUEST_TYPE_GET, `${Constants.ApiBaseUrl}/squares/moves`, {
+        //    params: new HttpParams().set("row", `${position.row}`).set("col", `${position.column}`).set("color", color)
+        //});
+        //this._api.callingApiService(movesReq)
+        //    .subscribe(
+        //    (moves) => {
+        //        let availablesMoves: any = [];
+        //        availablesMoves = moves;
+        //        const squares = this._helper.getSquares();
+        //        const updatedsquares = squares.map((square) => {
+        //            for (var i = 0; i < availablesMoves.length; i++) {
+        //                if (square.position.row === availablesMoves[i].row && square.position.column === availablesMoves[i].column) {
+        //                    square.validMove = true;
+        //                }
+        //            }
+        //            return square;
+        //        });
+        //        this._store.dispatch({
+        //            type: LOAD_SQUARES,
+        //            payload: updatedsquares
+        //        });
+        //    },
+        //    (err) => {
+        //        this._store.dispatch({
+        //            type: LOAD_SQUARES,
+        //            payload: []
+        //        });
+        //    });
+        let availableMoves: Array<any> = [];
+        availableMoves = this._pieceHelper.getAvailableMovesForPiece(square.position, pieceSelected);
+        console.log(availableMoves);
+        const squares = this._helper.getSquares();
+        const updatedsquares = squares.map((square) => {
+            for (var i = 0; i < availableMoves.length; i++) {
+                if (square.position.row === availableMoves[i].row && square.position.column === availableMoves[i].column) {
+                    if (!square.piece) {
+                        square.validMove = true;
                     }
-                    return square;
-                });
-                this._store.dispatch({
-                    type: LOAD_SQUARES,
-                    payload: updatedsquares
-                });
-            },
-            (err) => {
-                this._store.dispatch({
-                    type: LOAD_SQUARES,
-                    payload: []
-                });
-            });
+                }
+            }
+            return square;
+        });
+        this._store.dispatch({
+            type: LOAD_SQUARES,
+            payload: updatedsquares
+        });
+
+
+
+
+
     }
 
     public squareSelected(position: Position): void {
@@ -96,10 +119,10 @@ export class GameBoardActions {
         });
     }
 
-    public moveStarted(position: Position, selectedPiece: any): void {
+    public moveStarted(square: Square, selectedPiece: any): void {
         if (this._pieceHelper.checkIfPieceCurrentPlayingColor(selectedPiece)) {
             this.unhighlightSquares();
-            this.availableMoves(position, selectedPiece);
+            this.availableMoves(square, selectedPiece);
             this._appStateActions.updateState({ 'player.isMoving': true });
         } else {
             this._appStateActions.updateState({ 'squareSelected': null });
@@ -112,7 +135,8 @@ export class GameBoardActions {
         if (this._moveHelper.checkIfMoveStarted()) {
             this._appStateActions.updateState({ 'squareSelected': square });
             if (this._pieceHelper.checkIfSquareHasPiece(square)) {
-                this.moveStarted(square.position, square.piece)
+                this.moveStarted(square, square.piece)
+                //this.moveStarted(square.position, square.piece)
                 console.log("hi");
             } else {
                 alert("Must select a Piece");
@@ -162,7 +186,7 @@ export class GameBoardActions {
     public pieceMoved(selectedPiece: Piece, newPosition: Position, originalPosition: Position): void {
 
         //this.unhighlightSquares();
-       
+
 
     }
 
