@@ -25,6 +25,7 @@ export class GameBoardActions implements OnInit {
     private pieces: Array<Square>;
     private appStateSubscription: any;
     public isJump: boolean;
+    public jumpedSquare: Square;
 
     constructor(
         private _store: Store<any>,
@@ -51,8 +52,8 @@ export class GameBoardActions implements OnInit {
         console.log(availableJumps);
         const updatedsquares = squares.map((square) => {
             for (var i = 0; i < availableJumps.length; i++) {
-                if (square.position.row === availableJumps[i].row &&
-                    square.position.column === availableJumps[i].column) {
+                if (this.isSamePosition(square.position, availableJumps[i]) &&
+                    this.isNextToJumpedSquare(square)) {
                     if (!square.piece) {
                         square.validMove = true;
                     } else if (square.piece) {
@@ -68,6 +69,39 @@ export class GameBoardActions implements OnInit {
         });
     }
 
+    private isNextToJumpedSquare(square: Square): boolean {
+        let availableMoveOne: Position;
+        let availableMoveTwo: Position;
+        let availableMoveThree: Position;
+        let availableMoveFour: Position;
+
+        availableMoveOne = {
+            row: this.jumpedSquare.position.row + 1,
+            column: this.jumpedSquare.position.column + 1
+        }
+        availableMoveTwo = {
+            row: this.jumpedSquare.position.row + 1,
+            column: this.jumpedSquare.position.column - 1
+        }
+        availableMoveThree = {
+            row: this.jumpedSquare.position.row - 1,
+            column: this.jumpedSquare.position.column + 1
+        }
+        availableMoveFour = {
+            row: this.jumpedSquare.position.row - 1,
+            column: this.jumpedSquare.position.column - 1
+        }
+
+        return this.isSamePosition(square.position, availableMoveOne) ||
+            this.isSamePosition(square.position, availableMoveTwo) ||
+            this.isSamePosition(square.position, availableMoveThree) ||
+            this.isSamePosition(square.position, availableMoveFour);
+    }
+
+    private isSamePosition(pos1: Position, pos2: Position): boolean {
+        return pos1.row === pos2.row && pos1.column === pos2.column;
+    }
+
     public availableMoves(square: Square, pieceSelected: Piece) {
         this.isJump = false;
         let availableMoves: Array<any> = [];
@@ -81,6 +115,7 @@ export class GameBoardActions implements OnInit {
                         square.validMove = true;
                     } else if (square.piece) {
                         this.isJump = true;
+                        this.jumpedSquare = square;
                     }
                 }
             }
@@ -175,6 +210,12 @@ export class GameBoardActions implements OnInit {
                 } else {
                     alert("Cannot make this move");
                 }
+            } else if (toMoveSquare == originalSquare) {
+                this._appStateActions.updateState({ 'squareSelected': null });
+                this._appStateActions.updateState({
+                    'player.isMoving': false
+                });
+                this.unhighlightSquares();
             }
 
         }
