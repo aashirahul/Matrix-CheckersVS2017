@@ -12,6 +12,7 @@ import { LOAD_PLAYERS } from '../stores/players.store';
 import * as Constants from '../constants/constants';
 import { ApiService, REQUEST_TYPE_GET } from '../services/api.service';
 import { PieceHelper } from '../helpers/pieceHelper';
+import { AppStateActions } from '../actionHandlers/appState.actions';
 
 @Injectable()
 export class AppStartUpActions {
@@ -22,7 +23,8 @@ export class AppStartUpActions {
         private _store: Store<any>,
         private _api: ApiService,
         private _http: HttpClient,
-        private _pieceHelper: PieceHelper
+        private _pieceHelper: PieceHelper,
+        private _appStateActions: AppStateActions,
     ) { }
 
     public initializeGame(): void {

@@ -89,7 +89,6 @@ export class GameBoardComponent implements OnInit {
     private restartGame(): void {
         this._appStartUpActions.initializeGame();
         this._appStateActions.initializeSquares();
-        this._appStartUpActions.initializePlayers();
     }
 
 }

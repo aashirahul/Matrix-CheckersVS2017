@@ -41,6 +41,12 @@ export class PlayerActions {
         const updatedScores = players.map((player) => {
             if (player.color === piece.color) {
                 player.score += 1;
+                if (player.score === 11) {
+                    this._appStateActions.updateState({
+                        'showNewGameModal': true,
+                        'textForNewGameModal': "Game Over"
+                    });
+                }
             }
             return player;
         });
@@ -50,6 +56,7 @@ export class PlayerActions {
             type: LOAD_PLAYERS,
             payload: updatedScores
         });
+
     }
 
     public switchTurns(piece:any): void {

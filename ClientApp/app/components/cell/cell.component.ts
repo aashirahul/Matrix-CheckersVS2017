@@ -5,6 +5,7 @@ import { Square } from '../../models/square';
 import { PieceActions } from '../../actionHandlers/pieceActions.actions';
 import { GameBoardActions } from '../../actionHandlers/gameBoardActions.actions';
 import { AppStateActions } from '../../actionHandlers/appState.actions';
+import * as Constants from '../../constants/constants';
 
 @Component({
     selector: 'app-cell',
@@ -20,6 +21,9 @@ export class CellComponent implements OnInit {
     private squaresSubscription: any;
     private appStateSubscription: any;
     public squares: Array<Square>;
+    public rows: Array<number>;
+    public pieceColorRed: String;
+    public pieceColorBlack: String;
 
     constructor(
         private _store: Store<any>,
@@ -30,11 +34,13 @@ export class CellComponent implements OnInit {
 
     public ngOnInit() {
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
+        this.rows = Array.from({ length: 8 }, (v, i) => i);
+        this.pieceColorRed = Constants.ColorForFirstPlayer;
+        this.pieceColorBlack = Constants.ColorForSecondPlayer
     }
 
     public getSquaresOnRow(row: number): Array<Square> {
         let rowSquares: Array<Square> = [];
-
         this.squares.forEach((square) => {
             if (square.position.row == row) {
                 rowSquares.push(square);

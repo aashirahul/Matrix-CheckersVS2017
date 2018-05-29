@@ -1,10 +1,10 @@
 <div>
     <div class="game-container-box">
-        <div class="row" *ngFor="let row of [0,1,2,3,4,5,6,7]">
+        <div class="row" *ngFor="let row of rows">
             <div class="square" *ngFor="let subSquare of getSquaresOnRow(row)" [class.validMove]="subSquare?.validMove"
                  [class.squareSelected]="subSquare?.isSelected"
                  (click)="squareSelected(subSquare)">
-                <div class="piece-style" *ngIf="subSquare.piece" [class.red]="subSquare.piece.color === 'red'" [class.black]="subSquare.piece.color === 'black'"
+                <div class="piece-style" *ngIf="subSquare.piece" [class.red]="subSquare.piece.color === pieceColorRed" [class.black]="subSquare.piece.color === pieceColorBlack"
                      [class.king]="subSquare.piece.isKing"></div>
             </div>
         </div>

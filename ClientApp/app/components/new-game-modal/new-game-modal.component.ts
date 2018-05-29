@@ -16,18 +16,26 @@ import * as fromappstate from '../../stores/appState.store';
 export class NewGameModalComponent implements OnInit {
 
     public appStateSubscription: any;
+    public displayText: any
+
 
     constructor(
         private _store: Store<any>,
         private _helper: Helper,
+        private _appStartUpActions: AppStartUpActions,
         private _appStateActions: AppStateActions,
     ) { }
 
     ngOnInit() {
+        this.appStateSubscription = this._store.select('appState').
+            subscribe((appState) => {
+                this.displayText = appState[`textForNewGameModal`];
+            });
     }
 
     public startNewGame(): void {
         this._appStateActions.updateState({ 'showNewGameModal': false });
+        //this._appStartUpActions.initializeGame();
         this._appStateActions.initializeSquares();
     }
 

@@ -16,7 +16,7 @@ export class PlayerHelper {
     constructor(
         private _store: Store<any>,
     ) { }
-    
+
     public getPlayerNameBeingUpdated(): string {
         let playerBeingUpdated: string = '';
         this._store.select('appState').subscribe((appState) => {
@@ -30,6 +30,5 @@ export class PlayerHelper {
         this._store.select('players').subscribe((players) => currentPlayers = players);
         return currentPlayers;
     }
-   
 }
 

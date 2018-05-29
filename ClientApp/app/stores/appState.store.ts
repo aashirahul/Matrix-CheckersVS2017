@@ -11,7 +11,8 @@ export interface State {
     'currentlyPlayingColor': string;
     'currentPlayerIndex': number;
     'squareSelected': Square | null;
-    'isJump': boolean;
+    'textForNewGameModal': string;
+    
    }
 
 const initialAppState: State = {
@@ -22,7 +23,8 @@ const initialAppState: State = {
     'currentlyPlayingColor': Constants.ColorForFirstPlayer,
     'currentPlayerIndex': 0,
     'squareSelected': null,
-    'isJump': false
+    'textForNewGameModal': "Welcome"
+   
 };
 
 export const UPDATE_APP_STATE = 'UPDATE_APP_STATE';

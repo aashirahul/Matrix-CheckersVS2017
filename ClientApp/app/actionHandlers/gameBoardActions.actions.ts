@@ -49,7 +49,6 @@ export class GameBoardActions implements OnInit {
         let availableJumps: Array<any> = [];
         const squares = this._helper.getSquares();
         availableJumps = this._pieceHelper.getAvailableJumpsForPiece(square.position, pieceSelected);
-        console.log(availableJumps);
         const updatedsquares = squares.map((square) => {
             for (var i = 0; i < availableJumps.length; i++) {
                 if (this.isSamePosition(square.position, availableJumps[i]) &&
@@ -182,11 +181,9 @@ export class GameBoardActions implements OnInit {
                 this._appStateActions.updateState({ 'squareSelected': null });
             }
         } else {
-            console.log("lo");
             let toMoveSquare = square;
             let originalSquare = this._pieceHelper.getOriginalSquare();
             if (!toMoveSquare.piece) {
-                console.log("yo");
                 if (this._moveHelper.isAJump(originalSquare.piece, originalSquare.position, square.position)) {
                     let skippedPosition: any;
                     skippedPosition = this._skippedPositionHelper.findSkippedPosition(originalSquare.piece, originalSquare.position, square.position);
