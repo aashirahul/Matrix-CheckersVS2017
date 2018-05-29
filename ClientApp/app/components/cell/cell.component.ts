@@ -22,8 +22,8 @@ export class CellComponent implements OnInit {
     private appStateSubscription: any;
     public squares: Array<Square>;
     public rows: Array<number>;
-    public pieceColorRed: String;
-    public pieceColorBlack: String;
+    public pieceColorRed: String = Constants.ColorForFirstPlayer;
+    public pieceColorBlack: String = Constants.ColorForSecondPlayer;
 
     constructor(
         private _store: Store<any>,
@@ -35,8 +35,6 @@ export class CellComponent implements OnInit {
     public ngOnInit() {
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
         this.rows = Array.from({ length: Constants.NumberOfRowsRequired }, (v, i) => i);
-        this.pieceColorRed = Constants.ColorForFirstPlayer;
-        this.pieceColorBlack = Constants.ColorForSecondPlayer
     }
 
     public getSquaresOnRow(row: number): Array<Square> {
