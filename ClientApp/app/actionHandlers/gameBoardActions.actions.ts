@@ -127,11 +127,11 @@ export class GameBoardActions implements OnInit {
         });
     }
 
-    public squareSelected(position: Position): void {
+    public highlightSelectedSquare(selectedSquare: Square): void {
         let updatedSquares;
         const squares = this._helper.getSquares();
         updatedSquares = squares.map((square) => {
-            if (square.position.row === position.row && square.position.column === position.column) {
+            if (square.position.row === selectedSquare.position.row && square.position.column === selectedSquare.position.column) {
                 square.isSelected = true;
             }
             return square;
@@ -159,6 +159,7 @@ export class GameBoardActions implements OnInit {
     public moveStarted(square: Square, selectedPiece: any): void {
         if (this._pieceHelper.checkIfPieceCurrentPlayingColor(selectedPiece)) {
             this.unhighlightSquares();
+            this.highlightSelectedSquare(square);
             this.availableMoves(square, selectedPiece);
             if (this.isJump) {
                 this.availableJumps(square, selectedPiece);
@@ -176,7 +177,6 @@ export class GameBoardActions implements OnInit {
             this._appStateActions.updateState({ 'squareSelected': square });
             if (this._pieceHelper.checkIfSquareHasPiece(square)) {
                 this.moveStarted(square, square.piece)
-                console.log("hi");
             } else {
                 alert("Must select a Piece");
                 this._appStateActions.updateState({ 'squareSelected': null });
@@ -190,22 +190,12 @@ export class GameBoardActions implements OnInit {
                 if (this._moveHelper.isAJump(originalSquare.piece, originalSquare.position, square.position)) {
                     let skippedPosition: any;
                     skippedPosition = this._skippedPositionHelper.findSkippedPosition(originalSquare.piece, originalSquare.position, square.position);
-                    this._pieceActions.move(originalSquare, toMoveSquare);
                     this._pieceActions.jump(skippedPosition);
-                    this._appStateActions.updateState({ 'squareSelected': null });
-                    this._playerActions.switchTurns(originalSquare.piece);
-                    this._appStateActions.updateState({
-                        'player.isMoving': false
-                    });
+                    this.pieceMoved(originalSquare, toMoveSquare);
                     this._playerActions.addPoint(originalSquare.piece);
                 }
                 else if (this._moveHelper.isValidMove(originalSquare.piece, originalSquare.position, toMoveSquare.position)) {
-                    this._pieceActions.move(originalSquare, toMoveSquare);
-                    this._appStateActions.updateState({ 'squareSelected': null });
-                    this._playerActions.switchTurns(originalSquare.piece);
-                    this._appStateActions.updateState({
-                        'player.isMoving': false
-                    });
+                    this.pieceMoved(originalSquare, toMoveSquare);
 
                 } else {
                     alert("Cannot make this move");
@@ -228,15 +218,14 @@ export class GameBoardActions implements OnInit {
         return false;
     }
 
-    public pieceMoved(selectedPiece: Piece, newPosition: Position, originalPosition: Position): void {
+    public pieceMoved(originalSquare: Square, toMoveSquare: Square): void {
+        this._pieceActions.move(originalSquare, toMoveSquare);
+        this._appStateActions.updateState({ 'squareSelected': null });
+        this._playerActions.switchTurns(originalSquare.piece);
+        this._appStateActions.updateState({
+            'player.isMoving': false
+        });
 
-      
 
-    }
-
-    public pieceJumped(selectedPiece: Piece, selectedPiecePosition: Position, originalPosition: Position, skippedPosition: Position): void {
-        this.pieceMoved(selectedPiece, selectedPiecePosition, originalPosition);
-
-        
     }
 }
