@@ -34,7 +34,7 @@ export class CellComponent implements OnInit {
 
     public ngOnInit() {
         this.squaresSubscription = this._store.select('squares').subscribe((squares) => this.squares = squares);
-        this.rows = Array.from({ length: 8 }, (v, i) => i);
+        this.rows = Array.from({ length: Constants.NumberOfRowsRequired }, (v, i) => i);
         this.pieceColorRed = Constants.ColorForFirstPlayer;
         this.pieceColorBlack = Constants.ColorForSecondPlayer
     }
